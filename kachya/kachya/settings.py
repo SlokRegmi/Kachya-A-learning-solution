@@ -33,12 +33,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'tailwind',
+    'wireframe',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+TAILWIND_APP_NAME = 'wireframe'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'kachya.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, "dicts"],
+        'DIRS': [BASE_DIR, "dist"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,6 +110,10 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 
 USE_I18N = True
 
