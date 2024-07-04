@@ -17,56 +17,96 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg px-20">
-    <div class="navbar bg-base-100">
-      <div class="navbar-start">
-        <div class="flex flex-row space-x-5 items-center">
-          <div class="cursor-pointer">Logo</div>
-          <div class="dropdown dropdown-hover">
-            <div tabindex="0" class="cursor-pointer hover:text-blue-500">Categories</div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-              <li><a>Item 1</a></li>
-              <li><a>Item 2</a></li>
-              <li><a>Item 3</a></li>
-            </ul>
-          </div>
-          <label class="input input-bordered flex items-center gap-2 hover:border-blue-500 ">
-            <input type="text" class="grow focus:outline-none" placeholder="Search" />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              class="h-4 w-4 opacity-70">
-              <path
-                fill-rule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clip-rule="evenodd" />
-            </svg>
-          </label>
+  <!-- Navbar -->
 
-
+  <div class="navbar bg-base-100 px-5 sm:px-10 md:px-20 sticky top-0 left-0 w-full z-50 shadow-md">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden pr-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
         </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <li><a>Item 1</a></li>
+          <li>
+            <a>Parent</a>
+            <ul class="p-2">
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
+          </li>
+          <li><a>Item 3</a></li>
+        </ul>
+      </div>
+      <div class="flex flex-row space-x-5 items-center">
+        <div class="cursor-pointer">Logo</div>
+        <div class="dropdown dropdown-hover">
+          <div tabindex="0" class="cursor-pointer hover:text-blue-500 hidden lg:flex">Categories</div>
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+            <li><a>Item 3</a></li>
+          </ul>
+        </div>
+        <label class="input input-bordered flex items-center gap-2 hover:border-blue-500 hidden md:flex  ">
+          <input type="text" class="grow focus:outline-none" placeholder="Search" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+            <path fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd" />
+          </svg>
+        </label>
+
+        <label class="input input-bordered flex items-center gap-2 hover:border-blue-500 md:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+            <path fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd" />
+          </svg>
+        </label>
 
 
       </div>
 
-      <div class="navbar-end">
-        <div class="flex flex-row space-x-5 items-center">
-          <div class="cursor-pointer hover:text-blue-500">Online Degrees</div>
-          <div class="cursor-pointer hover:text-blue-500">Teach on Kachya</div>
-          <div class="space-x-1">
-            <button class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black">Login</button>
-            <button class="btn btn-active px-4 border-transparent bg-blue-600 text-white hover:bg-blue-500">Sign up</button>
-   
-          </div>
 
+    </div>
 
+    <div class="navbar-end">
+      <div class="flex flex-row space-x-5 items-center">
+        <div class="cursor-pointer hover:text-blue-500">Online Degrees</div>
+        <div class="cursor-pointer hover:text-blue-500">Teach on Kachya</div>
+        <div class="space-x-1">
+          <button class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black">Login</button>
+          <button class="btn btn-active px-4 border-transparent bg-blue-600 text-white hover:bg-blue-500">Sign
+            up</button>
 
         </div>
       </div>
     </div>
-  </nav>
+  </div>
 
+  <!-- hero -->
+  <div class="relative">
+    <div class="hero min-h-screen">
+
+
+      <div
+        class="hero-content flex-col lg:flex-row absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
+        <div class="hero-content text-center">
+
+          <div class="max-w-fit flex flex-col items-center space-y-10">
+            <h1 class="text-5xl font-bold whitespace-nowrap">Best <span class="text-blue-500">Learning</span> Platform For Everyone</h1>
+            <p class="py-1 px-2 inline-block border border-gray-400 bg-gray-100 rounded-lg">
+              Empower through limitless learning and innovation on our platform.
+            </p>
+            <button class="btn btn-primary">Get Started</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
