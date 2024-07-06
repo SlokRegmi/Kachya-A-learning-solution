@@ -16,97 +16,800 @@
 
 </head>
 
-<body>
-  <!-- Navbar -->
 
-  <div class="navbar bg-base-100 px-5 sm:px-10 md:px-20 sticky top-0 left-0 w-full z-50 shadow-md">
-    <div class="navbar-start">
-      <div class="dropdown">
-        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden pr-5">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-          </svg>
-        </div>
-        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-          <li><a>Item 1</a></li>
-          <li>
-            <a>Parent</a>
-            <ul class="p-2">
-              <li><a>Submenu 1</a></li>
-              <li><a>Submenu 2</a></li>
-            </ul>
-          </li>
-          <li><a>Item 3</a></li>
-        </ul>
-      </div>
-      <div class="flex flex-row space-x-5 items-center">
-        <div class="cursor-pointer">Logo</div>
-        <div class="dropdown dropdown-hover">
-          <div tabindex="0" class="cursor-pointer hover:text-blue-500 hidden lg:flex">Categories</div>
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
-            <li><a>Item 3</a></li>
-          </ul>
-        </div>
-        <label class="input input-bordered flex items-center gap-2 hover:border-blue-500 hidden md:flex  ">
-          <input type="text" class="grow focus:outline-none" placeholder="Search" />
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
-            <path fill-rule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clip-rule="evenodd" />
-          </svg>
-        </label>
-
-        <label class="input input-bordered flex items-center gap-2 hover:border-blue-500 md:hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
-            <path fill-rule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clip-rule="evenodd" />
-          </svg>
-        </label>
-
-
-      </div>
-
-
-    </div>
-
-    <div class="navbar-end">
-      <div class="flex flex-row space-x-5 items-center">
-        <div class="cursor-pointer hover:text-blue-500">Online Degrees</div>
-        <div class="cursor-pointer hover:text-blue-500">Teach on Kachya</div>
-        <div class="space-x-1">
-          <button class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black">Login</button>
-          <button class="btn btn-active px-4 border-transparent bg-blue-600 text-white hover:bg-blue-500">Sign
-            up</button>
-
-        </div>
-      </div>
-    </div>
+<div class="dropdown">
+  <div tabindex="0" role="button" class="btn btn-ghost lg:hidden pr-5">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+    </svg>
   </div>
+  <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+    <li><a>Item 1</a></li>
+    <li>
+      <a>Parent</a>
+      <ul class="p-2">
+        <li><a>Submenu 1</a></li>
+        <li><a>Submenu 2</a></li>
+      </ul>
+    </li>
+    <li><a>Item 3</a></li>
+  </ul>
+</div>
+<div class="flex flex-row space-x-5 items-center">
+  <div class="cursor-pointer">Logo</div>
+  <div class="dropdown dropdown-hover">
+    <div tabindex="0" class="cursor-pointer hover:text-blue-600 hidden lg:flex">Categories</div>
+    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+      <li><a>Item 1</a></li>
+      <li><a>Item 2</a></li>
+      <li><a>Item 3</a></li>
+    </ul>
+  </div>
+  <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-lg  ">
+    <input type="text" class="grow focus:outline-none" placeholder="Search" />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+      <path fill-rule="evenodd"
+        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+        clip-rule="evenodd" />
+    </svg>
+  </label>
 
-  <!-- hero -->
-  <div class="relative">
-    <div class="hero min-h-screen">
+  <label class="input input-bordered flex items-center gap-2 hover:border-blue-600 md:hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+      <path fill-rule="evenodd"
+        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+        clip-rule="evenodd" />
+    </svg>
+  </label>
 
 
-      <div
-        class="hero-content flex-col lg:flex-row absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
-        <div class="hero-content text-center">
+</div>
 
-          <div class="max-w-fit flex flex-col items-center space-y-10">
-            <h1 class="text-5xl font-bold whitespace-nowrap">Best <span class="text-blue-500">Learning</span> Platform For Everyone</h1>
-            <p class="py-1 px-2 inline-block border border-gray-400 bg-gray-100 rounded-lg">
-              Empower through limitless learning and innovation on our platform.
-            </p>
-            <button class="btn btn-primary">Get Started</button>
+
+</div>
+
+<div class="navbar-end">
+<div class="flex flex-row space-x-5 items-center">
+  <div class="cursor-pointer hover:text-blue-600">Online Degrees</div>
+  <div class="cursor-pointer hover:text-blue-600">Teach on Kachya</div>
+  <div class="space-x-1">
+    <button class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Login</button>
+    <button
+      class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-lg">Sign
+      up</button>
+
+  </div>
+</div>
+</div>
+</div>
+
+<!-- hero -->
+<!-- Main Content -->
+
+
+<div class="hero flex flex-row min-h-screen">
+<div class="image flex-grow flex w-full">
+<img src="assests/img/LandingPage/hero-shape-1.png" alt="hero" class="mt-72 ml-36 absolute z-1">
+<img src="assests/img/LandingPage/hero-1.png" alt="hero" class="w-80 h-full mt-96 ml-36 z-10" />
+</div>
+<div class="pt-20 flex items-center justify-center z-1">
+<div class="hero">
+  <div class="hero-content flex-col">
+    <div class="hero-content text-center">
+      <div class="max-w-fit flex flex-col items-center space-y-10">
+        <h1 class="text-5xl font-bold whitespace-nowrap">Best <span
+            class="text-blue-500 hover:text-blue-600">Learning</span> Platform
+          For Everyone</h1>
+        <p class="text-xl py-2 px-4 inline-block border rounded-lg" id="typewriter"></p>
+
+        <button
+          class="btn btn-active px-6 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-lg text-base">Get
+          Started</button>
+        <p class="text-xl">
+          We provide our students not only with lectures <br> but also with real-life experiences throughout
+          <br>their journey !
+        </p>
+
+        <div class="flex justify-between pt-12">
+          <div class="info flex justify-between w-full">
+            <div class="flex flex-row ">
+              <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-500  ml-16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-user-check">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <polyline points="16 11 18 13 22 9" />
+                </svg>
+              </div>
+              <div class="flex flex-col items-start">
+                <h2 class="text-5xl ml-5 font-bold text-blue-500">10.5K+</h2>
+                <p class="ml-5 text-xl text-left mt-5">Total active students taking<br>gifted courses</p>
+              </div>
+            </div>
           </div>
-          
+
+          <div class="info flex justify-between w-full mt-40">
+            <div class="flex flex-col items-end">
+              <h2 class="text-5xl mr-5 font-bold text-blue-400">50+</h2>
+              <p class="mr-5 text-xl text-right mt-5">Courses are available <br>on a wide range of subjects.</p>
+            </div>
+            <div class="flex flex-row">
+              <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-400 mr-16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-library">
+                  <path d="m16 6 4 14" />
+                  <path d="M12 6v14" />
+                  <path d="M8 8v12" />
+                  <path d="M4 4v16" />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
+
+
+<div class="image flex-grow flex w-full">
+<img src="assests/img/LandingPage/hero-shape-2.png" alt="hero" class="ml-36 top-10 absolute z-1">
+<img src="assests/img/LandingPage/hero-2.png" alt="hero" class="w-96 h-full z-10" />
+</div>
+</div>
+
+
+<!-- categories info card -->
+
+<div class="coures-info mt-24 w-full flex flex-col items-center bg-gray-50 ">
+<p class="text-xl text-blue-400 mt-8">Categories
+</p>
+<h1 class="text-5xl mt-5">Online <span class="text-blue-500">Classes</span> For Remote Learning</h1>
+<div class="flex flex-row mt-16 space-x-5 items-center max-w-fit justify-center mb-8">
+<div class="card bg-base-100 w-72 shadow-xl hover:bg-blue-300 group ">
+  <figure class="px-10 pt-10">
+    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 group-hover:bg-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+        stroke="#6cab9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-binary ">
+        <rect x="14" y="14" width="4" height="6" rx="2" />
+        <rect x="6" y="4" width="4" height="6" rx="2" />
+        <path d="M6 20h4" />
+        <path d="M14 10h4" />
+        <path d="M6 14h2v6" />
+        <path d="M14 4h2v6" />
+      </svg>
+    </div>
+  </figure>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title group-hover:text-white">IT</h2>
+    <p class="group-hover:text-white text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+      Praesent libero.</p>
+    <div class="card-actions">
+      <button
+        class="btn btn-primary bg-grey-200 border-transparent rounded-lg hover:bg-blue-300 hover:text-white">7
+        Courses</button>
+    </div>
+  </div>
+</div>
+<div class="card bg-base-100 w-72 shadow-xl hover:bg-blue-300 group ">
+  <figure class="px-10 pt-10">
+    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 group-hover:bg-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+        stroke="#6cab9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-binary ">
+        <rect x="14" y="14" width="4" height="6" rx="2" />
+        <rect x="6" y="4" width="4" height="6" rx="2" />
+        <path d="M6 20h4" />
+        <path d="M14 10h4" />
+        <path d="M6 14h2v6" />
+        <path d="M14 4h2v6" />
+      </svg>
+    </div>
+  </figure>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title group-hover:text-white">IT</h2>
+    <p class="group-hover:text-white text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+      Praesent libero.</p>
+    <div class="card-actions">
+      <button
+        class="btn btn-primary bg-grey-200 border-transparent rounded-lg hover:bg-blue-300 hover:text-white">7
+        Courses</button>
+    </div>
+  </div>
+</div>
+<div class="card bg-base-100 w-72 shadow-xl hover:bg-blue-300 group">
+  <figure class="px-10 pt-10">
+    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 group-hover:bg-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+        stroke="#6cab9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-binary ">
+        <rect x="14" y="14" width="4" height="6" rx="2" />
+        <rect x="6" y="4" width="4" height="6" rx="2" />
+        <path d="M6 20h4" />
+        <path d="M14 10h4" />
+        <path d="M6 14h2v6" />
+        <path d="M14 4h2v6" />
+      </svg>
+    </div>
+  </figure>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title group-hover:text-white">IT</h2>
+    <p class="group-hover:text-white text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+      Praesent libero.</p>
+    <div class="card-actions">
+      <button
+        class="btn btn-primary bg-grey-200 border-transparent rounded-lg hover:bg-blue-300 hover:text-white">7
+        Courses</button>
+    </div>
+  </div>
+</div>
+<div class="card bg-base-100 w-72 h-auto shadow-xl hover:bg-blue-300 group">
+  <figure class="px-10 pt-10">
+    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 group-hover:bg-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+        stroke="#6cab9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-binary ">
+        <rect x="14" y="14" width="4" height="6" rx="2" />
+        <rect x="6" y="4" width="4" height="6" rx="2" />
+        <path d="M6 20h4" />
+        <path d="M14 10h4" />
+        <path d="M6 14h2v6" />
+        <path d="M14 4h2v6" />
+      </svg>
+    </div>
+  </figure>
+  <div class="card-body items-center text-center">
+    <h2 class="card-title group-hover:text-white">IT</h2>
+    <p class="group-hover:text-white text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+      Praesent libero.</p>
+    <div class="card-actions">
+      <button
+        class="btn btn-primary bg-grey-200 border-transparent rounded-lg hover:bg-blue-300 hover:text-white">7
+        Courses</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+
+<!-- breaker -->
+<div class="w-full mt-64 flex items-center justify-center ">
+<div class="relative w-[90%] bg-blue-400 rounded-lg flex flex-row ">
+<div class="w-[60%] pl-28 pt-16 max-w-full mb-16">
+  <h1 class="text-5xl  text-white font-bold">A vibtrant e-learning platform to boost you</h1>
+  <p class="text-xl pt-10 text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
+    cumque facere dolore voluptatum, dicta cum. Possimus placeat ipsa reiciendis aspernatur eos soluta vero
+    dolore, repudiandae quibusdam quam. Esse, temporibus nesciunt.</p>
+  <button
+    class="btn btn-active mt-8 px-6 border-transparent bg-white text-black hover:border-transparent hover:bg-blue-600 hover:text-white rounded-lg text-base">Get
+    Started</button>
+</div>
+<div>
+</div>
+<div class="w-[40%] flex items-end justify-end">
+  <img src="assests/img/LandingPage/break-1.png" alt="hero" class="mr-28 absolute w-w-30 h-auto bottom-0" />
+</div>
+</div>
+</div>
+
+<!-- Starting Course -->
+
+<div class="course-info mt-32 w-full flex flex-col items-center ">
+<p class="text-xl text-blue-400">Courses
+</p>
+<h1 class="text-5xl mt-5">Pick A <span class="text-blue-500">Course</span> to Get Started</h1>
+<div class="flex flex-row mt-16 space-x-8 items-center max-w-fit justify-center">
+<div class="card bg-base-100 w-96 shadow-xl">
+  <figure>
+    <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">
+      HTML and CSS
+      <div class="badge badge-secondary">Beginner</div>
+    </h2>
+
+    <p>Build Responsive Websites with HTML and CSS</p>
+    <div class="rating">
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked="checked" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    </div>
+    <p class="text-xl font-bold text-blue-400">Rs 49.99</p>
+    <div class="card-actions justify-end">
+      <div class="badge badge-outline">Programming</div>
+      <div class="badge badge-outline">Web</div>
+    </div>
+  </div>
+</div>
+
+<div class="card bg-base-100 w-96 shadow-xl">
+  <figure>
+    <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">
+      HTML and CSS
+      <div class="badge badge-secondary">Beginner</div>
+    </h2>
+
+    <p>Build Responsive Websites with HTML and CSS</p>
+    <div class="rating">
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked="checked" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    </div>
+    <p class="text-xl font-bold text-blue-400">Rs 49.99</p>
+    <div class="card-actions justify-end">
+      <div class="badge badge-outline">Programming</div>
+      <div class="badge badge-outline">Web</div>
+    </div>
+  </div>
+</div>
+
+<div class="card bg-base-100 w-96 shadow-xl">
+  <figure>
+    <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">
+      HTML and CSS
+      <div class="badge badge-secondary">Beginner</div>
+    </h2>
+
+    <p>Build Responsive Websites with HTML and CSS</p>
+    <div class="rating">
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked="checked" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+      <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    </div>
+    <p class="text-xl font-bold text-blue-400">Rs 49.99</p>
+    <div class="card-actions justify-end">
+      <div class="badge badge-outline">Programming</div>
+      <div class="badge badge-outline">Web</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- review -->
+<div class="flex flex-row w-full mt-32">
+<div class="relative font-inter antialiased w-[60%]">
+
+<main class="relative  flex flex-col justify-center">
+  <div class="w-full max-w-5xl mx-auto">
+
+    <!-- Card slider  -->
+    <section class="px-12">
+      <div class="max-w-lg mx-auto relative">
+
+        <input id="article-01" type="radio" name="slider" class="sr-only peer/01">
+        <input id="article-02" type="radio" name="slider" class="sr-only peer/02">
+        <input id="article-03" type="radio" name="slider" class="sr-only peer/03" checked>
+        <input id="article-04" type="radio" name="slider" class="sr-only peer/04">
+        <input id="article-05" type="radio" name="slider" class="sr-only peer/05">
+
+        <div class="
+                absolute inset-0 scale-[67.5%] z-20 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
+                peer-focus-visible/01:[&_article]:ring
+                peer-focus-visible/01:[&_article]:ring-indigo-300
+                peer-checked/01:relative
+                peer-checked/01:z-50
+                peer-checked/01:translate-x-0
+                peer-checked/01:scale-100
+                peer-checked/01:[&>label]:pointer-events-none
+                peer-checked/02:-translate-x-20
+                peer-checked/02:scale-[83.75%]
+                peer-checked/02:z-40
+                peer-checked/03:-translate-x-40
+                peer-checked/03:z-30
+                peer-checked/04:-translate-x-40                    
+                peer-checked/04:opacity-0
+                peer-checked/05:-translate-x-40
+            ">
+          <label class="absolute inset-0" for="article-01"><span class="sr-only">Focus on the big
+              picture</span></label>
+          <article class="bg-white p-6 rounded-lg shadow-2xl">
+            <header class="mb-2">
+              <img class="inline-flex rounded-full shadow mb-3"
+                src="https://cruip-tutorials.vercel.app/card-slider/icon.svg" width="44" height="44" alt="Icon" />
+              <h1 class="text-xl font-bold text-slate-900">Focus on the big picture</h1>
+            </header>
+            <div class="text-sm leading-relaxed text-slate-500 space-y-4 mb-2">
+              <p>
+                Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                and
+                a search for more variants will uncover many web sites still in their infancy.
+              </p>
+              <p>
+                All the generators tend to repeat predefined chunks as necessary, making this the first true
+                generator on the Internet.
+              </p>
+            </div>
+            <footer class="text-right">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <p>Inap Maharjan</p>
+            </footer>
+          </article>
+        </div>
+
+        <div class="
+                absolute inset-0 scale-[67.5%] z-20 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
+                peer-focus-visible/02:[&_article]:ring
+                peer-focus-visible/02:[&_article]:ring-indigo-300                        
+                peer-checked/01:translate-x-20
+                peer-checked/01:scale-[83.75%]
+                peer-checked/01:z-40
+                peer-checked/02:relative
+                peer-checked/02:z-50
+                peer-checked/02:translate-x-0
+                peer-checked/02:scale-100
+                peer-checked/02:[&>label]:pointer-events-none
+                peer-checked/03:-translate-x-20
+                peer-checked/03:scale-[83.75%]
+                peer-checked/03:z-40
+                peer-checked/04:-translate-x-40
+                peer-checked/04:z-30
+                peer-checked/05:-translate-x-40 
+                peer-checked/05:opacity-0
+            ">
+          <label class="absolute inset-0" for="article-02"><span class="sr-only">Focus on the big
+              picture</span></label>
+          <article class="bg-white p-6 rounded-lg shadow-2xl">
+            <header class="mb-2">
+              <img class="inline-flex rounded-full shadow mb-3"
+                src="https://cruip-tutorials.vercel.app/card-slider/icon.svg" width="44" height="44" alt="Icon" />
+              <h1 class="text-xl font-bold text-slate-900">Focus on the big picture</h1>
+            </header>
+            <div class="text-sm leading-relaxed text-slate-500 space-y-4 mb-2">
+              <p>
+                Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                and
+                a search for more variants will uncover many web sites still in their infancy.
+              </p>
+              <p>
+                All the generators tend to repeat predefined chunks as necessary, making this the first true
+                generator on the Internet.
+              </p>
+            </div>
+            <footer class="text-right">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <p>Inap Maharjan</p>
+            </footer>
+          </article>
+        </div>
+
+        <div class="
+                absolute inset-0 scale-[67.5%] z-20 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
+                peer-focus-visible/03:[&_article]:ring
+                peer-focus-visible/03:[&_article]:ring-indigo-300                          
+                peer-checked/01:translate-x-40
+                peer-checked/01:z-30
+                peer-checked/02:translate-x-20
+                peer-checked/02:scale-[83.75%]
+                peer-checked/02:z-40
+                peer-checked/03:relative
+                peer-checked/03:z-50
+                peer-checked/03:translate-x-0
+                peer-checked/03:scale-100
+                peer-checked/03:[&>label]:pointer-events-none
+                peer-checked/04:-translate-x-20
+                peer-checked/04:scale-[83.75%]
+                peer-checked/04:z-40
+                peer-checked/05:-translate-x-40
+                peer-checked/05:z-30                  
+            ">
+          <label class="absolute inset-0" for="article-03"><span class="sr-only">Focus on the big
+              picture</span></label>
+          <article class="bg-white p-6 rounded-lg shadow-2xl">
+            <header class="mb-2">
+              <img class="inline-flex rounded-full shadow mb-3"
+                src="https://cruip-tutorials.vercel.app/card-slider/icon.svg" width="44" height="44" alt="Icon" />
+              <h1 class="text-xl font-bold text-slate-900">Focus on the big picture</h1>
+            </header>
+            <div class="text-sm leading-relaxed text-slate-500 space-y-4 mb-2">
+              <p>
+                Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                and
+                a search for more variants will uncover many web sites still in their infancy.
+              </p>
+              <p>
+                All the generators tend to repeat predefined chunks as necessary, making this the first true
+                generator on the Internet.
+              </p>
+            </div>
+            <footer class="text-right">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <p>Inap Maharjan</p>
+            </footer>
+          </article>
+        </div>
+
+        <div class="
+                absolute inset-0 scale-[67.5%] z-20 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
+                peer-focus-visible/04:[&_article]:ring
+                peer-focus-visible/04:[&_article]:ring-indigo-300                          
+
+                peer-checked/01:translate-x-40 
+                peer-checked/01:opacity-0
+                
+                peer-checked/02:translate-x-40
+                peer-checked/02:z-30
+                
+                peer-checked/03:translate-x-20
+                peer-checked/03:scale-[83.75%]
+                peer-checked/03:z-40
+
+                peer-checked/04:relative
+                peer-checked/04:z-50
+                peer-checked/04:translate-x-0
+                peer-checked/04:scale-100
+                peer-checked/04:[&>label]:pointer-events-none
+                
+                peer-checked/05:-translate-x-20
+                peer-checked/05:scale-[83.75%]
+                peer-checked/05:z-40
+            ">
+          <label class="absolute inset-0" for="article-04"><span class="sr-only">Focus on the big
+              picture</span></label>
+          <article class="bg-white p-6 rounded-lg shadow-2xl">
+            <header class="mb-2">
+              <img class="inline-flex rounded-full shadow mb-3"
+                src="https://cruip-tutorials.vercel.app/card-slider/icon.svg" width="44" height="44" alt="Icon" />
+              <h1 class="text-xl font-bold text-slate-900">Focus on the big picture</h1>
+            </header>
+            <div class="text-sm leading-relaxed text-slate-500 space-y-4 mb-2">
+              <p>
+                Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                and
+                a search for more variants will uncover many web sites still in their infancy.
+              </p>
+              <p>
+                All the generators tend to repeat predefined chunks as necessary, making this the first true
+                generator on the Internet.
+              </p>
+            </div>
+            <footer class="text-right">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <p>Inap Maharjan</p>
+            </footer>
+          </article>
+        </div>
+
+        <div class="
+                absolute inset-0 scale-[67.5%] z-20 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
+                peer-focus-visible/05:[&_article]:ring
+                peer-focus-visible/05:[&_article]:ring-indigo-300                          
+                peer-checked/01:translate-x-40 
+                peer-checked/02:translate-x-40 
+                peer-checked/02:opacity-0
+                peer-checked/03:translate-x-40
+                peer-checked/03:z-30
+                peer-checked/04:translate-x-20
+                peer-checked/04:scale-[83.75%]
+                peer-checked/04:z-40
+                peer-checked/05:relative
+                peer-checked/05:z-50
+                peer-checked/05:translate-x-0
+                peer-checked/05:scale-100
+                peer-checked/05:[&>label]:pointer-events-none
+            ">
+          <label class="absolute inset-0" for="article-05"><span class="sr-only">Focus on the big
+              picture</span></label>
+          <article class="bg-white p-6 rounded-lg shadow-2xl">
+            <header class="mb-2">
+              <img class="inline-flex rounded-full shadow mb-3"
+                src="https://cruip-tutorials.vercel.app/card-slider/icon.svg" width="44" height="44" alt="Icon" />
+              <h1 class="text-xl font-bold text-slate-900">Focus on the big picture</h1>
+            </header>
+            <div class="text-sm leading-relaxed text-slate-500 space-y-4 mb-2">
+              <p>
+                Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                and
+                a search for more variants will uncover many web sites still in their infancy.
+              </p>
+              <p>
+                All the generators tend to repeat predefined chunks as necessary, making this the first true
+                generator on the Internet.
+              </p>
+            </div>
+            <footer class="text-right">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <p>Inap Maharjan</p>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- End: Card slider  -->
+
+  </div>
+
+</main>
+
+</div>
+
+<div class="w-[40%] flex flex-col items-end justify-center">
+<p class="text-xl text-blue-400 mr-32 ">Reviews</p>
+<h1 class="text-5xl my-5 mr-32 text-right">Some valuable <span class="text-blue-500">feedback</span> from our students</h1>
+<p class="text-xl text-right mr-32 text-gray-600">Supposing so be resolving breakfast am or perfectly. It drew a hill from me. Valley by oh twenty direct me so. Departure defective arranging rapturous did believe him all had supported. Family months lasted simple set nature vulgar him. Picture for attempt joy excited ten carried manners talking how.</p>
+</div>
+</div>
+
+<!-- our team -->
+
+<div class="bg-white mt-32">
+<div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20  lg:px-8 xl:grid-cols-3">
+<div class="max-w-2xl">
+  <p class="text-xl text-blue-400 mr-32 ">Our Team</p>
+  <h2 class="text-3xl font-bold  text-black sm:text-5xl">Meet our <span class="text-blue-500">Leadership</h2>
+  <p class="mt-6 text-lg leading-8 text-gray-600">Libero fames augue nisl porttitor nisi, quis. Id ac elit odio
+    vitae elementum enim vitae ullamcorper suspendisse.</p>
+</div>
+<ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+  <li>
+    <div class="flex items-center gap-x-6">
+      <img class="h-24 w-24 rounded-full"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        alt="">
+      <div>
+        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Slok Regmi</h3>
+        <p class="text-sm font-semibold leading-6 text-indigo-600">Co-Founder / CEO</p>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="flex items-center gap-x-6">
+      <img class="h-24 w-24 rounded-full"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        alt="">
+      <div>
+        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Inap Maharjan</h3>
+        <p class="text-sm font-semibold leading-6 text-indigo-600">Co-Founder / CEO</p>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="flex items-center gap-x-6">
+      <img class="h-24 w-24 rounded-full"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        alt="">
+      <div>
+        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Soyam Shrestha</h3>
+        <p class="text-sm font-semibold leading-6 text-indigo-600">Co-Founder / CEO</p>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="flex items-center gap-x-6">
+      <img class="h-24 w-24 rounded-full"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        alt="">
+      <div>
+        <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Amogh Man Bajracharya</h3>
+        <p class="text-sm font-semibold leading-6 text-indigo-600">Co-Founder / CEO</p>
+      </div>
+    </div>
+  </li>
+</ul>
+</div>
+</div>
+
+<!-- footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-8 px-4 mt-32">
+<div class="mx-auto px-4 container overflow-hidden flex flex-col lg:flex-row justify-between">
+  <a href="/" class="block mr-4 w-1/3">
+      <img src="" class="w-40 ml-4 lg:ml-0" alt="logo">
+  </a>
+  <div class="w-2/3 block sm:flex text-sm mt-6 lg:mt-0">
+      <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Product</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Features</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Integrations</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Pricing</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">FAQ</a></li>
+      </ul>
+      <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Company</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Privacy</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Terms of Service</a></li>
+      </ul>
+      <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Developers</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Developer API</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Documentation</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Guides</a></li>
+          </li>
+      </ul>
+      <div class="text-gray-700 flex flex-col w-full">
+          <div class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Follow Us</div>
+          <div class="flex pl-4 justify-start mt-2">
+              <a class="block flex items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
+                  <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M23.998 12c0-6.628-5.372-12-11.999-12C5.372 0 0 5.372 0 12c0 5.988 4.388 10.952 10.124 11.852v-8.384H7.078v-3.469h3.046V9.356c0-3.008 1.792-4.669 4.532-4.669 1.313 0 2.686.234 2.686.234v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.469h-2.796v8.384c5.736-.9 10.124-5.864 10.124-11.853z" /></svg>
+              </a>
+              <a class="block flex items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
+                  <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M23.954 4.569a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.691 8.094 4.066 6.13 1.64 3.161a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.061a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" /></svg>
+              </a>
+              <a class="block flex items-center text-gray-300 hover:text-white no-underline" href="#">
+                  <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
+              </a>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="pt-4 mt-4 pt-6 text-gray-600 border-t border-gray-800 text-center"> © 2024 Kachya. All rights reserved.</div>
+</footer>
+
 </body>
+
+<script>
+  const words = ["Empower through limitless learning and innovation", "Unlocking Potential, Shaping Futures: Where Every Student Becomes a Lifelong Learner"];
+  let i = 0;
+  let j = 0;
+  let currentWord = "";
+  let isDeleting = false;
+
+  function type() {
+    currentWord = words[i];
+    if (isDeleting) {
+      document.getElementById("typewriter").textContent = currentWord.substring(0, j - 1);
+      j--;
+      if (j == 0) {
+        isDeleting = false;
+        i++;
+        if (i == words.length) {
+          i = 0;
+        }
+      }
+    } else {
+      document.getElementById("typewriter").textContent = currentWord.substring(0, j + 1);
+      j++;
+      if (j == currentWord.length) {
+        isDeleting = true;
+      }
+    }
+    setTimeout(type, 80);
+  }
+
+  type();
+</script>
 
 </html>
