@@ -34,11 +34,11 @@
             <p class="text-center text- mb-8">Login to continue</p>
             <form>
                 <div class="mb-4">
-                    <input type="email" id="email" class="w-full border-b-2 border-black bg-blue-500 transform transition hover:scale-105 focus:scale-110 placeholder-black placeholder-size border-none" placeholder="Email">
+                    <input type="email" id="email" class="w-full border-b-2 border-black bg-blue-500 transform transition focus:outline-none hover:scale-105 hover:outline-none focus:scale-110 placeholder-black placeholder-size input-box" placeholder="Email">
                 </div>
                 <div class="mb-4">
                     <div class="relative">
-                        <input type="password" id="password" class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Enter your password">
+                        <input type="password" id="password" class=" w-full border-b-2 border-black bg-blue-500 transform transition focus:outline-none hover:scale-105 hover:outline-none focus:scale-110 placeholder-black placeholder-size input-box" placeholder="Password">
                         <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                             <svg class="h-5 text-gray-500" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm2.1 0a5.5 5.5 0 00-10.2 0A5.5 5.5 0 0017.1 12zm1.4 0A7 7 0 104.5 12 7 7 0 0018.5 12z"/>
@@ -61,5 +61,23 @@
             <p class="mt-6 text-sm text-center text-gray-100">Don't have an account? <a href="#" class="text-blue-600 hover:underline">Sign Up</a></p>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('.input-box').forEach(input => {
+            input.addEventListener('mouseenter', () => {
+                input.style.transformOrigin = 'left';
+                input.style.width = '100%';
+                input.style.marginRight = '-10%';
+                input.style.marginLeft = '0';
+                input.style.borderBottomWidth = '0';
+            });
+            input.addEventListener('mouseleave', () => {
+                input.style.width = '100%';
+                input.style.marginRight = '0';
+                input.style.marginLeft = '0';
+                input.style.borderBottomWidth = '2px';
+                input.blur();
+            });
+        });
+    </script>
 </body>
 </html>
