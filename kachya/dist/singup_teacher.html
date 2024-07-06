@@ -26,31 +26,32 @@
         <div class="relative flex flex-col justify-center h-screen overflow-hidden">
             <div class="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-xl">
                 <h1 class="text-3xl font-semibold text-center text-gray-700">Kachya</h1>
-                <form class="space-y-4" action="">
+                <form class="space-y-4" action="SignUpTeacher" method="post">
+                    {% csrf_token %}
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Name</span>
                         </label>
-                        <input type="text" placeholder="Name" class="w-full input input-bordered" />
+                        <input type="text" name = "Teacher_Name"placeholder="Name" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Email</span>
                         </label>
-                        <input type="text" placeholder="Email Address" class="w-full input input-bordered" />
+                        <input type="text" placeholder="Email Address" name="Teacher_Email" class="w-full input input-bordered" />
                     </div>
 
                     <label class="form-control w-full max-w-xs">
                         <div class="label">
                           <span class="label-text">Pick a file</span>
                         </div>
-                        <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
+                        <input type="file" name="resume" class="file-input file-input-bordered w-full max-w-xs" />
                       </label>
                     <div>
                         <button class="btn btn-block">Sign Up</button>
                     </div>
                     <span>Already have an account ?
-                        <a href="#" class="text-blue-600 hover:text-blue-800 hover:underline">Login</a></span>
+                        <a href="login_student" class="text-blue-600 hover:text-blue-800 hover:underline">Login</a></span>
                 </form
             </div>
         </div>

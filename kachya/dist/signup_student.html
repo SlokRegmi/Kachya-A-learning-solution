@@ -25,30 +25,31 @@
         <div class="relative flex flex-col justify-center h-screen overflow-hidden">
             <div class="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-xl">
                 <h1 class="text-3xl font-semibold text-center text-gray-700">Kachya</h1>
-                <form class="space-y-4" action="">
+                <form class="space-y-4" action="SignUpStudent" method="post">
+                    {% csrf_token %}
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Name</span>
                         </label>
-                        <input type="text" placeholder="Name" class="w-full input input-bordered" />
+                        <input type="text" placeholder="Name" name =  "Student_Name" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Email</span>
                         </label>
-                        <input type="text" placeholder="Email Address" class="w-full input input-bordered" />
+                        <input type="text" placeholder="Email Address" name = "Student_Email" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Password</span>
                         </label>
-                        <input type="password" placeholder="Enter Password" class="w-full input input-bordered" />
+                        <input type="password" placeholder="Enter Password" name = "Student_Password1" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Confirm Password</span>
                         </label>
-                        <input type="password" placeholder="Confirm Password" class="w-full input input-bordered" />
+                        <input type="password" placeholder="Confirm Password" name="Student_Password2" na class="w-full input input-bordered" />
                     </div>
                     <div>
                         <button class="btn btn-block">Sign Up</button>
