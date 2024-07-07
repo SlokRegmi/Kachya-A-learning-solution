@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="wireframe">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,27 +29,31 @@
                     {% csrf_token %}
                     <div>
                         <label class="label">
+                                     {% for message in messages %}
+                            <h5>{{message}}</h5>
+                            {%endfor%}
+                             
                             <span class="text-base label-text">Name</span>
                         </label>
-                        <input type="text" placeholder="Name" name =  "Student_Name" class="w-full input input-bordered" />
+                        <input type="text" placeholder="Name" name =  "Student_Name" id = "Student_Name" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Email</span>
                         </label>
-                        <input type="text" placeholder="Email Address" name = "Student_Email" class="w-full input input-bordered" />
+                        <input type="text" placeholder="Email Address" name = "Student_Email" id = "Student_Email" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Password</span>
                         </label>
-                        <input type="password" placeholder="Enter Password" name = "Student_Password1" class="w-full input input-bordered" />
+                        <input type="password" placeholder="Enter Password" name = "Student_Password1" id = "Student_Password1" class="w-full input input-bordered" />
                     </div>
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Confirm Password</span>
                         </label>
-                        <input type="password" placeholder="Confirm Password" name="Student_Password2" na class="w-full input input-bordered" />
+                        <input type="password" placeholder="Confirm Password" name="Student_Password2" id = "Student_Password2" na class="w-full input input-bordered" />
                     </div>
                     <div>
                         <button class="btn btn-block">Sign Up</button>

@@ -28,6 +28,12 @@
                 <h1 class="text-3xl font-semibold text-center text-gray-700">Kachya</h1>
                 <form class="space-y-4" action="SignUpTeacher" method="post">
                     {% csrf_token %}
+                    
+                    
+                            {% for message in messages %}
+                            <h5>{{message}}</h5>
+                            {%endfor%}
+                            
                     <div>
                         <label class="label">
                             <span class="text-base label-text">Name</span>
@@ -48,11 +54,11 @@
                         <input type="file" name="resume" class="file-input file-input-bordered w-full max-w-xs" />
                       </label>
                     <div>
-                        <button class="btn btn-block">Sign Up</button>
+                        <button class="btn btn-block" type="submit">Sign Up</button>
                     </div>
                     <span>Already have an account ?
                         <a href="login_student" class="text-blue-600 hover:text-blue-800 hover:underline">Login</a></span>
-                </form
+                    </form>
             </div>
         </div>
     </body>
