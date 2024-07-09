@@ -111,7 +111,7 @@ def chat(request):
         message = request.POST.get('message')
         if message:
             try:
-                reply = get_gemini_reply(message)
+                reply = get_gemini_reply(message+ "Write in maximum two lines and don't give Sure I'll tell you and all straight to the point and if I'm asking for code just give me straight up code no text and all not anything" )
                 return JsonResponse({'reply': reply})
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=500)
@@ -119,7 +119,7 @@ def chat(request):
             return JsonResponse({'error': 'No message provided'}, status=400)
 
 def get_gemini_reply(message):
-    api_key = "AIzaSyCRJh_WfFN0uBhWZSI7i9lMdwIKT0MIBa4"
+    api_key = ""
  
     genai.configure(api_key=api_key)
     
