@@ -1,20 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-
   mode: 'jit',
-  purge: ['.src/**/*.{js,jsx,ts,tsx}', './dist/index.html'],
-  content: ["./dist/*.{html,js}"], // Adjust this path as per your project structure
+  purge: ['.src/**/*.{js,jsx,ts,tsx}', './dist/**/*.html'], // Cover all HTML files in the dist directory
+  content: ["./dist/**/*.{html,js}"], // Cover all HTML and JS files in the dist directory
   theme: {
     fontFamily: {
       'sans': ['Helvetica', 'Arial', 'sans-serif'],
-      'serif': ['ui-serif', 'Georgia',],
-      'mono': ['ui-monospace', 'SFMono-Regular',],
+      'serif': ['ui-serif', 'Georgia'],
+      'mono': ['ui-monospace', 'SFMono-Regular'],
     },
     extend: {
-      
       width: {
         'w-30': '30rem',
-
       },
       colors: {
         'custom-white': '#fffdfd',
@@ -31,7 +28,6 @@ module.exports = {
           '800': '#243f78',
           '900': '#192a52'
         },
-
         grey: {
           DEFAULT: '#243f78',
           '50': '#eef2fc',
@@ -47,7 +43,6 @@ module.exports = {
         }
       },
     },
-
   },
   plugins: [
     require('daisyui'),
@@ -55,4 +50,4 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark", "wireframe"], // Specify the themes you want to use
   },
-}
+};

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wireframe" class="font-sans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href=style.css>
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --square-size: 10px;
+      --square-gap: 3px;
+      --week-width: calc(var(--square-size) + var(--square-gap));
+    }
+
+    .months {
+      grid-area: months;
+    }
+
+    .days {
+      grid-area: days;
+    }
+
+    .squares {
+      grid-area: squares;
+    }
+
+    .graph {
+      display: inline-grid;
+      grid-template-areas: "empty months"
+        "days squares";
+      grid-template-columns: auto 1fr;
+      grid-gap: 10px;
+    }
+
+    .months {
+      display: grid;
+      grid-template-columns: calc(var(--week-width) * 4)
+        /* Jan */
+        calc(var(--week-width) * 4)
+        /* Feb */
+        calc(var(--week-width) * 4)
+        /* Mar */
+        calc(var(--week-width) * 5)
+        /* Apr */
+        calc(var(--week-width) * 4)
+        /* May */
+        calc(var(--week-width) * 4)
+        /* Jun */
+        calc(var(--week-width) * 5)
+        /* Jul */
+        calc(var(--week-width) * 4)
+        /* Aug */
+        calc(var(--week-width) * 4)
+        /* Sep */
+        calc(var(--week-width) * 5)
+        /* Oct */
+        calc(var(--week-width) * 4)
+        /* Nov */
+        calc(var(--week-width) * 5)
+        /* Dec */
+      ;
+    }
+
+    .days,
+    .squares {
+      display: grid;
+      grid-gap: var(--square-gap);
+      grid-template-rows: repeat(7, var(--square-size));
+    }
+
+    .squares {
+      grid-auto-flow: column;
+      grid-auto-columns: var(--square-size);
+    }
+
+
+    /* Other styling */
+
+
+    .graph {
+      padding: 20px;
+      border: 1px #e1e4e8 solid;
+      margin: 20px;
+    }
+
+    .days li:nth-child(odd) {
+      visibility: hidden;
+    }
+
+    .squares li {
+      background-color: #ebedf0;
+    }
+
+    .squares li[data-level="1"] {
+      background-color: #c6e48b;
+    }
+
+    .squares li[data-level="2"] {
+      background-color: #7bc96f;
+    }
+
+    .squares li[data-level="3"] {
+      background-color: #196127;
+    }
+  </style>
+
+</head>
+
+<body class="flex bg-gray-100 min-h-screen" x-data="{panel:false, menu:false}">
+  <aside class="flex flex-col" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
+    <a href="#"
+      class="inline-flex items-center justify-center h-20 w-full bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
+      Logo
+    </a>
+    <div class="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
+      <nav class="flex flex-col mx-4 my-6 space-y-4">
+
+        <a href="#" class="inline-flex items-center py-3 text-blue-600 bg-white rounded-lg px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-layout-dashboard">
+            <rect width="7" height="9" x="3" y="3" rx="1" />
+            <rect width="7" height="5" x="14" y="3" rx="1" />
+            <rect width="7" height="9" x="14" y="12" rx="1" />
+            <rect width="7" height="5" x="3" y="16" rx="1" />
+          </svg>
+          <span class="ml-2" x-show="menu">Dashboard</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-message-circle-question">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <path d="M12 17h.01" />
+          </svg>
+          <span class="ml-2" x-show="menu">Questionnaire</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span class="ml-2" x-show="menu">Messages</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-school">
+            <path d="M14 22v-4a2 2 0 1 0-4 0v4" />
+            <path d="m18 10 4 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l4-2" />
+            <path d="M18 5v17" />
+            <path d="m4 6 8-4 8 4" />
+            <path d="M6 5v17" />
+            <circle cx="12" cy="9" r="2" />
+          </svg>
+          <span class="ml-2" x-show="menu">Courses</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-graduation-cap">
+            <path
+              d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+            <path d="M22 10v6" />
+            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+          </svg>
+          <span class="ml-2" x-show="menu">Grades</span>
+        </a>
+      </nav>
+      <div class="flex justify-end">
+        <a
+          class="inline-flex p-3 hover:text-gray-400 justify-center border-gray-700 h-15 w-full border-t hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 px-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-settings">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <span class="ml-2" x-show="menu">Settings</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+  <div class="flex-grow text-gray-800">
+    <header class="flex items-center h-20 px-6 sm:px-10 bg-white">
+      <div class="mr-8 cursor-pointer" @click="menu = !menu">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </div>
+      <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-lg  ">
+        <input type="text" class="grow focus:outline-none" placeholder="Search" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+          <path fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd" />
+        </svg>
+      </label>
+      <div class="flex flex-shrink-0 items-center ml-auto">
+        <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg"
+          @click="panel = !panel" @click.away="panel = false">
+          <span class="sr-only">User Menu</span>
+          <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
+            <span class="font-semibold">Slok Regmi</span>
+            <span class="text-sm text-gray-600">Student</span>
+          </div>
+          <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
+            <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo"
+              class="h-full w-full object-cover">
+          </span>
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
+            <path fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
+        </div>
+        <div class="border-l pl-3 ml-3 space-x-1">
+          <button
+            class="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
+            <span class="sr-only">Notifications</span>
+            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full"></span>
+            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-bell">
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            </svg>
+          </button>
+
+        </div>
+      </div>
+    </header>
+    <main class="p-6 sm:p-10 space-y-6">
+      <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+        <div class="mr-6">
+          <h1 class="text-4xl font-semibold mb-2">Hello Slok!</h1>
+          <h2 class="text-xl text-gray-400">Lets Learn Something New Today</h2>
+        </div>
+        <div class="flex flex-wrap items-start justify-end -mb-3">
+          <button
+            class="inline-flex px-5 py-3 text-white bg-blue-500 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Manage Dashboard
+          </button>
+        </div>
+      </div>
+      <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-file-check">
+              <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+              <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+              <path d="m9 15 2 2 4-4" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold">12</span>
+            <span class="block text-gray-500">Active Tasks</span>
+          </div>
+        </div>
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold">83%</span>
+            <span class="block text-gray-500">Finished Assignments</span>
+          </div>
+        </div>
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-calendar-clock">
+              <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" />
+              <path d="M16 2v4" />
+              <path d="M8 2v4" />
+              <path d="M3 10h5" />
+              <path d="M17.5 17.5 16 16.3V14" />
+              <circle cx="16" cy="16" r="6" />
+            </svg>
+          </div>
+          <div class="mr-16">
+            <span class="inline-block text-2xl font-bold">9</span>
+            <span class="block text-gray-500">Upcoming Deadlines</span>
+          </div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-chevron-right">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </div>
+        </div>
+        <div class="flex items-center p-8 bg-blue-500 shadow rounded-lg">
+          <div class="mr-16">
+            <span class="inline-block text-2xl font-bold text-white">You Have New Notifications!</span>
+          </div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-chevron-right">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </div>
+        </div>
+      </section>
+      <section class="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6 ">
+        <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg overflow-hidden">
+          <div class="px-6 py-5 font-semibold border-b border-gray-100">Calender</div>
+          <div class="p-4 flex-grow flex items-center justify-center">
+            <div class="graph text-sm">
+              <ul class="months">
+                <li>Jan</li>
+                <li>Feb</li>
+                <li>Mar</li>
+                <li>Apr</li>
+                <li>May</li>
+                <li>Jun</li>
+                <li>Jul</li>
+                <li>Aug</li>
+                <li>Sep</li>
+                <li>Oct</li>
+                <li>Nov</li>
+                <li>Dec</li>
+              </ul>
+              <ul class="days">
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+              </ul>
+              <ul class="squares">
+                <!-- added via javascript -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-yellow-600 bg-yellow-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
+              <path fill="#fff"
+                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold">25</span>
+            <span class="block text-gray-500">Courses Subscribed</span>
+          </div>
+        </div>
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-teal-600 bg-teal-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold">139</span>
+            <span class="block text-gray-500">Hours spent on learning</span>
+          </div>
+        </div>
+        <div class="row-span-3 bg-white shadow rounded-lg">
+          <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
+            <span>Your Courses</span>
+          </div>
+          <div class="overflow-y-auto" style="max-height: 24rem;">
+            <ul class="p-6 space-y-6">
+              <li class="flex items-center">
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">HTML and CSS</span>
+                <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-400 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">Python</span>
+                <div class="radial-progress ml-auto text-blue-400" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-300 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">Java</span>
+                <div class="radial-progress ml-auto text-blue-300" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">HTML and CSS</span>
+                <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-400 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">Python</span>
+                <div class="radial-progress ml-auto text-blue-400" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
+              </li>
+              <li class="flex items-center">
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-300 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">Java</span>
+                <div class="radial-progress ml-auto text-blue-300" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
+              </li>
+
+
+
+            </ul>
+          </div>
+        </div>
+        <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
+          <div class="px-6 py-5 font-semibold border-b border-gray-100">Number of Assignments Completed</div>
+          <div class="p-4 flex-grow flex items-center justify-center w-full h-full">
+            <canvas id="myChart"></canvas>
+          </div>
+      </section>
+    </main>
+  </div>
+</body>
+<script>
+  // Add squares
+  const squares = document.querySelector('.squares');
+for (var i = 1; i < 365; i++) {
+  const level = Math.floor(Math.random() * 3);  
+  squares.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
+}
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Course A', 'Course B', 'Course C', 'Course D', 'Course E'],
+      datasets: [
+        {
+          label: 'Assignments Completed',
+          data: [20, 16, 12, 10, 24],
+          backgroundColor: ['#6cab9d', '#319c9a', '#2b6a83', '#243f78', '#b8c8f0'],
+          borderRadius: 8, // Add border radius to bars
+        },
+      ],
+    },
+    options: {
+
+      responsive: true,
+      maintainAspectRatio: true,
+      tooltips: {
+        enabled: false
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            display: false
+          },
+
+          border: {
+            display: false // This removes the y-axis line
+          }
+        },
+        x: {
+          ticks: {
+            color: '#94a3b8', // Make tick color minimalistic
+          },
+          grid: {
+            display: false, // Remove x-axis grid lines
+          },
+
+          border: {
+            display: false // This removes the x-axis line
+          }
+        },
+
+
+      },
+      plugins: {
+        legend: {
+          display: false, // Hide legend for minimalistic design
+        },
+        tooltip: {
+          backgroundColor: 'rgba(59, 130, 246, 0.7)', // Tooltip background color
+          titleColor: '#fff', // Tooltip title color
+          bodyColor: '#fff', // Tooltip body color
+          callbacks: {
+            label: function (context) {
+              return `${context.dataset.label}: ${context.raw}`;
+            },
+          },
+        },
+      },
+      layout: {
+        padding: {
+          top: 10,
+          bottom: 10,
+          left: 10,
+          right: 10,
+        },
+      },
+      elements: {
+        bar: {
+          borderRadius: 8, // Add border radius to bars
+        },
+      },
+    },
+  });
+
+</script>
+
+
+</html>
