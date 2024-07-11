@@ -119,7 +119,7 @@ def chat(request):
             return JsonResponse({'error': 'No message provided'}, status=400)
 
 def get_gemini_reply(message):
-    api_key = ""
+    api_key = "AIzaSyCRJh_WfFN0uBhWZSI7i9lMdwIKT0MIBa4"
  
     genai.configure(api_key=api_key)
     
@@ -133,7 +133,7 @@ def get_gemini_reply(message):
     
     
     '''
-    api_key = 'AIzaSyCRJh_WfFN0uBhWZSI7i9lMdwIKT0MIBa4'
+    api_key = ''
     url = 'https://api.gemini.com/v1/some_endpoint'  # Replace with the actual Gemini API endpoint
 
     headers = {
