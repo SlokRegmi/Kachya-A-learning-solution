@@ -15,7 +15,7 @@ import os
 # Create your views here.
 def index(request):
 
-    return render (request, "index.html")
+    return render (request, "index1.html")
 
 def login_student(request):
     if request.method == 'POST':
@@ -30,9 +30,14 @@ def login_student(request):
         if user is not None:
             auth.login(request, user)
             if TeacherProfile.objects.filter(user=user).exists():
-                return redirect('dashboard_teacher/' + username)
+
+                usering = TeacherProfile.objects.get(user=user)
+
+                data = {'username' : usering.username,'name': "Soyam", 'email': usering.TeacherEmail, 'courses'  : usering.assgined_course}
+                return render(request,'dashboard_teacher.html',data)
             elif StudentProfile.objects.filter(user=user).exists():
-                return redirect('dashboard_student/' + username)
+                
+                return redirect('dashboard_student/' + username,)
             else:
                 messages.info(request, 'Profile not found')
                 return redirect('login_student')
@@ -74,8 +79,8 @@ def SignUpTeacher(request):
     if request.method == 'POST':
         teacher_name = request.POST.get('Teacher_Name')
         teacher_email = request.POST.get('Teacher_Email')
-        teacher_password1 = request.POST.get('Teacher_Password1')
-        teacher_password2 = request.POST.get('Teacher_Password2')
+        teacher_password1 = 'abc'
+        teacher_password2 = 'abc'
         resume = request.FILES.get('resume')
 
         if teacher_password1 == teacher_password2:
@@ -119,7 +124,7 @@ def chat(request):
             return JsonResponse({'error': 'No message provided'}, status=400)
 
 def get_gemini_reply(message):
-    api_key = "AIzaSyCRJh_WfFN0uBhWZSI7i9lMdwIKT0MIBa4"
+    api_key = ""
  
     genai.configure(api_key=api_key)
     
@@ -152,3 +157,9 @@ def get_gemini_reply(message):
     else:
         return f"Error: {response.status_code} - {response.text}"
 '''
+def dashboard_teacher(request,data):
+
+
+    
+
+    return render(request, 'dashboard_teacher.html',{'username':data['username']})
