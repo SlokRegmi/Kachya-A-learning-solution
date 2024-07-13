@@ -2,8 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-
-    return render (request, "dashboard_student.html")
+    return render (request, "course_desc.html")
 def about(request):
 
     return render (request, "about.html")  
