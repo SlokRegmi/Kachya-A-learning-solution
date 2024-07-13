@@ -1,11 +1,12 @@
 from django.shortcuts import render
-
+from django.http import JsonResponse
 from KachyaApp.models import Course
+from KachyaApp.utils import calculate_cosine_similarity
 
 # Create your views here.
 def index(request):
 
-    return render (request, "database.html")
+    return render (request, "index.html")
 
 def course_database(request):
 
@@ -23,3 +24,17 @@ def course_database(request):
         
 
         return render (request, "database.html")
+    
+def search(request):
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        
+    if message:
+        try:
+            send_message = calculate_cosine_similarity(message, Course.objects.all().values_list('course_name', flat=True))    
+            return JsonResponse({'message': send_message})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'No message provided'}, status=400)
+        
