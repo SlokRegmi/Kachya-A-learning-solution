@@ -37,7 +37,7 @@ def login_student(request):
                 classTime = usering.nextclassSchedule
                 now = datetime.now()
 
-                if classTime > now:
+                if classTime < now:
                     classTime = now.strftime("%H:%M:%S")
 
                     data = {'username' : usering.username,'name': usering.Teachername, 'email': usering.TeacherEmail, 'courses'  : courseslist, "nextclass":classTime}
