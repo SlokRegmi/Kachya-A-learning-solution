@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date, datetime
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -24,6 +25,13 @@ class TeacherProfile(models.Model):
     password = models.CharField(max_length=100, null=True)
     nextclassSchedule = models.DateTimeField(null=True)
     
+    def save(self, *args, **kwargs):
+        if self.nextclassSchedule:
+            # Preserve the time part of nextclassSchedule
+            original_time = self.nextclassSchedule.time()
+            # Update only the date part to today's date
+            self.nextclassSchedule = datetime.combine(date.today(), original_time)
+        super(TeacherProfile, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.Teachername

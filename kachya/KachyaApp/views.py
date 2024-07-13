@@ -1,4 +1,5 @@
 
+import json
 import logging
 import traceback
 from django.http import JsonResponse
@@ -11,7 +12,7 @@ from KachyaApp.models import StudentProfile, TeacherProfile
 import google.generativeai as genai
 import os
 from datetime import datetime
-
+import pytz
 
 # Create your views here.
 def index(request):
@@ -35,13 +36,21 @@ def login_student(request):
                 usering = TeacherProfile.objects.get(user=user)
                 courseslist = usering.assgined_course.split(",")
                 classTime = usering.nextclassSchedule
-                now = datetime.now()
+                naive_dt = datetime.now()
 
-                if classTime < now:
-                    classTime = now.strftime("%H:%M:%S")
+                aware_naive_dt = pytz.utc.localize(naive_dt)
+              
 
-                    data = {'username' : usering.username,'name': usering.Teachername, 'email': usering.TeacherEmail, 'courses'  : courseslist, "nextclass":classTime}
+
+                if  aware_naive_dt < classTime:
+                    classing = classTime.strftime("%H:%M:%S")
+
+                    data = {'username' : usering.username,'name': usering.Teachername, 'email': usering.TeacherEmail, 'courses'  : courseslist, "nextclass":classing ,"is_today_class": "Today"}
                     return render(request,'dashboard_teacher.html',data)
+                else :
+                        classing = classTime.strftime("%H:%M:%S")
+                        data = {'username' : usering.username,'name': usering.Teachername, 'email': usering.TeacherEmail, 'courses'  : courseslist, "nextclass": classing, "is_today_class":"tomorrow"  }
+                        return render(request,'dashboard_teacher.html',data)           
             elif StudentProfile.objects.filter(user=user).exists():
                 
                 return redirect('dashboard_student/' + username,)
