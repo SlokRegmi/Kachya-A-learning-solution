@@ -22,6 +22,8 @@ class TeacherProfile(models.Model):
     assgined_course = models.CharField(max_length=100, null=True)
     hired = models.BooleanField(null=True)
     password = models.CharField(max_length=100, null=True)
+    nextclassSchedule = models.TimeField(null=True)
+    
 
     def __str__(self):
         return self.Teachername

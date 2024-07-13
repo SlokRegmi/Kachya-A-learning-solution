@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from KachyaApp.models import StudentProfile, TeacherProfile  
 import google.generativeai as genai
 import os
+from datetime import datetime
 
 
 # Create your views here.
@@ -32,9 +33,15 @@ def login_student(request):
             if TeacherProfile.objects.filter(user=user).exists():
 
                 usering = TeacherProfile.objects.get(user=user)
+                courseslist = usering.assgined_course.split(",")
+                classTime = usering.nextclassSchedule
+                now = datetime.now()
 
-                data = {'username' : usering.username,'name': "Soyam", 'email': usering.TeacherEmail, 'courses'  : usering.assgined_course}
-                return render(request,'dashboard_teacher.html',data)
+                if classTime > now:
+                    classTime = now.strftime("%H:%M:%S")
+
+                    data = {'username' : usering.username,'name': usering.Teachername, 'email': usering.TeacherEmail, 'courses'  : courseslist, "nextclass":classTime}
+                    return render(request,'dashboard_teacher.html',data)
             elif StudentProfile.objects.filter(user=user).exists():
                 
                 return redirect('dashboard_student/' + username,)
