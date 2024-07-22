@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wireframe" class="font-sans">
+    {%load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- css -->
+    <link rel="stylesheet" href="{%static 'style.css' %}">
+
+    <style>
+        .group:focus .group-focus\:flex {
+            display: flex;
+        }
+    </style>
+
+</head>
+
+<body class="flex flex-col min-h-screen bg-custom-white text-gray-800">
+
+    <!-- Navbar -->
+
+    <div class="navbar bg-base-100 px-5 sm:px-10 md:px-20 fixed top-0 left-0 w-full shadow-md" style="z-index: 999;">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden pr-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a>Item 1</a></li>
+                    <li>
+                        <a>Parent</a>
+                        <ul class="p-2">
+                            <li><a>Submenu 1</a></li>
+                            <li><a>Submenu 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Item 3</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-row space-x-5 items-center">
+                <div class="cursor-pointer">Logo</div>
+                <div class="dropdown dropdown-hover">
+                    <div tabindex="0" class="cursor-pointer hover:text-blue-600 lg:flex">Categories</div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        <li><a>Item 1</a></li>
+                        <li><a>Item 2</a></li>
+                        <li><a>Item 3</a></li>
+                    </ul>
+                </div>
+                <label class="input input-bordered items-center gap-2 hover:border-blue-600 md:flex rounded-xl  ">
+                    <input type="text" class="grow focus:outline-none" placeholder="Search" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                        class="h-4 w-4 opacity-70">
+                        <path fill-rule="evenodd"
+                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </label>
+
+                <label class="input input-bordered flex items-center gap-2 hover:border-blue-600 md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                        class="h-4 w-4 opacity-70">
+                        <path fill-rule="evenodd"
+                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </label>
+
+
+            </div>
+
+
+        </div>
+
+        <div class="navbar-end">
+            <div class="flex flex-row space-x-5 items-center">
+                <div class="cursor-pointer hover:text-blue-600">Online Degrees</div>
+                <div class="cursor-pointer hover:text-blue-600">Teach on Kachya</div>
+                <div class="space-x-1">
+                    <button
+                        class="btn btn-outline px-5 border-blue-500 text-blue-500 hover:bg-gray-200 hover:text-blue-500 hover:border-blue-500 rounded-xl">Login</button>
+                    <button
+                        class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-xl">Sign
+                        up</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="flex flex-col mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-40">
+
+        <!-- Component Start -->
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mt-6">
+            <div class="flex flex-col">
+                <h1 class="text-3xl text-blue-400 mt-20">Course Categories</h1>
+                <span class="text-sm text-gray-600 font-semibold mt-4" id="categoryRange">1-10 of 50 Categories</span>
+            </div>
+
+            <button class="relative text-sm focus:outline-none group mt-4 sm:mt-0">
+                <div
+                    class="flex items-center justify-between w-40 h-10 px-3 border-2 border-gray-300 rounded hover:bg-gray-300">
+                    <span class="font-medium">
+                        Popular
+                    </span>
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div
+                    class="absolute z-10 flex-col items-start hidden w-full pb-1 bg-white shadow-lg rounded group-focus:flex">
+                    <a class="w-full px-4 py-2 text-left hover:bg-gray-200" href="#">Popular</a>
+                    <a class="w-full px-4 py-2 text-left hover:bg-gray-200" href="#">Featured</a>
+                    <a class="w-full px-4 py-2 text-left hover:bg-gray-200" href="#">Newest</a>
+                </div>
+            </button>
+        </div>
+        <div class="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-6 gap-y-12 w-full mt-6"
+            id="categories">
+
+        </div>
+
+        <div class="mt-6 flex justify-center space-x-2">
+            <button id="prevPage"
+                class="btn btn-outline px-5 border-blue-500 text-blue-500 hover:bg-gray-200 hover:text-blue-500 hover:border-blue-500 rounded-xl"
+                disabled>Previous</button>
+            <button id="nextPage"
+                class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-xl">Next</button>
+        </div>
+
+    </div>
+<!-- footer -->
+<footer class="bg-gray-900 text-white pt-12 pb-8 px-4 mt-32">
+    <div class="mx-auto px-4 container overflow-hidden flex flex-col lg:flex-row justify-between">
+      <a href="/" class="block mr-4 w-1/3">
+        <img src="" class="w-40 ml-4 lg:ml-0" alt="logo">
+      </a>
+      <div class="w-2/3 block sm:flex text-sm mt-6 lg:mt-0">
+        <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Product</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Features</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Integrations</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Pricing</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">FAQ</a></li>
+        </ul>
+        <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Company</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Privacy</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Terms of
+              Service</a></li>
+        </ul>
+        <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Developers</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Developer API</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Documentation</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Guides</a></li>
+          </li>
+        </ul>
+        <div class="text-gray-700 flex flex-col w-full">
+          <div class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Follow Us</div>
+          <div class="flex pl-4 justify-start mt-2">
+            <a class="block  items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
+              <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M23.998 12c0-6.628-5.372-12-11.999-12C5.372 0 0 5.372 0 12c0 5.988 4.388 10.952 10.124 11.852v-8.384H7.078v-3.469h3.046V9.356c0-3.008 1.792-4.669 4.532-4.669 1.313 0 2.686.234 2.686.234v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.469h-2.796v8.384c5.736-.9 10.124-5.864 10.124-11.853z" />
+              </svg>
+            </a>
+            <a class="block items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
+              <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M23.954 4.569a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.691 8.094 4.066 6.13 1.64 3.161a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.061a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
+              </svg>
+            </a>
+            <a class="block items-center text-gray-300 hover:text-white no-underline" href="#">
+              <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" mt-4 pt-6 text-gray-600 border-t border-gray-800 text-center"> © 2024 Kachya. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+
+<script>
+     const val = '{{ names|safe }}';
+        const categories = val;
+        // Now you can use `courseNames` as an array in your JavaScript code
+  /*  const categories = [
+        "IT", "Designing", "Marketing", "Marketing", "Photography", "Music", "Programming", "Data Science",
+        "Health", "Personal Development", "Language Learning", "Lifestyle", "Teaching", "Writing", "Art",
+        "Finance", "Engineering", "Mathematics", "Science", "Social Sciences", "Humanities", "Law", "Medicine",
+        "Dentistry", "Architecture", "Physics", "Chemistry", "Biology", "Environmental Science", "Psychology",
+        "Anthropology", "History", "Geography", "Political Science", "Economics", "Sociology", "Philosophy",
+        "Religious Studies", "Education", "Library Science", "Performing Arts", "Visual Arts", "Film Studies",
+        "Media Studies", "Journalism", "Culinary Arts", "Fashion", "Graphic Design", "Interior Design", "Web Development"
+    ];
+   */
+    const itemsPerPage = 10;
+    let currentPage = 1;
+
+    function renderCategories() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const categoriesToDisplay = categories.slice(startIndex, endIndex);
+
+        const categoriesContainer = document.getElementById('categories');
+        categoriesContainer.innerHTML = '';
+
+        categoriesToDisplay.forEach(category => {
+            const categoryTile = document.createElement('div');
+            categoryTile.className = "block h-64 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:cursor-pointer";
+            categoryTile.innerHTML = `
+                    <div class="flex flex-col items-center justify-between mt-3 ">
+                        <div class="w-full flex items-center justify-center">
+                            <a href="#" class="font-medium">${category}</a>
+                        </div>
+     
+                    </div>
+                `;
+            categoriesContainer.appendChild(categoryTile);
+        });
+
+        document.getElementById('prevPage').disabled = currentPage === 1;
+        document.getElementById('nextPage').disabled = currentPage === Math.ceil(categories.length / itemsPerPage);
+        updateCategoryRangeText(startIndex + 1, Math.min(endIndex, categories.length));
+    }
+
+    function updateCategoryRangeText(start, end) {
+        document.getElementById('categoryRange').innerText = `${start}-${end} of ${categories.length} Categories`;
+    }
+
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderCategories();
+        }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', () => {
+        if (currentPage < Math.ceil(categories.length / itemsPerPage)) {
+            currentPage++;
+            renderCategories();
+        }
+    });
+
+    renderCategories();
+</script>
+
+</html>

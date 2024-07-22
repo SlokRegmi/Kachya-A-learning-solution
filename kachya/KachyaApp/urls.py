@@ -11,5 +11,6 @@ urlpatterns = [
    # path ("login_teacher",views.login_teacher,name = "login_teacher"),
   #  path ("dashboard_student/<str:username>",views.dashboard_student,name = "dashboard_student"),
   path ("dashboard_teacher/<str:username>",views.dashboard_teacher,name = "dashboard_teacher"),
-    
+    path ("course_category",views.course_category,name = "course_category"),
+    path ("cccc",views.cccc,name = "cccc"),
     ]

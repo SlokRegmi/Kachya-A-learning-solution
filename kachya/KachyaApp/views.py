@@ -1,4 +1,5 @@
 
+from audioop import reverse
 import json
 import logging
 import traceback
@@ -8,8 +9,12 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import authenticate, login, logout
-from KachyaApp.models import StudentProfile, TeacherProfile  
+from KachyaApp.models import Course, StudentProfile, TeacherProfile  
 import google.generativeai as genai
+from django.http import JsonResponse, HttpResponseRedirect
+from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
+
 import os
 from datetime import datetime
 import pytz
@@ -17,7 +22,7 @@ import pytz
 # Create your views here.
 def index(request):
 
-    return render (request, "index1.html")
+    return render (request, "index.html")
 
 def login_student(request):
     if request.method == 'POST':
@@ -179,3 +184,22 @@ def dashboard_teacher(request,data):
     
 
     return render(request, 'dashboard_teacher.html',{'username':data['username']})
+
+
+def course_category(request):
+    if request.method == "GET":
+        names = Course.objects.values_list('course_name', flat=True)
+        names_json = json.dumps(list(names), cls=DjangoJSONEncoder)
+        return render(request, 'course_category.html', {'names': names_json})
+    else:
+        return render(request, 'course_category.html')
+def cccc(request):
+    if request.method == 'POST':
+        course_name = request.POST.get('course_name')
+     
+
+        course = Course.objects.create(course_name=course_name)
+        course.save()
+        return redirect('cccc')
+    else:
+        return render(request, 'cccc.html')            
