@@ -1,88 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="wireframe" class="font-sans">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link rel="stylesheet" href="{%static 'style.css' %}">
-    <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
     <title>Kachya Teaching Platform</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <style>
+      .active-tab {
+          border-bottom: 2px solid black;
+          color: #000;
+      }
+      .hidden {
+        display: none;
+    }
+    .cursor-grab {
+      cursor: grab;
+  }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 mx-auto">
+<body class="bg-gray-100 text-gray-800 mx-auto pt-20">
     <!-- Header -->
-    <div class="bg-gray-200 navbar bg-base-100 px-5 sm:px-10 md:px-20 fixed top-0 left-0 w-full shadow-md" style="z-index: 999;">
+    <div class="navbar bg-base-100 px-5 sm:px-10 md:px-20 fixed top-0 left-0 w-full shadow-md" style="z-index: 999;">
       <div class="navbar-start">
-          <div class="dropdown">
-              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden pr-5">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M4 6h16M4 12h8m-8 6h16" />
-                  </svg>
-              </div>
-              <ul tabindex="0"
-                  class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                  <li><a>Item 1</a></li>
-                  <li>
-                      <a>Parent</a>
-                      <ul class="p-2">
-                          <li><a>Submenu 1</a></li>
-                          <li><a>Submenu 2</a></li>
-                      </ul>
-                  </li>
-                  <li><a>Item 3</a></li>
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden pr-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <li><a>Item 1</a></li>
+            <li>
+              <a>Parent</a>
+              <ul class="p-2">
+                <li><a>Submenu 1</a></li>
+                <li><a>Submenu 2</a></li>
               </ul>
+            </li>
+            <li><a>Item 3</a></li>
+          </ul>
+        </div>
+        <div class="flex flex-row space-x-5 items-center">
+          <div class="cursor-pointer">Logo</div>
+          <div class="dropdown dropdown-hover">
+            <div tabindex="0" class="cursor-pointer hover:text-custom-blue-600 hidden lg:flex">Categories</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+              <li><a>Item 1</a></li>
+              <li><a>Item 2</a></li>
+              <li><a>Item 3</a></li>
+            </ul>
           </div>
-          <div class="flex flex-row space-x-5 items-center">
-              <div class="cursor-pointer">Logo</div>
-              <div class="dropdown dropdown-hover">
-                  <div tabindex="0"
-                      class=" bg-gray-200 cursor-pointer hover:text-blue-600 hidden lg:flex">Categories</div>
-                  <ul tabindex="0"
-                      class=" bg-gray-200 dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                      <li><a>Item 1</a></li>
-                      <li><a>Item 2</a></li>
-                      <li><a>Item 3</a></li>
-                  </ul>
-              </div>
-              <label class="input input-bordered items-center bg-gray-200 gap-2 hover:border-blue-600 hidden md:flex rounded-lg  ">
-                  <input type="text" class="grow focus:outline-none" placeholder="Search" />
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                      class="h-4 w-4 opacity-70">
-                      <path fill-rule="evenodd"
-                          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                          clip-rule="evenodd" />
-                  </svg>
-              </label>
-              <label class="input input-bordered flex items-center gap-2 hover:border-blue-600 md:hidden">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                      class="h-4 w-4 opacity-70">
-                      <path fill-rule="evenodd"
-                          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                          clip-rule="evenodd" />
-                  </svg>
-              </label>
-          </div>
+          <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-lg  ">
+            <input type="text" class="grow focus:outline-none" placeholder="Search" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+              <path fill-rule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clip-rule="evenodd" />
+            </svg>
+          </label>
+  
+          <label class="input input-bordered flex items-center gap-2 hover:border-blue-600 md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+              <path fill-rule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clip-rule="evenodd" />
+            </svg>
+          </label>
+  
+  
+        </div>
+  
+  
       </div>
+  
       <div class="navbar-end">
-          <div class="flex flex-row space-x-5 items-center">
-              <div class="cursor-pointer hover:text-blue-600">Online Degrees</div>
-              <div class="cursor-pointer hover:text-blue-600">Teach on Kachya</div>
-              <div class="space-x-1">
-                  <button
-                      class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Login</button>
-                  <button
-                      class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-lg">Sign
-                      up</button>
-              </div>
+        <div class="flex flex-row space-x-5 items-center">
+          <div class="cursor-pointer hover:text-blue-600">Online Degrees</div>
+          <div class="cursor-pointer hover:text-blue-600">Teach on Kachya</div>
+          <div class="space-x-1">
+            <button class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Login</button>
+            <button
+              class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-lg" style="background-color: #2b6a83; /* default background color */
+              transition: background-color 0.3s ease;" 
+       onmouseover="this.style.backgroundColor='#243f78';" 
+       onmouseout="this.style.backgroundColor='#2b6a83'">Sign
+              up</button>
+  
           </div>
+        </div>
       </div>
-  </div>
+    </div>
+  
   
 
         <section>
@@ -91,7 +103,7 @@
                     <!-- Content -->
                     <div class="md:w-2/3 md:pr-10 flex flex-col justify-center items-center text-center">
                         <h2 class="text-3xl font-semibold mb-4">
-                            Teach with <span class="text-blue-500">Us</span>
+                            Teach with <span style="color: #2b6a83;">Us</span>
                         </h2>
                         <p class="text-lg mb-2">
                             Share your knowledge with students worldwide.
@@ -99,86 +111,266 @@
                         <p class="text-lg mb-6">
                             Join us and make a difference.
                         </p>
-                        <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Join Now</a>
+                        <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" style="background-color: #2b6a83; /* default background color */
+            transition: background-color 0.3s ease;" 
+     onmouseover="this.style.backgroundColor='#243f78';" 
+     onmouseout="this.style.backgroundColor='#2b6a83'">Join Now</a>
                     </div>
                     <!-- Photo -->
                     <div class="md:w-1/3 mt-6 md:mt-0">
-                        <img src="path/to/photo.jpg" alt="Teacher Photo" class="w-full h-auto rounded-lg shadow-md">
+                        <img src="../images/Clipped_image_20240717_100532.png" alt="Teacher Photo" class="w-full h-auto rounded-lg shadow-md">
                     </div>
                 </div>
             </div>
-            
-            
-            <h2 class="text-3xl font-semibold mb-6">Our Courses</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-2">Course Title 1</h3>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-2">Course Title 2</h3>
-                    <p class="text-gray-600">Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-2">Course Title 3</h3>
-                    <p class="text-gray-600">Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
-                </div>
-            </div>
         </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-12 pb-8 px-4 mt-32">
-      <div class="mx-auto px-4 container overflow-hidden flex flex-col lg:flex-row justify-between">
-          <a href="/" class="block mr-4 w-1/3">
-              <img src="" class="w-40 ml-4 lg:ml-0" alt="logo">
-          </a>
-          <div class="w-2/3 block sm:flex text-sm mt-6 lg:mt-0">
-              <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
-                  <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Product</li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Features</a></li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Integrations</a>
-                  </li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Pricing</a></li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">FAQ</a></li>
-              </ul>
-              <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
-                  <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Company</li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Privacy</a>
-                  </li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Terms of
-                          Service</a></li>
-              </ul>
-              <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
-                  <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Developers</li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Developer API</a>
-                  </li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Documentation</a>
-                  </li>
-                  <li><a href="#"
-                          class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Guides</a></li>
-                  </li>
-              </ul>
-              <div class="text-gray-700 flex flex-col w-full">
-                  <div class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Follow Us</div>
-                  <div class="flex pl-4 justify-start mt-2">
-                      <a class="block flex items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
-                          <svg viewBox="0 0 24 24"
-                              class="fill-current w-5 h-5"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                  d="M23.998 12c0-6.628-5.372-12-11.999-12C5.372 0 0 5.372 0 12c0 5.988 4.388 10.952 10.124 11.852v-8.384H7.078v-3.469h3.046V9.356c0-3.008 1.792-4.669 4.532-4.669 1.313 0 2.686.234 2.686.234v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.469h-2.796v8.384c5.736-.9 10.124-5.864 10.124-11.853z" />
-                          </svg>
-                      </a>
-                      <a class="block flex items-center text-gray-300 hover:text
+        <div class="bg-blue-600 text-white text-center py-6 mt-4" style="background-color: #2b6a83;">
+          <div class="max-w-7xl mx-auto px-4">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div>
+                      <h2 class="text-2xl font-bold">70M</h2>
+                      <p>Students</p>
+                  </div>
+                  <div>
+                      <h2 class="text-2xl font-bold">74+</h2>
+                      <p>Languages</p>
+                  </div>
+                  <div>
+                      <h2 class="text-2xl font-bold">970M</h2>
+                      <p>Enrollments</p>
+                  </div>
+                  <div>
+                      <h2 class="text-2xl font-bold">16,000+</h2>
+                      <p>Enterprise customers</p>
+                  </div>
+              </div>
+          </div>
+      </div>
   
+      <!-- How to begin Section -->
+      <div class="max-w-7xl mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold text-center mb-8" style="color: #2b6a83;">How to begin</h1>
+        
+        <!-- Tabs -->
+        <div class="flex justify-center mb-8">
+            <div class="flex space-x-8">
+                <button class="text-grey-900 font-semibold pb-2 active-tab" data-tab="plan" style="color: #2b6a83;">Plan your curriculum</button>
+                <button class="text-grey-500 font-semibold pb-2" data-tab="record" style="color: #2b6a83;">Record your video</button>
+                <button class="text-grey-500 font-semibold pb-2" data-tab="launch" style="color: #2b6a83;">Launch your course</button>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div id="plan" class="tab-content flex justify-center mb-8">
+          <div class="max-w-4xl px-4 pb-4">
+              <div class="flex flex-col md:flex-row items-center">
+                  <div class="md:w-1/2">
+                      <p class="text-lg mb-4">You start with your passion and knowledge. Then choose a promising topic with the help of our Marketplace Insights tool. The way that you teach — what you bring to it — is up to you.</p>
+                      <h2 class="text-xl font-semibold mb-4">How we help you</h2>
+                      <p class="text-lg">We offer plenty of resources on how to create your first course. And, our instructor dashboard and curriculum pages help keep you organized.</p>
+                  </div>
+                  <div class="md:w-1/2 mt-8 md:mt-0">
+                      <img src="../images/Clipped_image_20240717_095936.png" alt="Illustration of a person working on a computer">
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <div id="record" class="tab-content hidden flex justify-center mb-8">
+          <div class="max-w-4xl px-4 pb-4">
+              <div class="flex flex-col md:flex-row items-center">
+                  <div class="md:w-1/2">
+                      <p class="text-lg mb-4">Recording your video is the next step. Make sure to have a good setup with proper lighting and sound. Follow our guidelines for best practices.</p>
+                      <h2 class="text-xl font-semibold mb-4">Recording Tips</h2>
+                      <p class="text-lg">We provide detailed instructions on how to record high-quality videos. Our team is here to help you with any technical questions.</p>
+                  </div>
+                  <div class="md:w-1/2 mt-8 md:mt-0">
+                      <img src="your-image-source.png" alt="Illustration of recording video">
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <div id="launch" class="tab-content hidden flex justify-center mb-8">
+          <div class="max-w-4xl px-4 pb-4">
+              <div class="flex flex-col md:flex-row items-center">
+                  <div class="md:w-1/2">
+                      <p class="text-lg mb-4">Launching your course is the final step. Make sure everything is in place and ready to go. Our platform makes it easy to publish your course.</p>
+                      <h2 class="text-xl font-semibold mb-4">Launch Tips</h2>
+                      <p class="text-lg">We guide you through the process of launching your course, from setting the price to marketing strategies. Get ready to share your knowledge with the world.</p>
+                  </div>
+                  <div class="md:w-1/2 mt-8 md:mt-0">
+                      <img src="your-image-source.png" alt="Illustration of launching course">
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div style="background-color: #319c9a;" class="flex items-center justify-center px-10 py-5 shadow-l"style="max-height: 650px">
+    <div class="w-full mx-auto rounded-3xl shadow-lg bg-white px-10 pt-16 pb-10 text-gray-600" style="max-width: 700px" x-data="app()">
+        <div class="overflow-hidden relative mb-10">
+            <div class="overflow-hidden relative cursor-grab relative" @pointerdown="touchstartX=$event.screenX,touchstartY=$event.screenY" @pointerup="touchendX=$event.screenX,touchendY=$event.screenY,$nextTick(()=>handleSwipe())">
+                <template x-for="(item,index) in slides">
+                    <div class="w-full overflow-hidden text-center select-none" x-show="item.show" x-transition:enter="transition duration-300 transform ease" :x-transition:enter-start="currentTransition.start" :x-transition:enter-end="currentTransition.end" x-transition:leave="absolute top-0 left-0 transition duration-300 transform ease" :x-transition:leave-start="previousTransition.start" :x-transition:leave-end="previousTransition.end">
+                        <div class="w-64 h-64 border rounded-full mx-auto mb-10 overflow-hidden bg-cover bg-center" :style="`background-image:url(${item.img})`"></div>
+                        <h2 x-text="item.title" class="font-bold text-xl " style="text-color: #319c9a;"></h2>
+                        <p x-text="item.body" class="text-sm leading-tight h-16"></p>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <template x-for="(item,index) in slides">
+                <span :id="`slideDot${index}`" class="w-2 h-2 rounded-full mx-1" :class="{'bg-indigo-500':index==currentIndex,'bg-gray-200':index!==currentIndex}"></span>
+            </template>
+        </div></div></div>
+    <!-- Footer -->
+     <footer class="bg-gray-900 text-white pt-12 pb-8 px-4">
+    <div class="mx-auto px-4 container overflow-hidden flex flex-col lg:flex-row justify-between">
+      <a href="/" class="block mr-4 w-1/3">
+        <img src="" class="w-40 ml-4 lg:ml-0" alt="logo">
+      </a>
+      <div class="w-2/3 block sm:flex text-sm mt-6 lg:mt-0">
+        <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Product</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Features</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Integrations</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Pricing</a></li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">FAQ</a></li>
+        </ul>
+        <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Company</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Privacy</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Terms of
+              Service</a></li>
+        </ul>
+        <ul class="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
+          <li class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Developers</li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Developer API</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Documentation</a>
+          </li>
+          <li><a href="#" class="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Guides</a></li>
+          </li>
+        </ul>
+        <div class="text-gray-700 flex flex-col w-full">
+          <div class="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Follow Us</div>
+          <div class="flex pl-4 justify-start mt-2">
+            <a class="block  items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
+              <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M23.998 12c0-6.628-5.372-12-11.999-12C5.372 0 0 5.372 0 12c0 5.988 4.388 10.952 10.124 11.852v-8.384H7.078v-3.469h3.046V9.356c0-3.008 1.792-4.669 4.532-4.669 1.313 0 2.686.234 2.686.234v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.469h-2.796v8.384c5.736-.9 10.124-5.864 10.124-11.853z" />
+              </svg>
+            </a>
+            <a class="block items-center text-gray-300 hover:text-white mr-6 no-underline" href="#">
+              <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M23.954 4.569a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.691 8.094 4.066 6.13 1.64 3.161a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.061a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z" />
+              </svg>
+            </a>
+            <a class="block items-center text-gray-300 hover:text-white no-underline" href="#">
+              <svg viewBox="0 0 24 24" class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=" mt-4 pt-6 text-gray-600 border-t border-gray-800 text-center"> © 2024 Kachya. All rights reserved.
+    </div>
+  </footer>
+   <script>
+        // JavaScript to switch tabs
+        document.querySelectorAll('button[data-tab]').forEach(button => {
+            button.addEventListener('click', () => {
+                // Hide all tab content
+                document.querySelectorAll('.tab-content').forEach(tabContent => {
+                    tabContent.classList.add('hidden');
+                });
+                // Remove active class from all buttons
+                document.querySelectorAll('button[data-tab]').forEach(tabButton => {
+                    tabButton.classList.remove('active-tab');
+                    tabButton.classList.add('text-grey-500');
+                });
+                // Show the clicked tab content
+                document.getElementById(button.getAttribute('data-tab')).classList.remove('hidden');
+                // Add active class to the clicked button
+                button.classList.add('active-tab');
+                button.classList.remove('text-grey-500');
+            });
+        });
+          function app() {
+              return {
+                  touchstartX: 0,
+                  touchstartY: 0,
+                  touchendX: 0,
+                  touchendY: 0,
+                  previousIndex: 0,
+                  currentIndex: 0,
+                  previousTransition: {
+                      start: null,
+                      end: null,
+                  },
+                  currentTransition: {
+                      start: null,
+                      end: null,
+                  },
+                  slides: [
+                      {
+                          show:true,
+                          img: '',
+                          title: 'Lorem ipsum',
+                          body: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                      },
+                      {
+                          img: 'assests/img/LandingPage/hero-1.png',
+                          title: 'Dolor sit amet',
+                          body: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                      },
+                      {
+                          img: 'assests/img/LandingPage/hero-1.png',
+                          title: 'Consectetur',
+                          body: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      }
+                  ],
+                  handleSwipe: function() {
+                      // Stop
+                      if( this.touchstartX - this.touchendX > -20 && this.touchstartX - this.touchendX < 20 ) return;
+                      // Set previous index
+                      this.previousIndex = this.currentIndex;
+                      // Swipe
+                      if (this.touchendX < this.touchstartX) {
+                          // Swipe left
+                          this.currentIndex = Math.min(this.slides.length-1,this.currentIndex+1);
+                          this.previousTransition.start = 'translate-x-none opacity-1';
+                          this.previousTransition.end = '-translate-x-1/4 opacity-0';
+                          this.currentTransition.start = 'translate-x-1/4 opacity-0';
+                          this.currentTransition.end = 'translate-x-none opacity-1';
+                      } else {
+                          // Swipe right
+                          this.currentIndex = Math.max(0,this.currentIndex-1);
+                          this.previousTransition.start = 'translate-x-none opacity-1';
+                          this.previousTransition.end = 'translate-x-1/4 opacity-0';
+                          this.currentTransition.start = '-translate-x-1/4 opacity-0';
+                          this.currentTransition.end = 'translate-x-none opacity-1';
+                      }
+                      // Check previous index
+                      if( this.previousIndex !== this.currentIndex ) {
+                          this.showSlide();
+                      }
+                  },
+                  showSlide: function() {
+                      for(let i = 0; i < this.slides.length; i++){
+                          this.slides[i].show = i == this.currentIndex;
+                      }
+                  }
+              }
+          }
+          </script>
 </body>
+
 </html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=style.css>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body class="flex bg-gray-100 min-h-screen" x-data="dashboard()">
+
+    <aside class="flex flex-col" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
+        <a href="#"
+          class="inline-flex items-center justify-center h-20 w-full bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
+          Logo
+        </a>
+        <div class="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
+          <nav class="flex flex-col mx-4 my-6 space-y-4">
+    
+            <a href="#" class="inline-flex items-center py-3 text-blue-600 bg-white rounded-lg px-2"
+              :class="{'justify-start': menu, 'justify-center': menu == false}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-layout-dashboard">
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+              <span class="ml-2" x-show="menu">Dashboard</span>
+            </a>
+            <a href="#"
+              class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+              :class="{'justify-start': menu, 'justify-center': menu == false}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-message-circle-question">
+                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <path d="M12 17h.01" />
+              </svg>
+              <span class="ml-2" x-show="menu">Questionnaire</span>
+            </a>
+            <a href="#"
+              class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+              :class="{'justify-start': menu, 'justify-center': menu == false}">
+              <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span class="ml-2" x-show="menu">Messages</span>
+            </a>
+            <a href="#"
+              class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+              :class="{'justify-start': menu, 'justify-center': menu == false}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-school">
+                <path d="M14 22v-4a2 2 0 1 0-4 0v4" />
+                <path d="m18 10 4 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l4-2" />
+                <path d="M18 5v17" />
+                <path d="m4 6 8-4 8 4" />
+                <path d="M6 5v17" />
+                <circle cx="12" cy="9" r="2" />
+              </svg>
+              <span class="ml-2" x-show="menu">Courses</span>
+            </a>
+            <a href="#"
+              class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
+              :class="{'justify-start': menu, 'justify-center': menu == false}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-graduation-cap">
+                <path
+                  d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+                <path d="M22 10v6" />
+                <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+              </svg>
+              <span class="ml-2" x-show="menu">Grades</span>
+            </a>
+          </nav>
+          <div class="flex justify-end">
+            <a
+              class="inline-flex p-3 hover:text-gray-400 justify-center border-gray-700 h-15 w-full border-t hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 px-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-settings">
+                <path
+                  d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span class="ml-2" x-show="menu">Settings</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+    <div class="flex-grow text-gray-800">
+        <div class="flex flex-col min-h-screen">
+            <header class="flex items-center h-20 px-6 sm:px-10 bg-white">
+                <div class="mr-8 cursor-pointer" @click="menu = !menu">
+                  <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </div>
+                <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-lg  ">
+                  <input type="text" class="grow focus:outline-none" placeholder="Search" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+                    <path fill-rule="evenodd"
+                      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </label>
+                <div class="flex flex-shrink-0 items-center ml-auto">
+                  <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg"
+                    @click="panel = !panel" @click.away="panel = false">
+                    <span class="sr-only">User Menu</span>
+                    <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
+                      <span class="font-semibold">Slok Regmi</span>
+                      <span class="text-sm text-gray-600">Student</span>
+                    </div>
+                    <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
+                      <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo"
+                        class="h-full w-full object-cover">
+                    </span>
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
+                      <path fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                  <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
+                    <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+                    <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
+                    <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
+                  </div>
+                  <div class="border-l pl-3 ml-3 space-x-1">
+                    <button
+                      class="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
+                      <span class="sr-only">Notifications</span>
+                      <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full"></span>
+                      <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping"></span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-bell">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                      </svg>
+                    </button>
+          
+                  </div>
+                </div>
+              </header>
+        
+            <div class="flex-grow p-6 sm:p-10 space-y-6">
+                <div class="flex justify-between items-center">
+                    <div class="text-3xl font-semibold">Your Courses</div>
+                    <div class="relative">
+                        <select x-model="selectedCourse" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                            <option value="Course 1">Course 1</option>
+                            <option value="Course 2">Course 2</option>
+                            <option value="Course 3">Course 3</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <template x-if="selectedCourse">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-semibold mb-4">Assignments for <span x-text="selectedCourse"></span></h2>
+        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold">Open Assignments</h3>
+                            <div class="mt-4 space-y-4">
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <h4 class="text-lg font-semibold">Demo Assignment</h4>
+                                            <p class="text-gray-600">Due: July 25, 2024</p>
+                                        </div>
+                                        <div>
+                                            <button x-show="!submitted" @click="openForm = true" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Submit</button>
+                                            <button x-show="submitted" disabled class="px-4 py-2 bg-green-600 text-green-600 rounded-lg">Submitted</button>
+                                        </div>
+                                        <a href="#" @click="openModal = true" class="text-blue-600 hover:underline ml-4">View More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div>
+                            <h3 class="text-xl font-semibold">Closed Assignments</h3>
+                            <div class="mt-4 space-y-4">
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <p class="text-gray-600">Currently, there is no closed assignment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        
+            <div x-show="openModal" class="fixed inset-0 flex items-center justify-center z-50" style="background-color: rgba(0,0,0,0.5); display: none;">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold">Assignment Details</h2>
+                        <button @click="openModal = false" class="text-gray-600 hover:text-gray-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold">assignment heading</h3>
+                        <p class="text-gray-600"><span>start-date</span> - <span>end-date</span></p>
+                        <ul class="list-disc list-inside mt-2">
+                            <li>Assignment description</li>
+                        </ul>
+                        <div class="mt-4">
+                            <h4 class="font-semibold">Student's Submission</h4>
+                            <div class="p-4 bg-gray-100 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-gray-600">Status</div>
+                                    <div class="text-red-600">Missed</div>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="text-gray-600">Submissions</div>
+                                    <div class="text-gray-600">n/a</div>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="text-gray-600">Submission Date</div>
+                                    <div class="text-gray-600">n/a</div>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="text-gray-600">Remarks</div>
+                                    <div class="text-gray-600">n/a</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-semibold">Teacher's Remark</h4>
+                            <div class="p-4 bg-gray-100 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-gray-600">Grade</div>
+                                    <div class="text-gray-600">n/a</div>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="text-gray-600">Remarks</div>
+                                    <div class="text-gray-600">No remarks provided by the teacher yet!</div>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="text-gray-600">Attachments/Links</div>
+                                    <div class="text-gray-600">n/a</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div x-show="openForm" class="fixed inset-0 flex items-center justify-center z-50" style="background-color: rgba(0,0,0,0.5); display: none;">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold">Submit Assignment</h2>
+                        <button @click="openForm = false" class="text-gray-600 hover:text-gray-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <form @submit.prevent="submitAssignment">
+                        <p class="text-gray-600 mb-4">Please upload your assignment in PDF format. Make sure to follow the naming convention specified in the assignment details.</p>
+                        <input type="file" class="w-full mb-4 border p-2 rounded-lg" x-ref="fileInput" accept="application/pdf" required>
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+</div>
+<script>
+    function dashboard() {
+        return {
+            panel: false,
+            openModal: false,
+            openForm: false,
+            selectedCourse: 'Course 1',
+            submitted: false,
+            submitAssignment() {
+                // Handle form submission logic here
+                // Example: Validate and process the file input
+                const fileInput = this.$refs.fileInput;
+                if (fileInput.files.length > 0) {
+                    // Simulate successful submission
+                    this.submitted = true;
+                    this.openForm = false;
+                    alert('Assignment submitted successfully!');
+                } else {
+                    alert('Please select a file to upload.');
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
