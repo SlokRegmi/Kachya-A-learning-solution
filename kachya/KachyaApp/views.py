@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render (request, "course_desc.html")
+    return render (request, "course_listing.html")
 def about(request):
 
     return render (request, "about.html")  
