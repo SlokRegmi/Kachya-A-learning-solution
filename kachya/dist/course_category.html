@@ -206,10 +206,10 @@
 </body>
 
 <script>
-     const val = '{{ names|safe }}';
-        const categories = val;
+    // const val = '{{ names|safe }}';
+        //const categories = val;
         // Now you can use `courseNames` as an array in your JavaScript code
-  /*  const categories = [
+    const categories = [
         "IT", "Designing", "Marketing", "Marketing", "Photography", "Music", "Programming", "Data Science",
         "Health", "Personal Development", "Language Learning", "Lifestyle", "Teaching", "Writing", "Art",
         "Finance", "Engineering", "Mathematics", "Science", "Social Sciences", "Humanities", "Law", "Medicine",
@@ -218,7 +218,7 @@
         "Religious Studies", "Education", "Library Science", "Performing Arts", "Visual Arts", "Film Studies",
         "Media Studies", "Journalism", "Culinary Arts", "Fashion", "Graphic Design", "Interior Design", "Web Development"
     ];
-   */
+   
     const itemsPerPage = 10;
     let currentPage = 1;
 
@@ -231,24 +231,54 @@
         categoriesContainer.innerHTML = '';
 
         categoriesToDisplay.forEach(category => {
-            const categoryTile = document.createElement('div');
-            categoryTile.className = "block h-64 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:cursor-pointer";
-            categoryTile.innerHTML = `
-                    <div class="flex flex-col items-center justify-between mt-3 ">
-                        <div class="w-full flex items-center justify-center">
-                            <a href="#" class="font-medium">${category}</a>
-                        </div>
-     
-                    </div>
-                `;
-            categoriesContainer.appendChild(categoryTile);
+    const categoryTile = document.createElement('div');
+    categoryTile.className = "block h-64 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl hover:cursor-pointer";
+    categoryTile.innerHTML = `
+            <div class="flex flex-col items-center justify-between mt-3 ">
+                <div class="w-full flex items-center justify-center">
+                    <a href="#" class="font-medium">${category}</a>
+                </div>
+            </div>
+        `;
+    categoryTile.addEventListener('click', () => {
+        fetch('/submit-category/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')  
+            },
+            body: JSON.stringify({ category: category })
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            window.location.href = `/course-desc/${category}/`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
+    });
+    categoriesContainer.appendChild(categoryTile);
+});
+
 
         document.getElementById('prevPage').disabled = currentPage === 1;
         document.getElementById('nextPage').disabled = currentPage === Math.ceil(categories.length / itemsPerPage);
         updateCategoryRangeText(startIndex + 1, Math.min(endIndex, categories.length));
     }
-
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
     function updateCategoryRangeText(start, end) {
         document.getElementById('categoryRange').innerText = `${start}-${end} of ${categories.length} Categories`;
     }

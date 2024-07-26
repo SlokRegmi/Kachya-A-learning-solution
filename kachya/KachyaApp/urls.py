@@ -13,4 +13,7 @@ urlpatterns = [
   path ("dashboard_teacher/<str:username>",views.dashboard_teacher,name = "dashboard_teacher"),
     path ("course_category",views.course_category,name = "course_category"),
     path ("cccc",views.cccc,name = "cccc"),
+
+  path('submit-category/', views.submit_category, name='submit_category'),
+    path('course-desc/<str:category>/', views.course_desc, name='course_desc'),
     ]

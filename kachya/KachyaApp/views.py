@@ -18,11 +18,13 @@ from django.core.serializers.json import DjangoJSONEncoder
 import os
 from datetime import datetime
 import pytz
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseBadRequest
 
 # Create your views here.
 def index(request):
 
-    return render (request, "index.html")
+    return render (request, "course_category.html")
 
 def login_student(request):
     if request.method == 'POST':
@@ -193,6 +195,38 @@ def course_category(request):
         return render(request, 'course_category.html', {'names': names_json})
     else:
         return render(request, 'course_category.html')
+
+@csrf_exempt
+def submit_category(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        category = data.get('category')
+
+        print(category)
+        return JsonResponse({'redirect_url': f'/course_desc/?category={category}'})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+def course_desc(request, category):
+    try:
+        course_description = Course.objects.get(course_name=category)
+        coursereq = course_description.course_requirement
+        listofcourserequire = coursereq.split('.')
+    except Course.DoesNotExist:
+        logging.error(f'Course with name {category} not found')
+
+        # Handle the case where no course is found
+    return render(request, 'course_desc.html', {
+            'coursename': course_description.course_name,
+            'course_description': course_description.course_description,
+            'course_price': course_description.course_price,
+            'teacher_teaching': course_description.teacher_teaching,
+            'course_requirement': listofcourserequire,
+            'course_small_description': course_description.course_small_description,
+            'live': course_description.course_live,
+            'course_schedule': course_description.schedule,
+            'image': course_description.course_picture
+
+        })
+
 def cccc(request):
     if request.method == 'POST':
         course_name = request.POST.get('course_name')

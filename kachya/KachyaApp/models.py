@@ -24,7 +24,6 @@ class TeacherProfile(models.Model):
     hired = models.BooleanField(null=True)
     password = models.CharField(max_length=100, null=True)
     nextclassSchedule = models.DateTimeField(null=True)
-    
     def save(self, *args, **kwargs):
         if self.nextclassSchedule:
             # Preserve the time part of nextclassSchedule
@@ -46,7 +45,9 @@ class Course(models.Model):
     course_category = models.CharField(max_length=100, null=True)
     schedule = models.DateTimeField(null=True)
     course_price = models.IntegerField(null=True)
-
+    teacher_teaching = models.CharField(max_length=100, null=True)
+    course_requirement = models.TextField(null=True)
+    course_small_description = models.TextField(null=True)
     def __str__(self):
         return self.course_name
 
