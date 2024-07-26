@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wireframe" class="font-sans">
+  {%load static%}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Profile</title>
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <link rel="stylesheet" href="{%static 'style.css' %}">
+
+</head>
+
+<body class="flex bg-gray-100 min-h-screen" x-data="{panel:false, menu:false}">
+  <aside class="flex flex-col" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
+    <a href="#"
+      class="inline-flex items-center justify-center h-20 w-full bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
+      Logo
+    </a>
+    <div class="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
+      <nav class="flex flex-col mx-4 my-6 space-y-4">
+
+        <a href="#" class="inline-flex items-center py-3 text-blue-600 bg-white rounded-xl px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-layout-dashboard">
+            <rect width="7" height="9" x="3" y="3" rx="1" />
+            <rect width="7" height="5" x="14" y="3" rx="1" />
+            <rect width="7" height="9" x="14" y="12" rx="1" />
+            <rect width="7" height="5" x="3" y="16" rx="1" />
+          </svg>
+          <span class="ml-2" x-show="menu">Dashboard</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-message-circle-question">
+            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <path d="M12 17h.01" />
+          </svg>
+          <span class="ml-2" x-show="menu">Questionnaire</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span class="ml-2" x-show="menu">Messages</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-school">
+            <path d="M14 22v-4a2 2 0 1 0-4 0v4" />
+            <path d="m18 10 4 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l4-2" />
+            <path d="M18 5v17" />
+            <path d="m4 6 8-4 8 4" />
+            <path d="M6 5v17" />
+            <circle cx="12" cy="9" r="2" />
+          </svg>
+          <span class="ml-2" x-show="menu">Courses</span>
+        </a>
+        <a href="#"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
+          :class="{'justify-start': menu, 'justify-center': menu == false}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-graduation-cap">
+            <path
+              d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+            <path d="M22 10v6" />
+            <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+          </svg>
+          <span class="ml-2" x-show="menu">Grades</span>
+        </a>
+      </nav>
+      <div class="flex justify-end">
+        <a
+          class="inline-flex p-3 hover:text-gray-400 justify-center border-gray-700 h-15 w-full border-t hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 px-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-settings">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <span class="ml-2" x-show="menu">Settings</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+
+  <div class="flex-grow text-gray-800">
+    <header class="flex items-center h-20 px-6 sm:px-10 bg-white">
+      <div class="mr-8 cursor-pointer" @click="menu = !menu">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </div>
+      <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-xl">
+        <input type="text" class="grow focus:outline-none" placeholder="Search" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+          <path fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd" />
+        </svg>
+      </label>
+      <div class="flex flex-shrink-0 items-center ml-auto">
+        <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-xl"
+          @click="panel = !panel" @click.away="panel = false">
+          <span class="sr-only">User Menu</span>
+          <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
+            <span class="font-semibold">Slok Regmi</span>
+            <span class="text-sm text-gray-600">Student</span>
+          </div>
+          <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
+            <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo"
+              class="h-full w-full object-cover">
+          </span>
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
+            <path fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
+        </div>
+        <div class="border-l pl-3 ml-3 space-x-1">
+          <button
+            class="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
+            <span class="sr-only">Notifications</span>
+            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full"></span>
+            <span class="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-bell">
+              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+            </svg>
+          </button>
+
+        </div>
+      </div>
+    </header>
+    <div class="flex w-full pl-8 pt-8">
+      <!-- Sidebar -->
+      <div class="w-1/4 bg-white p-8 shadow-lg rounded-xl">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="bg-gray-300 rounded-full h-12 w-12 flex items-center justify-center text-xl font-bold text-white">
+            SR
+          </div>
+          <div>
+            <h2 class="font-bold text-lg">Slok Regmi</h2>
+          </div>
+        </div>
+        <ul class="menu p-0">
+          <li class="bg-gray-200"><a href="#" class="block py-2 px-4 category-link" data-target="profile">Profile</a>
+          </li>
+          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link" data-target="privacy">Privacy</a></li>
+          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link" data-target="account-security">Account
+              Security</a></li>
+          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link" data-target="payment-methods">Payment
+              methods</a></li>
+        </ul>
+      </div>
+
+      <!-- Main content -->
+      <div class="w-3/4 p-8">
+        <div id="profile" class="content-section ">
+          <h1 class="text-2xl font-bold mb-4 ">Public profile</h1>
+          <form>
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">First Name</label>
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Slok">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">Last Name</label>
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Regmi">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">Account</label>
+              <input type="text" class="input input-bordered w-full rounded-xl disabled:bg-white disabled:text-gray-700 cursor-not-allowed " placeholder="Student" disabled>
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">Headline</label>
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Headline">
+              <small class="text-gray-500">Add a professional headline like, "Instructor at Kachya" or
+                "Architect."</small>
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">About</label>
+              <textarea class="textarea textarea-bordered w-full rounded-xl hover:border-blue-600"></textarea>
+              <small class="text-gray-500">Links and coupon codes are not permitted in this section.</small>
+            </div>
+            <button
+              class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-xl">Save</button>
+          </form>
+        </div>
+
+        <div id="account-security" class="content-section hidden">
+          <h1 class="text-2xl font-bold mb-4">Account Security</h1>
+          <!-- Content for account security goes here -->
+        </div>
+        <div id="payment-methods" class="content-section hidden">
+          <h1 class="text-2xl font-bold mb-4">Payment methods</h1>
+          <!-- Content for payment methods goes here -->
+        </div>
+        <div id="privacy" class="content-section hidden">
+          <h1 class="text-2xl font-bold mb-4">Privacy</h1>
+          <!-- Content for privacy goes here -->
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script>
+  document.querySelectorAll('.category-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      // Remove 'bg-gray-200' class from all links
+      document.querySelectorAll('.category-link').forEach(l => l.parentElement.classList.remove('bg-gray-200'));
+
+      // Add 'bg-gray-200' class to the clicked link
+      this.parentElement.classList.add('bg-gray-200');
+
+      // Hide all content sections
+      document.querySelectorAll('.content-section').forEach(section => section.classList.add('hidden'));
+
+      // Show the target content section
+      const target = this.getAttribute('data-target');
+      document.getElementById(target).classList.remove('hidden');
+    });
+  });
+</script>
+
+</html>
