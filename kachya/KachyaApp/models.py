@@ -48,6 +48,7 @@ class Course(models.Model):
     teacher_teaching = models.CharField(max_length=100, null=True)
     course_requirement = models.TextField(null=True)
     course_small_description = models.TextField(null=True)
+
     def __str__(self):
         return self.course_name
 
@@ -56,8 +57,16 @@ class Assignment(models.Model):
     assignment_name = models.CharField(max_length=100, null=True)
     assignment_description = models.TextField(null=True)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    course_name = models.CharField(max_length=100, null=True)
     due_date = models.DateField(null=True)
     assignment_file = models.FileField(upload_to='assignments/', blank=True, null=True)
 
     def __str__(self):
         return self.assignment_name
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'course_id': self.course_id,
+            'due_date': self.due_date.strftime('%Y-%m-%d %H:%M:%S') if self.due_date else None,
+        }

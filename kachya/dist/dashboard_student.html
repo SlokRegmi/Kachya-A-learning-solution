@@ -265,8 +265,8 @@
           @click="panel = !panel" @click.away="panel = false">
           <span class="sr-only">User Menu</span>
           <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            <span class="font-semibold">Slok Regmi</span>
-            <span class="text-sm text-gray-600">Student</span>
+            <span class="font-semibold">{{name}}</span>
+            <span class="text-sm text-gray-600">{{role}}</span>
           </div>
           <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo"
@@ -279,7 +279,7 @@
           </svg>
         </button>
         <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
-          <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer"><form method = "post" action="editprofile" ><button type="submit">Profile</button></form></div>
           <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
           <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
         </div>
@@ -303,7 +303,7 @@
     <main class="p-6 sm:p-10 space-y-6">
       <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
         <div class="mr-6">
-          <h1 class="text-4xl font-semibold mb-2">Hello Slok!</h1>
+          <h1 class="text-4xl font-semibold mb-2">Hello {{name}}!</h1>
           <h2 class="text-xl text-gray-400">Lets Learn Something New Today</h2>
         </div>
         <div class="flex flex-wrap items-start justify-end -mb-3">
@@ -330,8 +330,8 @@
             </svg>
           </div>
           <div>
-            <span class="block text-2xl font-bold">12</span>
-            <span class="block text-gray-500">Active Tasks</span>
+            <span class="block text-2xl font-bold">{{noofassignments}}</span>
+            <span class="block text-gray-500"><form method="post" action="assignment">{%csrf_token%}<button type="submit">Active Tasks</button></form></span>
           </div>
         </div>
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -427,90 +427,28 @@
           </div>
           <div class="overflow-y-auto" style="max-height: 24rem;">
             <ul class="p-6 space-y-6">
+              
+              {%for coursesname in courses%}
               <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">HTML and CSS</span>
-                <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
+                  <div
+                      class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" class="lucide lucide-code">
+                          <polyline points="16 18 22 12 16 6" />
+                          <polyline points="8 6 2 12 8 18" />
+                      </svg>
+                  </div>
+                  <span class="text-black text-xl ">{{coursesname}}</span>
+                  <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;"
+                      role="progressbar">
+                      70%</div>
               </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-400 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Python</span>
-                <div class="radial-progress ml-auto text-blue-400" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-300 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Java</span>
-                <div class="radial-progress ml-auto text-blue-300" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">HTML and CSS</span>
-                <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-400 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Python</span>
-                <div class="radial-progress ml-auto text-blue-400" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-300 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Java</span>
-                <div class="radial-progress ml-auto text-blue-300" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
+{%endfor%}
+
+
+
+
 
 
 
@@ -648,7 +586,7 @@
             </svg>
           </div>
           <div>
-            <span class="block text-2xl font-bold">25</span>
+            <span class="block text-2xl font-bold">{{noofcourses}}</span>
             <span class="block text-gray-500">Courses Subscribed</span>
           </div>
         </div>
