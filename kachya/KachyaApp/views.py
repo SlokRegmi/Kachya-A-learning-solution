@@ -1,8 +1,10 @@
 
 from audioop import reverse
 from http.client import HTTPResponse
+from itertools import count
 import json
 import logging
+import random
 import traceback
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -16,6 +18,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import timezone
+from django.db.models import Count
 
 import os
 from datetime import datetime
@@ -25,10 +28,30 @@ from django.http import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
-# Create your views here.
 def index(request):
+    # Get a list of all course IDs
+    course_ids = list(Course.objects.values_list('course_id', flat=True))
+    
+    # Randomly select unique course IDs
+    random_ids = random.sample(course_ids, min(len(course_ids), 4))
+    
+    # Retrieve the courses with these IDs
+    courses = Course.objects.filter(course_id__in=random_ids)
+    
+    # Extract course names and categories as an array of arrays
+    course_details = courses.values_list('course_name', 'course_category','course_live')
+    # Get count of courses in each category
+    category_counts_queryset = Course.objects.values('course_category').annotate(count=Count('course_id'))
+    
+    category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset]
 
-    return render (request, "login_student.html")
+    
+    context = {
+        'course_details': course_details,
+        'category_counts': category_counts,
+    }
+    
+    return render(request, 'index.html', context)
 def login_student(request):
     if request.method == 'POST':
         username = request.POST.get('email_login_student')
