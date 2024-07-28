@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="wireframe" class="font-sans">
-  {%load static%}
+{%load static%}
 
 <head>
   <meta charset="UTF-8">
@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="{%static 'style.css' %}">
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
   <style>
     :root {
@@ -239,7 +241,12 @@
       <form action="" id="chatForm" class="flex items-center justify-center">
         <input id="chatInput" type="text" class="flex-1 border rounded-lg p-2 mr-2" placeholder="Type your message...">
         <button id="sendButton" class="bg-blue-500 text-white p-2 rounded-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-horizontal"><path d="m3 3 3 9-3 9 19-9Z"/><path d="M6 12h16"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-send-horizontal">
+            <path d="m3 3 3 9-3 9 19-9Z" />
+            <path d="M6 12h16" />
+          </svg>
         </button>
       </form>
     </div>
@@ -279,9 +286,11 @@
           </svg>
         </button>
         <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
-          <div class="p-2 hover:bg-blue-100 cursor-pointer"><form method = "post" action="editprofile" ><button type="submit">Profile</button></form></div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">
+            <form method="post" action="edit_profile">{%csrf_token%}<button type="submit">Profile</button></form>
+          </div>
           <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">  <form method="post" action="logout">{%csrf_token%}<button type="submit">LogOut</button></div>
         </div>
         <div class="border-l pl-3 ml-3 space-x-1">
           <button
@@ -331,7 +340,9 @@
           </div>
           <div>
             <span class="block text-2xl font-bold">{{noofassignments}}</span>
-            <span class="block text-gray-500"><form method="post" action="assignment">{%csrf_token%}<button type="submit">Active Tasks</button></form></span>
+            <span class="block text-gray-500">
+              <form method="post" action="assignment">{%csrf_token%}<button type="submit">Active Tasks</button></form>
+            </span>
           </div>
         </div>
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -420,31 +431,30 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row-span-3 bg-white shadow rounded-lg">
           <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
             <span>Your Courses</span>
           </div>
           <div class="overflow-y-auto" style="max-height: 24rem;">
             <ul class="p-6 space-y-6">
-              
+
               {%for coursesname in courses%}
               <li class="flex items-center">
-                  <div
-                      class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round" class="lucide lucide-code">
-                          <polyline points="16 18 22 12 16 6" />
-                          <polyline points="8 6 2 12 8 18" />
-                      </svg>
-                  </div>
-                  <span class="text-black text-xl ">{{coursesname}}</span>
-                  <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;"
-                      role="progressbar">
-                      70%</div>
+                <div
+                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-code">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <span class="text-black text-xl ">{{coursesname}}</span>
+                <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
+                  70%</div>
               </li>
-{%endfor%}
+              {%endfor%}
 
 
 
@@ -460,113 +470,113 @@
         <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
           <div class="px-6 py-5 font-semibold border-b border-gray-100">Notice Board</div>
           <div class="overflow-y-auto" style="max-height: 24rem;">
-              <ul class="p-6 space-y-6">
-                  <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
-                      onclick="my_modal_5.showModal()">
+            <ul class="p-6 space-y-6">
+              <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
+                onclick="my_modal_5.showModal()">
 
-                      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-                          <div class="modal-box">
-                              <h3 class="text-lg font-bold">Classes to be canceled</h3>
-                              <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                                  odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
-                                  sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
-                              <div class="flex justify-end">
-                                  <span class="text-gray-400 text-sm">28 Feb, 2024</span>
-                              </div>
-                              <div class="modal-action">
-                                  <form method="dialog">
-                                      <button
-                                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
-                                  </form>
-                              </div>
-                          </div>
-                      </dialog>
-                      <div class="flex flex-col">
-                          <span class="text-black text-xl ">Classes to be canceled</span>
-                          <span class="text-gray-400 text-sm">28 Feb, 2024</span>
-                      </div>
-                      <div class="ml-auto group-hover:text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" class="lucide lucide-chevron-right">
-                              <path d="m9 18 6-6-6-6" />
-                          </svg>
-                      </div>
-                  </li>
+                <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Classes to be canceled</h3>
+                    <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                      odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
+                      sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
+                    <div class="flex justify-end">
+                      <span class="text-gray-400 text-sm">28 Feb, 2024</span>
+                    </div>
+                    <div class="modal-action">
+                      <form method="dialog">
+                        <button
+                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <div class="flex flex-col">
+                  <span class="text-black text-xl ">Classes to be canceled</span>
+                  <span class="text-gray-400 text-sm">28 Feb, 2024</span>
+                </div>
+                <div class="ml-auto group-hover:text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </li>
 
-                  <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
-                      onclick="my_modal_5_1.showModal()">
+              <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
+                onclick="my_modal_5_1.showModal()">
 
-                      <dialog id="my_modal_5_1" class="modal modal-bottom sm:modal-middle">
-                          <div class="modal-box">
-                              <h3 class="text-lg font-bold">Holiday</h3>
-                              <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                                  odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
-                                  sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
-                              <div class="flex justify-end">
-                                  <span class="text-gray-400 text-sm">21 Feb, 2024</span>
-                              </div>
-                              <div class="modal-action">
-                                  <form method="dialog">
-                                      <button
-                                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
-                                  </form>
-                              </div>
-                          </div>
-                      </dialog>
-                      <div class="flex flex-col">
-                          <span class="text-black text-xl ">Holiday</span>
-                          <span class="text-gray-400 text-sm">21 Feb, 2024</span>
-                      </div>
-                      <div class="ml-auto group-hover:text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" class="lucide lucide-chevron-right">
-                              <path d="m9 18 6-6-6-6" />
-                          </svg>
-                      </div>
-                  </li>
+                <dialog id="my_modal_5_1" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Holiday</h3>
+                    <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                      odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
+                      sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
+                    <div class="flex justify-end">
+                      <span class="text-gray-400 text-sm">21 Feb, 2024</span>
+                    </div>
+                    <div class="modal-action">
+                      <form method="dialog">
+                        <button
+                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <div class="flex flex-col">
+                  <span class="text-black text-xl ">Holiday</span>
+                  <span class="text-gray-400 text-sm">21 Feb, 2024</span>
+                </div>
+                <div class="ml-auto group-hover:text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </li>
 
-                  <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
-                      onclick="my_modal_5_2.showModal()">
+              <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
+                onclick="my_modal_5_2.showModal()">
 
-                      <dialog id="my_modal_5_2" class="modal modal-bottom sm:modal-middle">
-                          <div class="modal-box">
-                              <h3 class="text-lg font-bold">Classes Postponed</h3>
-                              <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                                  odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
-                                  sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
-                              <div class="flex justify-end">
-                                  <span class="text-gray-400 text-sm">22 Feb, 2024</span>
-                              </div>
-                              <div class="modal-action">
-                                  <form method="dialog">
-                                      <button
-                                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
-                                  </form>
-                              </div>
-                          </div>
-                      </dialog>
-                      <div class="flex flex-col">
-                          <span class="text-black text-xl ">Classes Postponed</span>
-                          <span class="text-gray-400 text-sm">22 Feb, 2024</span>
-                      </div>
-                      <div class="ml-auto group-hover:text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" class="lucide lucide-chevron-right">
-                              <path d="m9 18 6-6-6-6" />
-                          </svg>
-                      </div>
-                  </li>
-
-
+                <dialog id="my_modal_5_2" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Classes Postponed</h3>
+                    <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                      odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
+                      sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
+                    <div class="flex justify-end">
+                      <span class="text-gray-400 text-sm">22 Feb, 2024</span>
+                    </div>
+                    <div class="modal-action">
+                      <form method="dialog">
+                        <button
+                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <div class="flex flex-col">
+                  <span class="text-black text-xl ">Classes Postponed</span>
+                  <span class="text-gray-400 text-sm">22 Feb, 2024</span>
+                </div>
+                <div class="ml-auto group-hover:text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </li>
 
 
-              </ul>
+
+
+            </ul>
           </div>
-      </div>
-        
+        </div>
+
         <div class="flex flex-col row-span-2 bg-white shadow rounded-lg">
           <div class="px-6 py-5 font-semibold border-b border-gray-100">Number of Assignments Completed</div>
           <div class="p-4 flex-grow flex items-center justify-center w-full h-full">
@@ -603,7 +613,7 @@
             <span class="block text-gray-500">Hours spent on learning</span>
           </div>
         </div>
-        
+
       </section>
     </main>
   </div>
@@ -615,8 +625,8 @@
     const level = Math.floor(Math.random() * 3);
     squares.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
   }
-  
-  
+
+
   const ctx = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'bar',
@@ -723,22 +733,37 @@
 
       // Simulate bot response
       setTimeout(function () {
-        const botMessageElement = document.createElement('div');
-        botMessageElement.classList.add('p-2', 'rounded-lg', 'bg-gray-200', 'text-black', 'max-w-xs', 'break-words');
+        console.log(message);
 
-        const botMessageContainer = document.createElement('div');
-        botMessageContainer.classList.add('flex', 'items-start', 'space-x-2');
+        $.ajax({
+          url: '{% url "chat" %}',
+          method: 'POST',
+          data: {
+            'message': message,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function (response) {
 
-        const avatarElement = document.createElement('img');
-        avatarElement.src = "https://via.placeholder.com/30";
-        avatarElement.alt = "Avatar";
-        avatarElement.classList.add('w-8', 'h-8', 'rounded-full');
+            const botMessageElement = document.createElement('div');
+            botMessageElement.classList.add('p-2', 'rounded-lg', 'bg-gray-200', 'text-black', 'max-w-xs', 'break-words');
 
-        botMessageElement.textContent = "This is a simulated bot response. This response is long enough to demonstrate how text will wrap inside the chat bubble.";
+            const botMessageContainer = document.createElement('div');
+            botMessageContainer.classList.add('flex', 'items-start', 'space-x-2');
 
-        botMessageContainer.appendChild(avatarElement);
-        botMessageContainer.appendChild(botMessageElement);
-        document.getElementById('messages').appendChild(botMessageContainer);
+            const avatarElement = document.createElement('img');
+            avatarElement.src = "https://via.placeholder.com/30";
+            avatarElement.alt = "Avatar";
+            avatarElement.classList.add('w-8', 'h-8', 'rounded-full');
+
+            botMessageElement.textContent = response.reply;
+
+            botMessageContainer.appendChild(avatarElement);
+            botMessageContainer.appendChild(botMessageElement);
+            document.getElementById('messages').appendChild(botMessageContainer);
+          }
+        });
+
+
       }, 1000);
 
       // Scroll to the bottom of the chat

@@ -19,5 +19,9 @@ urlpatterns = [
   path('course_listing/<str:category>/', views.course_listing, name='course_listing'),
     path('course-desc/<str:category>/', views.course_desc, name='course_desc'),
     path('assignment', views.assignment, name='assignment'),
+    path('edit_profile', views.edit_profile, name='edit_profile'),
+    path('changeDetail', views.changeDetail, name='changeDetail'),
+    path ('logout', views.logout, name='logout'),
+
 
     ]

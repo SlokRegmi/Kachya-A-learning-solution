@@ -268,9 +268,10 @@
                     </svg>
                 </button>
                 <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
-                    <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+                    <div class="p-2 hover:bg-blue-100 cursor-pointer">            <form method="post" action="edit_profile">{%csrf_token%}<button type="submit">Profile</button></form>
+                    </div>
                     <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
-                    <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
+                    <div class="p-2 hover:bg-blue-100 cursor-pointer">            <form method="post" action="logout">{%csrf_token%}<button type="submit">LogOut</button></div>
                 </div>
                 <div class="border-l pl-3 ml-3 space-x-1">
                     <button

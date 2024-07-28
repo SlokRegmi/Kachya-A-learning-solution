@@ -23,11 +23,12 @@ import pytz
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 def index(request):
 
-    return render (request, "index.html")
+    return render (request, "login_student.html")
 def login_student(request):
     if request.method == 'POST':
         username = request.POST.get('email_login_student')
@@ -377,3 +378,95 @@ def course_listing(request, category):
         'category': category,
         'course_names': names_json
     })
+
+def edit_profile(request):
+    name = ""
+    email = ""
+    role = ""
+    initials = ""
+
+    if request.method == 'POST':
+        username = request.user.username
+        user = User.objects.get(username=username)
+
+        try:
+            student = StudentProfile.objects.get(user=user)
+            name = student.Studentname
+            email = student.StudentEmail
+            role = "Student"
+            print(f"Student Profile: {name}, {email}, {role}")
+        except StudentProfile.DoesNotExist:
+            try:
+                teacher = TeacherProfile.objects.get(user=user)
+                name = teacher.Teachername
+                email = teacher.TeacherEmail
+                role = "Teacher"
+                print(f"Teacher Profile: {name}, {email}, {role}")
+            except TeacherProfile.DoesNotExist:
+                print("No profile found for user.")
+        
+        initials = get_initials(name) if name else ""
+        return render(request, 'edit_profile.html', {'name': name, 'email': email, 'role': role, 'initials': initials})
+
+    return render(request, 'edit_profile.html', {'name': name, 'email': email, 'role': role, 'initials': initials})
+
+def get_initials(name):
+    components = name.split()
+    initials = ''.join([component[0] for component in components])
+    return initials
+
+
+@login_required
+def changeDetail(request):
+    if request.method == 'POST':
+        username = request.user.username
+        user = User.objects.get(username=username)
+
+        # Change name and email logic
+        try:
+            student = StudentProfile.objects.get(user=user)
+            fname = request.POST.get('fname')
+            email = request.POST.get('email')
+            if fname:
+                student.Studentname = fname
+            if email:
+                student.StudentEmail = email
+            student.save()
+        except StudentProfile.DoesNotExist:
+            try:
+                teacher = TeacherProfile.objects.get(user=user)
+                name = request.POST.get('name')
+                email = request.POST.get('email')
+                if name:
+                    teacher.Teachername = name
+                if email:
+                    teacher.TeacherEmail = email
+                teacher.save()
+            except TeacherProfile.DoesNotExist:
+                messages.error(request, "No profile found for user.")
+                return redirect('changeDetail')
+
+        # Change password logic
+        opassword = request.POST.get('opassword')
+        npassword1 = request.POST.get('npassword1')
+        npassword2 = request.POST.get('npassword2')
+
+        if opassword and npassword1 and npassword2:
+            if user.check_password(opassword):
+                if npassword1 == npassword2:
+                    user.set_password(npassword1)
+                    user.save()
+                    update_session_auth_hash(request, user)  # Keep the user logged in after password change
+                    messages.success(request, "Password changed successfully.")
+                else:
+                    messages.error(request, "New passwords do not match.")
+            else:
+                messages.error(request, "Current password is incorrect.")
+        
+        return redirect('changeDetail')
+    else:
+        return render(request, 'login_student.html')
+    
+def logout(request):
+    auth.logout(request)
+    return redirect ("/")
