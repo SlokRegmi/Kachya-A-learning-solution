@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="wireframe" class="font-sans">
-  {%load static%}
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Public Profile</title>
   <script src="//unpkg.com/alpinejs" defer></script>
-  <link rel="stylesheet" href="{%static 'style.css' %}">
+  <link rel="stylesheet" href=style.css>
 
 </head>
 
@@ -166,10 +165,10 @@
           </div>
         </div>
         <ul class="menu p-0">
-          <li class="bg-gray-200"><a href="#" class="block py-2 px-4 category-link" data-target="profile">Profile</a>
+          <li class="bg-gray-200 mb-1"><a href="#" class="block py-2 px-4 category-link" data-target="profile">Profile</a>
           </li>
-          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link" data-target="privacy">Privacy</a></li>
-          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link" data-target="account-security">Account
+          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link mb-1" data-target="privacy">Privacy</a></li>
+          <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link mb-1" data-target="account-security">Account
               Security</a></li>
           <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link" data-target="payment-methods">Payment
               methods</a></li>
@@ -182,12 +181,8 @@
           <h1 class="text-2xl font-bold mb-4 ">Public profile</h1>
           <form>
             <div class="mb-4">
-              <label class="block text-gray-700 mb-2">First Name</label>
-              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Slok">
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 mb-2">Last Name</label>
-              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Regmi">
+              <label class="block text-gray-700 mb-2">Full Name</label>
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Slok Regmi">
             </div>
             <div class="mb-4">
               <label class="block text-gray-700 mb-2">Account</label>
@@ -211,17 +206,47 @@
 
         <div id="account-security" class="content-section hidden">
           <h1 class="text-2xl font-bold mb-4">Account Security</h1>
-          <!-- Content for account security goes here -->
-        </div>
-        <div id="payment-methods" class="content-section hidden">
-          <h1 class="text-2xl font-bold mb-4">Payment methods</h1>
-          <!-- Content for payment methods goes here -->
+          <form>
+
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">Email</label>
+              <input type="text" class="input input-bordered w-full rounded-xl disabled:text-gray-700 " placeholder="slokregmi@gmail.com">
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-gray-700 mb-2">Password</label>
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600 mb-2" placeholder="Enter current password">
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600 mb-2" placeholder="Enter new password">
+              <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Re-type new password">
+
+            </div>
+            
+            <button
+              class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-xl">Change Password</button>
+          </form>
         </div>
         <div id="privacy" class="content-section hidden">
           <h1 class="text-2xl font-bold mb-4">Privacy</h1>
-          <!-- Content for privacy goes here -->
-        </div>
+          <div class="flex mb-2">
+            <div class="form-control">
+              <label class="label cursor-pointer flex items-center">
+                <input type="checkbox" checked="checked" class="checkbox mr-5" />
+                <span class="">Show your profile to logged-in users</span>
+              </label>
+            </div>
+          </div>
 
+          <div class="flex">
+            <div class="form-control">
+              <label class="label cursor-pointer flex items-center">
+                <input type="checkbox" checked="checked" class="checkbox mr-5" />
+                <span class="">Show courses you're taking on your profile page</span>
+              </label>
+            </div>
+          </div>
+          </form>
+          
+        
 
       </div>
     </div>
