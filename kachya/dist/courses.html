@@ -154,16 +154,16 @@
               </header>
         
             <div class="flex-grow p-6 sm:p-10 space-y-6">
-                <div class="flex justify-between items-center">
-                    <div class="text-3xl font-semibold">Your Courses</div>
-                    <div class="relative">
-                        <select x-model="selectedCourse" class="px-4 py-2 bg-blue-600 text-white rounded-lg" onchange="handleSelection()">
-                            {%for course in courses%}
-                          <option value="{{course}}">{{course}}</option>
-                           {%endfor%}
-                        </select>
-                    </div>
+              <div class="flex justify-between items-center">
+                <div class="text-3xl font-semibold">Your Courses</div>
+                <div class="relative">
+                    <select id="name" class="px-4 py-2 bg-blue-600 text-white rounded-lg" onchange="handleSelection()">
+                        {% for course in courses %}
+                            <option value="{{ course }}">{{ course }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+            </div>
         
                 <template x-if="selectedCourse">
                     <div class="bg-white p-6 rounded-lg shadow-md">
@@ -173,6 +173,7 @@
                             <h3 class="text-xl font-semibold">Open Assignments</h3>
                             <div class="mt-4 space-y-4">
                                 <div class="p-4 bg-gray-50 rounded-lg border">
+                                  
                                     <div class="flex justify-between items-center">
                                         <div>
                                             <h4 class="text-lg font-semibold">Demo Assignment</h4>
@@ -280,23 +281,24 @@
         
 </div>
 <script>
-   var coursesData = '{{ assignments|safe }}' ;
-        console.log(coursesData);
-        
-        function handleSelection() {
-            var selectedCourse = document.getElementById('name').value;
-            var details = coursesData[selectedCourse];
+    // Parse the JSON data
+    var coursesData = JSON.parse('{{ assignments|safe }}');
+    console.log(coursesData);
 
-            if (details) {
-                document.getElementById('assignment_name').innerText = 'Assignment Name: ' + details[0];
-                document.getElementById('assignment_description').innerText = 'Description: ' + details[1];
-                document.getElementById('due_date').innerText = 'Due Date: ' + details[2];
-            } else {
-                document.getElementById('assignment_name').innerText = 'Assignment Name:';
-                document.getElementById('assignment_description').innerText = 'Description:';
-                document.getElementById('due_date').innerText = 'Due Date:';
-            }
+    function handleSelection() {
+        var selectedCourse = document.getElementById('name').value;
+        var details = coursesData[selectedCourse];
+
+        if (details) {
+            document.getElementById('assignment_name').innerText = 'Assignment Name: ' + details[0];
+            document.getElementById('assignment_description').innerText = 'Description: ' + details[1];
+            document.getElementById('due_date').innerText = 'Due Date: ' + details[2];
+        } else {
+            document.getElementById('assignment_name').innerText = 'Assignment Name:';
+            document.getElementById('assignment_description').innerText = 'Description:';
+            document.getElementById('due_date').innerText = 'Due Date:';
         }
+    }
 
     function dashboard() {
         return {

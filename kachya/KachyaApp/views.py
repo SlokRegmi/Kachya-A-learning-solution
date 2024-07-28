@@ -27,7 +27,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
 
-    return render (request, "login_student.html")
+    return render (request, "index.html")
 def login_student(request):
     if request.method == 'POST':
         username = request.POST.get('email_login_student')
@@ -234,12 +234,25 @@ def dashboard_student(request,data):
 
 
 def course_category(request):
-    if request.method == "GET":
-        names = Course.objects.values_list('course_name', flat=True)
-        names_json = json.dumps(list(names), cls=DjangoJSONEncoder)
-        return render(request, 'course_category.html', {'names': names_json})
-    else:
-        return render(request, 'course_category.html')
+     try:
+        if request.method == "GET":
+            # Fetch all course names
+            names = Course.objects.values_list('course_category', flat=True).distinct()
+
+            if not names:
+                logging.error('No course names found')
+                return render(request, 'course_category.html', {'error': 'No course names found'})
+            
+            names_json = json.dumps(list(names), cls=DjangoJSONEncoder)
+            
+        else:
+            names_json = json.dumps([])  # Default empty list for non-GET requests
+            
+     except Exception as e:
+        logging.error(f'Error fetching course names: {str(e)}')
+        return render(request, 'course_category.html', {'error': 'An error occurred while fetching course names'})
+
+     return render(request, 'course_category.html', {'course_names': names_json})
 
 @csrf_exempt
 def submit_category(request):
@@ -248,7 +261,9 @@ def submit_category(request):
         category = data.get('category')
 
         print(category)
-        return JsonResponse({'redirect_url': f'/course_desc/?category={category}'})
+        return JsonResponse({'redirect_url': f'/course_listing/?category={category}'})
+        #yesle course description ma janxa aaahile ko laagi yo change garera course listing ma pathairako ho 
+        #return JsonResponse({'redirect_url': f'/course_desc/?category={category}'})
     return JsonResponse({'error': 'Invalid request'}, status=400)
 def course_desc(request, category):
     try:
@@ -342,4 +357,23 @@ def assignment(request):
         })
     else:
         return redirect('login_student')'''
-    
+def course_listing(request, category):
+    try:
+        # Fetch courses that match the given category
+        courses = Course.objects.filter(course_category=category)
+
+        # Extract the course names
+        course_names = list(courses.values_list('course_name', flat=True))
+        names_json = json.dumps(list(course_names), cls=DjangoJSONEncoder)
+
+        if not course_names:
+            logging.error(f'No courses found for category: {category}')
+            return render(request, 'course_listing.html', {'error': 'No courses found for the given category'})
+
+    except Exception as e:
+        logging.error(f'Error fetching courses for category {category}: {str(e)}')
+        return render(request, 'course_listing.html', {'error': 'An error occurred while fetching courses'})
+    return render(request, 'course_listing.html', {
+        'category': category,
+        'course_names': names_json
+    })

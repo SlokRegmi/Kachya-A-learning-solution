@@ -16,6 +16,7 @@ urlpatterns = [
     path ("cccc",views.cccc,name = "cccc"),
 
   path('submit-category/', views.submit_category, name='submit_category'),
+  path('course_listing/<str:category>/', views.course_listing, name='course_listing'),
     path('course-desc/<str:category>/', views.course_desc, name='course_desc'),
     path('assignment', views.assignment, name='assignment'),
 
