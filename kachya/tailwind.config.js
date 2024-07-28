@@ -5,7 +5,8 @@ module.exports = {
   content: ["./dist/**/*.{html,js}"], // Cover all HTML and JS files in the dist directory
   theme: {
     fontFamily: {
-      'sans': ['Helvetica', 'Arial', 'sans-serif'],
+      'sans': ['Chivo', 'sans-serif'],
+      'krub': ['Krub', 'sans-serif'],
       'serif': ['ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
     },
