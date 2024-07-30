@@ -22,6 +22,7 @@ urlpatterns = [
     path('edit_profile', views.edit_profile, name='edit_profile'),
     path('changeDetail', views.changeDetail, name='changeDetail'),
     path ('logout', views.logout, name='logout'),
+    path('teacher_assignment', views.teacher_assignment, name='teacher_assignment'),
 
 
     ]

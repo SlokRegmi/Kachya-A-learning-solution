@@ -327,6 +327,21 @@
         </div>
       </div>
       <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold">83%</span>
+            <form  action="assignment">{%csrf_token%}<button type="submit">Completed Assignment</button></form>
+          </div>
+        </div>
+
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
           <div
             class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
@@ -341,23 +356,12 @@
           <div>
             <span class="block text-2xl font-bold">{{noofassignments}}</span>
             <span class="block text-gray-500">
-              <form method="post" action="assignment">{%csrf_token%}<button type="submit">Active Tasks</button></form>
+              <form  action="assignment">{%csrf_token%}<button type="submit">Active Tasks</button></form>
             </span>
           </div>
         </div>
-        <div class="flex items-center p-8 bg-white shadow rounded-lg">
-          <div
-            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
-            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold">83%</span>
-            <span class="block text-gray-500">Finished Assignments</span>
-          </div>
-        </div>
+
+
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
           <div
             class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">

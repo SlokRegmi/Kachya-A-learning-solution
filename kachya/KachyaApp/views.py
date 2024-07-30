@@ -29,23 +29,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
 def index(request):
-    # Get a list of all course IDs
     course_ids = list(Course.objects.values_list('course_id', flat=True))
-    
-    # Randomly select unique course IDs
-    random_ids = random.sample(course_ids, min(len(course_ids), 4))
-    
-    # Retrieve the courses with these IDs
+    random_ids = random.sample(course_ids, min(len(course_ids), 4)) 
     courses = Course.objects.filter(course_id__in=random_ids)
-    
-    # Extract course names and categories as an array of arrays
     course_details = courses.values_list('course_name', 'course_category','course_live')
-    # Get count of courses in each category
     category_counts_queryset = Course.objects.values('course_category').annotate(count=Count('course_id'))
-    
-    category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset]
-
-    
+    category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset] 
     context = {
         'course_details': course_details,
         'category_counts': category_counts,
@@ -62,7 +51,7 @@ def login_student(request):
             auth.login(request, user)
             if TeacherProfile.objects.filter(user=user).exists():
                 usering = TeacherProfile.objects.get(user=user)
-                courseslist = usering.assigned_course.split(",")  # Update this line with the correct attribute name
+                courseslist = usering.assgined_course.split(",")  # Update this line with the correct attribute name
                 classTime = usering.nextclassSchedule
                 naive_dt = datetime.now()
                 aware_naive_dt = pytz.utc.localize(naive_dt)
@@ -322,38 +311,8 @@ def cccc(request):
     else:
         return render(request, 'cccc.html')            
 def assignment(request):
-    if request.user.is_authenticated:
-        sample_assignments = {
-            "Python": [
-                "Assignment 1",
-                "Learn the basics of Python programming.",
-                "2024-08-01"
-            ],
-            "Django": [
-                "Assignment 2",
-                "Build a simple Django application.",
-                "2024-08-15"
-            ],
-            "JavaScript": [
-                "Assignment 3",
-                "Create a dynamic web page using JavaScript.",
-                "2024-08-20"
-            ]
-        }
-
-        courses = sample_assignments.keys()
-        
-        # Convert the dictionary to a JSON string
-        assignments_json = json.dumps(sample_assignments)
-        
-        return render(request, 'courses.html', {
-            'name': "Student Name",
-            'courses': courses,
-            'assignments': assignments_json
-        })
-    else:
-        return redirect('login_student')
-''' username = request.user.username
+    if request.method == 'POST': 
+        username = request.user.username
         StdProfile = StudentProfile.objects.get(Studentname=username)
         courses = StdProfile.course_taken.split(",")
         AssignmentHaruBhako = {}
@@ -370,9 +329,9 @@ def assignment(request):
                 assignments.assignment_description,
                 assignments.due_date.strftime('%Y-%m-%d')  # Ensure date is JSON serializable
             ]
-       '''    
+           
         # Convert the dictionary to a JSON string
-'''  assignments_json = json.dumps(AssignmentHaruBhako)
+        assignments_json = json.dumps(AssignmentHaruBhako)
         
         return render(request, 'courses.html', {
             'name': StdProfile.Studentname,
@@ -380,7 +339,7 @@ def assignment(request):
             'assignments': assignments_json
         })
     else:
-        return redirect('login_student')'''
+        return redirect('login_student')
 def course_listing(request, category):
     try:
         # Fetch courses that match the given category
@@ -493,3 +452,22 @@ def changeDetail(request):
 def logout(request):
     auth.logout(request)
     return redirect ("/")
+
+
+def teacher_assignment(request):
+    sample_assignments = {
+        "Python": [
+            ["Assignment 1", "Learn the basics of Python programming.", "2024-08-01", "yes", "hello my name is this "]
+
+        ],
+        "Django": [
+            ["Assignment 2",
+             "Build a simple Django application.",
+             "2024-08-15"]
+        ],
+        "JavaScript": [
+            ["Assignment 3",
+             "Create a dynamic web page using JavaScript.",
+             "2024-08-20"]
+        ]}
+    

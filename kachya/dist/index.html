@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="wireframe" class="font-sans">
-  {%load static%}
+{%load static%}
 
 <head>
   <meta charset="UTF-8">
@@ -10,7 +10,7 @@
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- css -->
-    <link rel="stylesheet" href="{%static 'style.css' %}">
+  <link rel="stylesheet" href="{%static 'style.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Krub:wght@300;400;700&display=swap"
     rel="stylesheet">
 
@@ -46,11 +46,13 @@
         <div class="cursor-pointer hover:text-blue-600">About Us</div>
         <div class="cursor-pointer hover:text-blue-600">Teach on Kachya</div>
         <div class="space-x-1">
-          <button
-            class="btn btn-outline px-5 border-blue-500 text-blue-500 hover:bg-gray-200 hover:text-blue-500 hover:border-blue-500 rounded-xl">Login</button>
-          <button
+        <a href="login_student"> <button class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Login</button></a>
+
+
+        <a href="SignUpStudent">
+      <button
             class="btn btn-active px-4 border-transparent bg-blue-500 text-white hover:bg-blue-600 rounded-xl">Sign
-            up</button>
+            up</button></a>
         </div>
       </div>
     </div>
@@ -144,48 +146,48 @@
     <p class="text-xl text-blue-400 mt-8 font-light">Categories
     </p>
     <h1 class="text-5xl mt-5 ">Online <span class="text-blue-500">Classes</span> For Remote Learning</h1>
-   {%for cate,no in course_categories%}
     <div class="flex flex-row mt-16 space-x-14 items-center max-w-fit justify-center mb-8">
+      {%for cate,no in category_counts%}
 
       <div
-      class="card bg-base-100 w-72 hover:bg-blue-300 group shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        class="card bg-base-100 w-72 hover:bg-blue-300 group shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        <figure class="px-10 pt-10">
 
-      <figure class="px-10 pt-10">
+          <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 group-hover:bg-white ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+              stroke="#6cab9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-binary ">
+              <rect x="14" y="14" width="4" height="6" rx="2" />
+              <rect x="6" y="4" width="4" height="6" rx="2" />
+              <path d="M6 20h4" />
+              <path d="M14 10h4" />
+              <path d="M6 14h2v6" />
+              <path d="M14 4h2v6" />
+            </svg>
+          </div>
+        </figure>
 
-        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gray-200 group-hover:bg-white ">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-            stroke="#6cab9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-binary ">
-            <rect x="14" y="14" width="4" height="6" rx="2" />
-            <rect x="6" y="4" width="4" height="6" rx="2" />
-            <path d="M6 20h4" />
-            <path d="M14 10h4" />
-            <path d="M6 14h2v6" />
-            <path d="M14 4h2v6" />
-          </svg>
-        </div>
-      </figure>
-
-      <div class="card-body items-center text-center">
-        <h2 class="card-title group-hover:text-white">{{cate}}</h2>
-        <p class="group-hover:text-white text-gray-600 font-krub">Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit.
-          Integer nec odio.
-          Praesent libero.</p>
-        <div class="card-actions">
-          <button
-            class="btn btn-primary bg-grey-200 border-transparent rounded-xl hover:bg-blue-300 hover:text-white font-light">{{no}}
-            Courses</button>
+        <div class="card-body items-center text-center">
+          <h2 class="card-title group-hover:text-white">{{cate}}</h2>
+          <p class="group-hover:text-white text-gray-600 font-krub">Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit.
+            Integer nec odio.
+            Praesent libero.</p>
+          <div class="card-actions">
+            <button
+              class="btn btn-primary bg-grey-200 border-transparent rounded-xl hover:bg-blue-300 hover:text-white font-light">{{no}}
+              Courses</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    {%endfor%}
+      {%endfor%}
 
     </div>
 
     <button
-              class="btn btn-primary bg-grey-200 border-transparent hover:border-transparent rounded-xl mb-8 hover:bg-blue-300 hover:text-white font-light">All Categories</button>
+      class="btn btn-primary bg-grey-200 border-transparent hover:border-transparent rounded-xl mb-8 hover:bg-blue-300 hover:text-white font-light">All
+      Categories</button>
   </div>
 
   <!-- breaker -->
@@ -193,7 +195,8 @@
     <div class="relative w-[90%] bg-blue-400 rounded-xl flex flex-row ">
       <div class="w-[60%] pl-28 pt-16 max-w-full mb-16">
         <h1 class="text-5xl  text-white">A vibtrant e-learning platform to boost you</h1>
-        <p class="text-xl pt-10 text-white font-krub">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
+        <p class="text-xl pt-10 text-white font-krub">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Repellendus
           cumque facere dolore voluptatum, dicta cum. Possimus placeat ipsa reiciendis aspernatur eos soluta vero
           dolore, repudiandae quibusdam quam. Esse, temporibus nesciunt.</p>
         <button
@@ -217,7 +220,7 @@
     <section
       class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
 
-     {%for course,cat,lv in course_details%}
+      {%for course,cat,lv in course_details%}
       <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
         <a href="#">
           <img
@@ -237,7 +240,7 @@
             <div class="flex items-center">
               <p class="text-lg text-black cursor-auto my-3 font-krub">$149</p>
               <del>
-                <p class="text-sm text-gray-600 cursor-auto ml-2 font-krub" >$199</p>
+                <p class="text-sm text-gray-600 cursor-auto ml-2 font-krub">$199</p>
               </del>
 
             </div>
@@ -252,7 +255,7 @@
             </div>
           </div>
         </a>
-      </div>      
+      </div>
       {%endfor%}
 
 
@@ -274,7 +277,7 @@
 
               <input id="article-01" type="radio" name="slider" class="sr-only peer/01" checked>
               <input id="article-02" type="radio" name="slider" class="sr-only peer/02">
-              <input id="article-03" type="radio" name="slider" class="sr-only peer/03" >
+              <input id="article-03" type="radio" name="slider" class="sr-only peer/03">
               <input id="article-04" type="radio" name="slider" class="sr-only peer/04">
               <input id="article-05" type="radio" name="slider" class="sr-only peer/05">
 
@@ -346,30 +349,30 @@
                   ">
                 <label class="absolute inset-0" for="article-02"><span class="sr-only">Focus on the big
                     picture</span></label>
-                    <article class="bg-white p-6 rounded-xl shadow-2xl">
-                      <header class="mb-2">
-                        <h1 class="text-xl ">Focus on the big picture</h1>
-                      </header>
-                      <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
-                        <p>
-                          Many desktop publishing packages and web page editors now use Pinky as their default model text,
-                          and
-                          a search for more variants will uncover many web sites still in their infancy.
-                        </p>
-                        <p>
-                          All the generators tend to repeat predefined chunks as necessary, making this the first true
-                          generator on the Internet.
-                        </p>
+                <article class="bg-white p-6 rounded-xl shadow-2xl">
+                  <header class="mb-2">
+                    <h1 class="text-xl ">Focus on the big picture</h1>
+                  </header>
+                  <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
+                    <p>
+                      Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                      and
+                      a search for more variants will uncover many web sites still in their infancy.
+                    </p>
+                    <p>
+                      All the generators tend to repeat predefined chunks as necessary, making this the first true
+                      generator on the Internet.
+                    </p>
+                  </div>
+                  <footer class="text-right font-krub">
+                    <div class="avatar">
+                      <div class="w-12 rounded-full">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                       </div>
-                      <footer class="text-right font-krub">
-                        <div class="avatar">
-                          <div class="w-12 rounded-full">
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                          </div>
-                        </div>
-                        <p>Inap Maharjan</p>
-                      </footer>
-                    </article>
+                    </div>
+                    <p>Inap Maharjan</p>
+                  </footer>
+                </article>
               </div>
 
               <div class="
@@ -394,30 +397,30 @@
                   ">
                 <label class="absolute inset-0" for="article-03"><span class="sr-only">Focus on the big
                     picture</span></label>
-                    <article class="bg-white p-6 rounded-xl shadow-2xl">
-                      <header class="mb-2">
-                        <h1 class="text-xl ">Focus on the big picture</h1>
-                      </header>
-                      <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
-                        <p>
-                          Many desktop publishing packages and web page editors now use Pinky as their default model text,
-                          and
-                          a search for more variants will uncover many web sites still in their infancy.
-                        </p>
-                        <p>
-                          All the generators tend to repeat predefined chunks as necessary, making this the first true
-                          generator on the Internet.
-                        </p>
+                <article class="bg-white p-6 rounded-xl shadow-2xl">
+                  <header class="mb-2">
+                    <h1 class="text-xl ">Focus on the big picture</h1>
+                  </header>
+                  <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
+                    <p>
+                      Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                      and
+                      a search for more variants will uncover many web sites still in their infancy.
+                    </p>
+                    <p>
+                      All the generators tend to repeat predefined chunks as necessary, making this the first true
+                      generator on the Internet.
+                    </p>
+                  </div>
+                  <footer class="text-right font-krub">
+                    <div class="avatar">
+                      <div class="w-12 rounded-full">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                       </div>
-                      <footer class="text-right font-krub">
-                        <div class="avatar">
-                          <div class="w-12 rounded-full">
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                          </div>
-                        </div>
-                        <p>Inap Maharjan</p>
-                      </footer>
-                    </article>
+                    </div>
+                    <p>Inap Maharjan</p>
+                  </footer>
+                </article>
               </div>
 
               <div class="
@@ -447,30 +450,30 @@
                   ">
                 <label class="absolute inset-0" for="article-04"><span class="sr-only">Focus on the big
                     picture</span></label>
-                    <article class="bg-white p-6 rounded-xl shadow-2xl">
-                      <header class="mb-2">
-                        <h1 class="text-xl ">Focus on the big picture</h1>
-                      </header>
-                      <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
-                        <p>
-                          Many desktop publishing packages and web page editors now use Pinky as their default model text,
-                          and
-                          a search for more variants will uncover many web sites still in their infancy.
-                        </p>
-                        <p>
-                          All the generators tend to repeat predefined chunks as necessary, making this the first true
-                          generator on the Internet.
-                        </p>
+                <article class="bg-white p-6 rounded-xl shadow-2xl">
+                  <header class="mb-2">
+                    <h1 class="text-xl ">Focus on the big picture</h1>
+                  </header>
+                  <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
+                    <p>
+                      Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                      and
+                      a search for more variants will uncover many web sites still in their infancy.
+                    </p>
+                    <p>
+                      All the generators tend to repeat predefined chunks as necessary, making this the first true
+                      generator on the Internet.
+                    </p>
+                  </div>
+                  <footer class="text-right font-krub">
+                    <div class="avatar">
+                      <div class="w-12 rounded-full">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                       </div>
-                      <footer class="text-right font-krub">
-                        <div class="avatar">
-                          <div class="w-12 rounded-full">
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                          </div>
-                        </div>
-                        <p>Inap Maharjan</p>
-                      </footer>
-                    </article>
+                    </div>
+                    <p>Inap Maharjan</p>
+                  </footer>
+                </article>
               </div>
 
               <div class="
@@ -493,30 +496,30 @@
                   ">
                 <label class="absolute inset-0" for="article-05"><span class="sr-only">Focus on the big
                     picture</span></label>
-                    <article class="bg-white p-6 rounded-xl shadow-2xl">
-                      <header class="mb-2">
-                        <h1 class="text-xl ">Focus on the big picture</h1>
-                      </header>
-                      <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
-                        <p>
-                          Many desktop publishing packages and web page editors now use Pinky as their default model text,
-                          and
-                          a search for more variants will uncover many web sites still in their infancy.
-                        </p>
-                        <p>
-                          All the generators tend to repeat predefined chunks as necessary, making this the first true
-                          generator on the Internet.
-                        </p>
+                <article class="bg-white p-6 rounded-xl shadow-2xl">
+                  <header class="mb-2">
+                    <h1 class="text-xl ">Focus on the big picture</h1>
+                  </header>
+                  <div class="text-sm leading-relaxed text-gray-600 space-y-4 mb-2 font-krub">
+                    <p>
+                      Many desktop publishing packages and web page editors now use Pinky as their default model text,
+                      and
+                      a search for more variants will uncover many web sites still in their infancy.
+                    </p>
+                    <p>
+                      All the generators tend to repeat predefined chunks as necessary, making this the first true
+                      generator on the Internet.
+                    </p>
+                  </div>
+                  <footer class="text-right font-krub">
+                    <div class="avatar">
+                      <div class="w-12 rounded-full">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                       </div>
-                      <footer class="text-right font-krub">
-                        <div class="avatar">
-                          <div class="w-12 rounded-full">
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                          </div>
-                        </div>
-                        <p>Inap Maharjan</p>
-                      </footer>
-                    </article>
+                    </div>
+                    <p>Inap Maharjan</p>
+                  </footer>
+                </article>
               </div>
             </div>
           </section>
@@ -532,7 +535,8 @@
       <p class="text-xl text-blue-400 font-light">Reviews</p>
       <h1 class="text-5xl my-5 text-right ">Some valuable <span class="text-blue-500">feedback</span> from our
         students</h1>
-      <p class="text-xl text-right text-gray-600 font-krub">Supposing so be resolving breakfast am or perfectly. It drew a
+      <p class="text-xl text-right text-gray-600 font-krub">Supposing so be resolving breakfast am or perfectly. It drew
+        a
         hill from me. Valley by oh twenty direct me so. Departure defective arranging rapturous did believe him all had
         supported. Family months lasted simple set nature vulgar him. Picture for attempt joy excited ten carried
         manners talking how.</p>
@@ -546,10 +550,12 @@
       <div class="max-w-2xl">
         <p class="text-xl text-blue-400 mr-32 mb-5 font-light">Our Team</p>
         <h2 class="text-3xl text-black sm:text-5xl">Meet our <span class="text-blue-500">Leadership</h2>
-        <p class="mt-5 text-lg leading-6 text-gray-600 font-krub">Libero fames augue nisl porttitor nisi, quis. Id ac elit odio
+        <p class="mt-5 text-lg leading-6 text-gray-600 font-krub">Libero fames augue nisl porttitor nisi, quis. Id ac
+          elit odio
           vitae elementum enim vitae ullamcorper suspendisse.</p>
       </div>
-      <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2 justify-center items-center">
+      <ul role="list"
+        class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2 justify-center items-center">
         <li class="flex justify-center items-center">
           <div class="flex items-center gap-x-6">
             <img class="h-24 w-24 rounded-full"
@@ -561,7 +567,7 @@
             </div>
           </div>
         </li>
-        
+
         <li class="flex justify-end items-center">
           <div class="flex items-center gap-x-6">
             <img class="h-24 w-24 rounded-full"
@@ -586,7 +592,7 @@
           </div>
         </li>
 
-        <li class="flex justify-end items-center"> 
+        <li class="flex justify-end items-center">
           <div class="flex items-center gap-x-6">
             <img class="h-24 w-24 rounded-full"
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
