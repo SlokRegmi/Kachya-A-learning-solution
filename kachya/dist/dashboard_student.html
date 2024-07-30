@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="{%static 'style.css' %}">
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Krub:wght@300;400;700&display=swap"
+  rel="stylesheet">
+
 
   <style>
     :root {
@@ -121,9 +125,9 @@
 
 <body class="flex bg-gray-100 min-h-screen" x-data="{panel:false, menu:false}">
 
-  <aside class="flex flex-col" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
+  <aside class="flex flex-col font-light" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
     <a href="#"
-      class="inline-flex items-center justify-center h-20 w-full bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
+      class="inline-flex items-center justify-center h-20 w-full bg-blue-500 hover:bg-blue-300 focus:bg-blue-500">
       Logo
     </a>
     <div class="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
@@ -140,27 +144,6 @@
             <rect width="7" height="5" x="3" y="16" rx="1" />
           </svg>
           <span class="ml-2" x-show="menu">Dashboard</span>
-        </a>
-        <a href="#"
-          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
-          :class="{'justify-start': menu, 'justify-center': menu == false}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-message-circle-question">
-            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-            <path d="M12 17h.01" />
-          </svg>
-          <span class="ml-2" x-show="menu">Questionnaire</span>
-        </a>
-        <a href="#"
-          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
-          :class="{'justify-start': menu, 'justify-center': menu == false}">
-          <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          <span class="ml-2" x-show="menu">Messages</span>
         </a>
         <a href="#"
           class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
@@ -218,7 +201,7 @@
   </button>
 
   <!-- Chat Box -->
-  <div id="chatBox" class="fixed bottom-0 right-5 w-80 bg-white shadow-lg rounded-t-lg chat-box z-50">
+  <div id="chatBox" class="fixed bottom-0 right-5 w-80 bg-white shadow-lg rounded-t-lg chat-box z-50 font-krub">
     <div class="p-4 border-b flex justify-between items-center">
       <h2 class="text-lg font-semibold">Chat with us</h2>
       <button id="closeButton" class="text-gray-500 focus:outline-none">&times;</button>
@@ -239,7 +222,12 @@
       <form action="" id="chatForm" class="flex items-center justify-center">
         <input id="chatInput" type="text" class="flex-1 border rounded-lg p-2 mr-2" placeholder="Type your message...">
         <button id="sendButton" class="bg-blue-500 text-white p-2 rounded-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-horizontal"><path d="m3 3 3 9-3 9 19-9Z"/><path d="M6 12h16"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-send-horizontal">
+            <path d="m3 3 3 9-3 9 19-9Z" />
+            <path d="M6 12h16" />
+          </svg>
         </button>
       </form>
     </div>
@@ -265,8 +253,8 @@
           @click="panel = !panel" @click.away="panel = false">
           <span class="sr-only">User Menu</span>
           <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            <span class="font-semibold">Slok Regmi</span>
-            <span class="text-sm text-gray-600">Student</span>
+            <span class="font-light">{{name}}</span>
+            <span class="text-sm text-gray-600 font-krub">{{role}}</span>
           </div>
           <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo"
@@ -278,10 +266,12 @@
               clip-rule="evenodd" />
           </svg>
         </button>
-        <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
-          <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+        <div class="absolute top-20 bg-white border rounded-md p-2 w-56 font-krub" x-show="panel" style="display:none">
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">
+            <form method="post" action="edit_profile">{%csrf_token%}<button type="submit">Profile</button></form>
+          </div>
           <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer">Logout</div>
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">  <form method="post" action="logout">{%csrf_token%}<button type="submit">LogOut</button></div>
         </div>
         <div class="border-l pl-3 ml-3 space-x-1">
           <button
@@ -303,12 +293,12 @@
     <main class="p-6 sm:p-10 space-y-6">
       <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
         <div class="mr-6">
-          <h1 class="text-4xl font-semibold mb-2">Hello Slok!</h1>
-          <h2 class="text-xl text-gray-400">Lets Learn Something New Today</h2>
+          <h1 class="text-4xl font-light mb-2">Hello {{name}}!</h1>
+          <h2 class="text-xl text-gray-400 font-krub">Lets Learn Something New Today</h2>
         </div>
-        <div class="flex flex-wrap items-start justify-end -mb-3">
+        <div class="flex flex-wrap items-start justify-end -mb-3 font-light">
           <button
-            class="inline-flex px-5 py-3 text-white bg-blue-500 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
+            class="inline-flex px-5 py-3 text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 rounded-md ml-6 mb-3">
             <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"
               class="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -318,6 +308,21 @@
         </div>
       </div>
       <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        
+        <div class="flex items-center p-8 bg-white shadow rounded-lg">
+          <div
+            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-2xl font-bold">83%</span>
+            <form  action="assignment">{%csrf_token%}<button type="submit " class="font-krub">Completed Assignment</button></form>
+          </div>
+        </div>
+
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
           <div
             class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
@@ -330,23 +335,14 @@
             </svg>
           </div>
           <div>
-            <span class="block text-2xl font-bold">12</span>
-            <span class="block text-gray-500">Active Tasks</span>
+            <span class="block text-2xl font-bold">{{noofassignments}}</span>
+            <span class="block text-gray-500">
+              <form  action="assignment">{%csrf_token%}<button type="submit" class="font-krub">Active Tasks</button></form>
+            </span>
           </div>
         </div>
-        <div class="flex items-center p-8 bg-white shadow rounded-lg">
-          <div
-            class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
-            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-          </div>
-          <div>
-            <span class="block text-2xl font-bold">83%</span>
-            <span class="block text-gray-500">Finished Assignments</span>
-          </div>
-        </div>
+
+
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
           <div
             class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
@@ -363,7 +359,7 @@
           </div>
           <div class="mr-16">
             <span class="inline-block text-2xl font-bold">9</span>
-            <span class="block text-gray-500">Upcoming Deadlines</span>
+            <span class="block text-gray-500 font-krub">Upcoming Deadlines</span>
           </div>
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -389,7 +385,7 @@
       <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
         <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg overflow-hidden">
           <div class="px-6 py-5 font-semibold border-b border-gray-100">Calender</div>
-          <div class="p-4 flex-grow flex items-center justify-center">
+          <div class="p-4 flex-grow flex items-center justify-center font-light">
             <div class="graph text-sm">
               <ul class="months">
                 <li>Jan</li>
@@ -420,13 +416,15 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row-span-3 bg-white shadow rounded-lg">
           <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
             <span>Your Courses</span>
           </div>
           <div class="overflow-y-auto" style="max-height: 24rem;">
             <ul class="p-6 space-y-6">
+
+              {%for coursesname in courses%}
               <li class="flex items-center">
                 <div
                   class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
@@ -437,80 +435,15 @@
                     <polyline points="8 6 2 12 8 18" />
                   </svg>
                 </div>
-                <span class="text-black text-xl ">HTML and CSS</span>
+                <span class="text-black text-xl font-light">{{coursesname}}</span>
                 <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
                   70%</div>
               </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-400 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Python</span>
-                <div class="radial-progress ml-auto text-blue-400" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-300 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Java</span>
-                <div class="radial-progress ml-auto text-blue-300" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">HTML and CSS</span>
-                <div class="radial-progress ml-auto text-blue-500" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-400 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Python</span>
-                <div class="radial-progress ml-auto text-blue-400" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
-              <li class="flex items-center">
-                <div
-                  class="inline-flex flex-shrink-0 items-center justify-center h-12 w-12 bg-blue-300 text-white rounded-full mr-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-code">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                  </svg>
-                </div>
-                <span class="text-black text-xl ">Java</span>
-                <div class="radial-progress ml-auto text-blue-300" style="--size:3rem; --value:70;" role="progressbar">
-                  70%</div>
-              </li>
+              {%endfor%}
+
+
+
+
 
 
 
@@ -522,113 +455,113 @@
         <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
           <div class="px-6 py-5 font-semibold border-b border-gray-100">Notice Board</div>
           <div class="overflow-y-auto" style="max-height: 24rem;">
-              <ul class="p-6 space-y-6">
-                  <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
-                      onclick="my_modal_5.showModal()">
+            <ul class="p-6 space-y-6">
+              <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
+                onclick="my_modal_5.showModal()">
 
-                      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-                          <div class="modal-box">
-                              <h3 class="text-lg font-bold">Classes to be canceled</h3>
-                              <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                                  odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
-                                  sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
-                              <div class="flex justify-end">
-                                  <span class="text-gray-400 text-sm">28 Feb, 2024</span>
-                              </div>
-                              <div class="modal-action">
-                                  <form method="dialog">
-                                      <button
-                                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
-                                  </form>
-                              </div>
-                          </div>
-                      </dialog>
-                      <div class="flex flex-col">
-                          <span class="text-black text-xl ">Classes to be canceled</span>
-                          <span class="text-gray-400 text-sm">28 Feb, 2024</span>
-                      </div>
-                      <div class="ml-auto group-hover:text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" class="lucide lucide-chevron-right">
-                              <path d="m9 18 6-6-6-6" />
-                          </svg>
-                      </div>
-                  </li>
+                <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Classes to be canceled</h3>
+                    <p class="py-4 font-krub">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                      odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
+                      sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
+                    <div class="flex justify-end">
+                      <span class="text-gray-400 text-sm font-krub">28 Feb, 2024</span>
+                    </div>
+                    <div class="modal-action">
+                      <form method="dialog">
+                        <button
+                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <div class="flex flex-col">
+                  <span class="text-black text-xl ">Classes to be canceled</span>
+                  <span class="text-gray-400 text-sm font-krub">28 Feb, 2024</span>
+                </div>
+                <div class="ml-auto group-hover:text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </li>
 
-                  <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
-                      onclick="my_modal_5_1.showModal()">
+              <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
+                onclick="my_modal_5_1.showModal()">
 
-                      <dialog id="my_modal_5_1" class="modal modal-bottom sm:modal-middle">
-                          <div class="modal-box">
-                              <h3 class="text-lg font-bold">Holiday</h3>
-                              <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                                  odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
-                                  sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
-                              <div class="flex justify-end">
-                                  <span class="text-gray-400 text-sm">21 Feb, 2024</span>
-                              </div>
-                              <div class="modal-action">
-                                  <form method="dialog">
-                                      <button
-                                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
-                                  </form>
-                              </div>
-                          </div>
-                      </dialog>
-                      <div class="flex flex-col">
-                          <span class="text-black text-xl ">Holiday</span>
-                          <span class="text-gray-400 text-sm">21 Feb, 2024</span>
-                      </div>
-                      <div class="ml-auto group-hover:text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" class="lucide lucide-chevron-right">
-                              <path d="m9 18 6-6-6-6" />
-                          </svg>
-                      </div>
-                  </li>
+                <dialog id="my_modal_5_1" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Holiday</h3>
+                    <p class="py-4 font-krub">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                      odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
+                      sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
+                    <div class="flex justify-end">
+                      <span class="text-gray-400 text-sm font-krub">21 Feb, 2024</span>
+                    </div>
+                    <div class="modal-action">
+                      <form method="dialog">
+                        <button
+                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <div class="flex flex-col">
+                  <span class="text-black text-xl ">Holiday</span>
+                  <span class="text-gray-400 text-sm font-krub">21 Feb, 2024</span>
+                </div>
+                <div class="ml-auto group-hover:text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </li>
 
-                  <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
-                      onclick="my_modal_5_2.showModal()">
+              <li class="flex flex-row justify-center items-center hover:cursor-pointer group"
+                onclick="my_modal_5_2.showModal()">
 
-                      <dialog id="my_modal_5_2" class="modal modal-bottom sm:modal-middle">
-                          <div class="modal-box">
-                              <h3 class="text-lg font-bold">Classes Postponed</h3>
-                              <p class="py-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                                  odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
-                                  sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
-                              <div class="flex justify-end">
-                                  <span class="text-gray-400 text-sm">22 Feb, 2024</span>
-                              </div>
-                              <div class="modal-action">
-                                  <form method="dialog">
-                                      <button
-                                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
-                                  </form>
-                              </div>
-                          </div>
-                      </dialog>
-                      <div class="flex flex-col">
-                          <span class="text-black text-xl ">Classes Postponed</span>
-                          <span class="text-gray-400 text-sm">22 Feb, 2024</span>
-                      </div>
-                      <div class="ml-auto group-hover:text-gray-400">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" class="lucide lucide-chevron-right">
-                              <path d="m9 18 6-6-6-6" />
-                          </svg>
-                      </div>
-                  </li>
-
-
+                <dialog id="my_modal_5_2" class="modal modal-bottom sm:modal-middle">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Classes Postponed</h3>
+                    <p class="py-4 font-krub">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                      odio totam consequatur autem aut similique sunt facilis eaque maxime odit,
+                      sapiente at. Quaerat totam similique ipsam ut aspernatur! Sint, qui!</p>
+                    <div class="flex justify-end">
+                      <span class="text-gray-400 text-sm font-krub">22 Feb, 2024</span>
+                    </div>
+                    <div class="modal-action">
+                      <form method="dialog">
+                        <button
+                          class="btn btn-outline px-5 hover:bg-gray-200 hover:text-black rounded-lg">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+                <div class="flex flex-col">
+                  <span class="text-black text-xl ">Classes Postponed</span>
+                  <span class="text-gray-400 text-sm font-krub">22 Feb, 2024</span>
+                </div>
+                <div class="ml-auto group-hover:text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </li>
 
 
-              </ul>
+
+
+            </ul>
           </div>
-      </div>
-        
+        </div>
+
         <div class="flex flex-col row-span-2 bg-white shadow rounded-lg">
           <div class="px-6 py-5 font-semibold border-b border-gray-100">Number of Assignments Completed</div>
           <div class="p-4 flex-grow flex items-center justify-center w-full h-full">
@@ -648,8 +581,8 @@
             </svg>
           </div>
           <div>
-            <span class="block text-2xl font-bold">25</span>
-            <span class="block text-gray-500">Courses Subscribed</span>
+            <span class="block text-2xl font-bold">{{noofcourses}}</span>
+            <span class="block text-gray-500 font-krub">Courses Subscribed</span>
           </div>
         </div>
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -662,10 +595,10 @@
           </div>
           <div>
             <span class="block text-2xl font-bold">139</span>
-            <span class="block text-gray-500">Hours spent on learning</span>
+            <span class="block text-gray-500 font-krub">Hours spent on learning</span>
           </div>
         </div>
-        
+
       </section>
     </main>
   </div>
@@ -677,8 +610,8 @@
     const level = Math.floor(Math.random() * 3);
     squares.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
   }
-  
-  
+
+
   const ctx = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'bar',
@@ -785,22 +718,37 @@
 
       // Simulate bot response
       setTimeout(function () {
-        const botMessageElement = document.createElement('div');
-        botMessageElement.classList.add('p-2', 'rounded-lg', 'bg-gray-200', 'text-black', 'max-w-xs', 'break-words');
+        console.log(message);
 
-        const botMessageContainer = document.createElement('div');
-        botMessageContainer.classList.add('flex', 'items-start', 'space-x-2');
+        $.ajax({
+          url: '{% url "chat" %}',
+          method: 'POST',
+          data: {
+            'message': message,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function (response) {
 
-        const avatarElement = document.createElement('img');
-        avatarElement.src = "https://via.placeholder.com/30";
-        avatarElement.alt = "Avatar";
-        avatarElement.classList.add('w-8', 'h-8', 'rounded-full');
+            const botMessageElement = document.createElement('div');
+            botMessageElement.classList.add('p-2', 'rounded-lg', 'bg-gray-200', 'text-black', 'max-w-xs', 'break-words');
 
-        botMessageElement.textContent = "This is a simulated bot response. This response is long enough to demonstrate how text will wrap inside the chat bubble.";
+            const botMessageContainer = document.createElement('div');
+            botMessageContainer.classList.add('flex', 'items-start', 'space-x-2');
 
-        botMessageContainer.appendChild(avatarElement);
-        botMessageContainer.appendChild(botMessageElement);
-        document.getElementById('messages').appendChild(botMessageContainer);
+            const avatarElement = document.createElement('img');
+            avatarElement.src = "https://via.placeholder.com/30";
+            avatarElement.alt = "Avatar";
+            avatarElement.classList.add('w-8', 'h-8', 'rounded-full');
+
+            botMessageElement.textContent = response.reply;
+
+            botMessageContainer.appendChild(avatarElement);
+            botMessageContainer.appendChild(botMessageElement);
+            document.getElementById('messages').appendChild(botMessageContainer);
+          }
+        });
+
+
       }, 1000);
 
       // Scroll to the bottom of the chat
