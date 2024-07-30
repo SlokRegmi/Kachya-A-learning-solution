@@ -256,8 +256,9 @@
         </div>
       </div>
     </div>
-
-
+{%for course in courses%}
+    <h2>{{assessmnet}}</h2>
+{%endfor%}
     <!-- <div class="mt-4">
               <h4 class="font-semibold">Teacher's Remark</h4>
               <div class="p-4 bg-gray-100 rounded-lg">
@@ -309,6 +310,7 @@
     // Parse the JSON data safely
     var sampleAssignments = JSON.parse('{{ assignments|escapejs }}');
     console.log(sampleAssignments);
+    
 
     function dashboard() {
         return {

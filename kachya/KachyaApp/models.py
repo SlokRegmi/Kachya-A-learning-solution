@@ -2,17 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date, datetime
 
-class StudentProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=100, null=True)
-    Studentname = models.CharField(max_length=100, null=True)
-    StudentEmail = models.EmailField(max_length=100, null=True)
-    StudentPassword = models.CharField(max_length=100, null=True)
-    course_taken = models.CharField(max_length=100, null=True)
-    assignment_completed = models.CharField(max_length=100, null=True)
 
-    def __str__(self):
-        return self.Studentname
 
 class TeacherProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -48,6 +38,7 @@ class Course(models.Model):
     teacher_teaching = models.CharField(max_length=100, null=True)
     course_requirement = models.TextField(null=True)
     course_small_description = models.TextField(null=True)
+    zoom_link = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.course_name
@@ -60,6 +51,10 @@ class Assignment(models.Model):
     course_name = models.CharField(max_length=100, null=True)
     due_date = models.DateField(null=True)
     assignment_file = models.FileField(upload_to='assignments/', blank=True, null=True)
+    submitted = models.BooleanField(null=True)
+    remarks = models.TextField(null=True)
+    teacher_id = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.assignment_name
@@ -70,3 +65,18 @@ class Assignment(models.Model):
             'course_id': self.course_id,
             'due_date': self.due_date.strftime('%Y-%m-%d %H:%M:%S') if self.due_date else None,
         }
+    
+
+
+class StudentProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=100, null=True)
+    Studentname = models.CharField(max_length=100, null=True)
+    StudentEmail = models.EmailField(max_length=100, null=True)
+    StudentPassword = models.CharField(max_length=100, null=True)
+    course_taken = models.CharField(max_length=100, null=True)
+    assignment_completed = models.CharField(max_length=100, null=True)
+    course_id = models.ForeignKey(Course,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.Studentname

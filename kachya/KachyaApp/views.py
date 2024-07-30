@@ -29,18 +29,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
 def index(request):
-    course_ids = list(Course.objects.values_list('course_id', flat=True))
-    random_ids = random.sample(course_ids, min(len(course_ids), 4)) 
-    courses = Course.objects.filter(course_id__in=random_ids)
-    course_details = courses.values_list('course_name', 'course_category','course_live')
-    category_counts_queryset = Course.objects.values('course_category').annotate(count=Count('course_id'))
-    category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset] 
-    context = {
-        'course_details': course_details,
-        'category_counts': category_counts,
-    }
+    # course_ids = list(Course.objects.values_list('course_id', flat=True))
+    # random_ids = random.sample(course_ids, min(len(course_ids), 4)) 
+    # courses = Course.objects.filter(course_id__in=random_ids)
+    # course_details = courses.values_list('course_name', 'course_category','course_live')
+    # category_counts_queryset = Course.objects.values('course_category').annotate(count=Count('course_id'))
+    # category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset] 
+    # context = {
+    #     'course_details': course_details,
+    #     'category_counts': category_counts,
+    # }
     
-    return render(request, 'index.html', context)
+    # return render(request, 'index.html', context)
+   return render(request, 'login_student.html')
 def login_student(request):
     if request.method == 'POST':
         username = request.POST.get('email_login_student')
@@ -311,35 +312,62 @@ def cccc(request):
     else:
         return render(request, 'cccc.html')            
 def assignment(request):
-    if request.method == 'POST': 
+    # sample_assignments = {
+    #     "Python": [
+    #         ["Assignment 1", "Learn the basics of Python programming.", "2024-08-01"],
+    #         ["Assignment 2", "Practice Python loops and conditions.", "2024-08-10"]
+    #     ],
+    #     "Django": [
+    #         ["Assignment 3", "Build a simple Django application.", "2024-08-15"]
+    #     ],
+    #     "JavaScript": [
+    #         ["Assignment 4", "Create a dynamic web page using JavaScript.", "2024-08-20"]
+    #     ]
+    # }
+    # context = {
+    #     'assignments': json.dumps(sample_assignments)
+    # }
+    # return render(request, 'courses.html', context)
         username = request.user.username
-        StdProfile = StudentProfile.objects.get(Studentname=username)
+        try:
+            StdProfile = StudentProfile.objects.get(username=username)
+        except StudentProfile.DoesNotExist:
+            return redirect('login_student')  # Redirect if student profile does not exist
+
         courses = StdProfile.course_taken.split(",")
         AssignmentHaruBhako = {}
-
+        assessments = {}
         for course in courses:
             try:
                 course_obj = Course.objects.get(course_name=course)
             except Course.DoesNotExist:
                 print(f"Course does not exist: {course}")
                 continue
-            assignments = Assignment.objects.get(course_name=course_obj.course_name)
+
+            assignments = Assignment.objects.filter(course_name=course_obj)
             AssignmentHaruBhako[course] = [
-                assignments.assignment_name,
-                assignments.assignment_description,
-                assignments.due_date.strftime('%Y-%m-%d')  # Ensure date is JSON serializable
+            [
+                assignment.assignment_name,
+                assignment.assignment_description,
+                assignment.due_date.strftime('%Y-%m-%d'),
+                assignment.submitted,
+                assignment.remarks,
+
             ]
-           
-        # Convert the dictionary to a JSON string
+            for assignment in assignments
+        ]
+            assessments[course] = AssignmentHaruBhako[course]
+    
+    # Convert the dictionary to a JSON string
         assignments_json = json.dumps(AssignmentHaruBhako)
-        
+    
         return render(request, 'courses.html', {
-            'name': StdProfile.Studentname,
-            'courses': courses,
-            'assignments': assignments_json
-        })
-    else:
-        return redirect('login_student')
+        'name': StdProfile.Studentname,
+        'courses': courses,
+        'assignments': assignments_json,
+        'assessments': assessments
+    })
+ 
 def course_listing(request, category):
     try:
         # Fetch courses that match the given category
@@ -455,19 +483,8 @@ def logout(request):
 
 
 def teacher_assignment(request):
-    sample_assignments = {
-        "Python": [
-            ["Assignment 1", "Learn the basics of Python programming.", "2024-08-01", "yes", "hello my name is this "]
-
-        ],
-        "Django": [
-            ["Assignment 2",
-             "Build a simple Django application.",
-             "2024-08-15"]
-        ],
-        "JavaScript": [
-            ["Assignment 3",
-             "Create a dynamic web page using JavaScript.",
-             "2024-08-20"]
-        ]}
+    studentlist = [    ]
+    username = request.user.username
+    Tusers = TeacherProfile.objects.get(username=username)
     
+    return render (request, 'teacher_assignment.html', {'studentlist': studentlist})
