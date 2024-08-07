@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="wireframe" class="font-sans">
-{%load static%}
+  {%load static%}
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Public Profile</title>
   <script src="//unpkg.com/alpinejs" defer></script>
-  <link rel="stylesheet" href="{%static 'style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Krub:wght@300;400;700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="{%static 'style.css' %}">
 
 </head>
 
 <body class="flex bg-gray-100 min-h-screen" x-data="{panel:false, menu:false}">
-  <aside class="flex flex-col" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
+  <aside class="flex flex-col font-light" :class="{'hidden sm:flex sm:flex-col': window.outerWidth > 768}">
     <a href="#"
-      class="inline-flex items-center justify-center h-20 w-full bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
+      class="inline-flex items-center justify-center h-20 w-full bg-blue-500 hover:bg-blue-300 focus:bg-blue-500">
       Logo
     </a>
     <div class="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
       <nav class="flex flex-col mx-4 my-6 space-y-4">
 
-        <a href="#" class="inline-flex items-center py-3 text-blue-600 bg-white rounded-xl px-2"
+        <a href="#" class="inline-flex items-center py-3 text-blue-600 bg-white rounded-lg px-2"
           :class="{'justify-start': menu, 'justify-center': menu == false}">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -32,28 +35,7 @@
           <span class="ml-2" x-show="menu">Dashboard</span>
         </a>
         <a href="#"
-          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
-          :class="{'justify-start': menu, 'justify-center': menu == false}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-message-circle-question">
-            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-            <path d="M12 17h.01" />
-          </svg>
-          <span class="ml-2" x-show="menu">Questionnaire</span>
-        </a>
-        <a href="#"
-          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
-          :class="{'justify-start': menu, 'justify-center': menu == false}">
-          <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          <span class="ml-2" x-show="menu">Messages</span>
-        </a>
-        <a href="#"
-          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
           :class="{'justify-start': menu, 'justify-center': menu == false}">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -68,7 +50,7 @@
           <span class="ml-2" x-show="menu">Courses</span>
         </a>
         <a href="#"
-          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-xl px-2"
+          class="inline-flex items-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg px-2"
           :class="{'justify-start': menu, 'justify-center': menu == false}">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -105,7 +87,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </div>
-      <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-xl">
+      <label class="input input-bordered items-center gap-2 hover:border-blue-600 hidden md:flex rounded-lg  ">
         <input type="text" class="grow focus:outline-none" placeholder="Search" />
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
           <path fill-rule="evenodd"
@@ -114,12 +96,12 @@
         </svg>
       </label>
       <div class="flex flex-shrink-0 items-center ml-auto">
-        <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-xl"
+        <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg"
           @click="panel = !panel" @click.away="panel = false">
           <span class="sr-only">User Menu</span>
           <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            <span class="font-semibold">{{name}}</span>
-            <span class="text-sm text-gray-600">{{role}}</span>
+            <span class="font-light">{{name}}</span>
+            <span class="text-sm text-gray-600 font-krub">{{role}}</span>
           </div>
           <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo"
@@ -131,8 +113,10 @@
               clip-rule="evenodd" />
           </svg>
         </button>
-        <div class="absolute top-20 bg-white border rounded-md p-2 w-56" x-show="panel" style="display:none">
-          <div class="p-2 hover:bg-blue-100 cursor-pointer">Profile</div>
+        <div class="absolute top-20 bg-white border rounded-md p-2 w-56 font-krub" x-show="panel" style="display:none">
+          <div class="p-2 hover:bg-blue-100 cursor-pointer">
+            <form method="post" action="edit_profile">{%csrf_token%}<button type="submit">Profile</button></form>
+          </div>
           <div class="p-2 hover:bg-blue-100 cursor-pointer">Messages</div>
           <div class="p-2 hover:bg-blue-100 cursor-pointer">  <form method="post" action="logout">{%csrf_token%}<button type="submit">LogOut</button></div>
         </div>
@@ -164,7 +148,7 @@
             <h2 class="font-bold text-lg">{{name}}</h2>
           </div>
         </div>
-        <ul class="menu p-0">
+        <ul class="menu p-0 font-krub">
           <li class="bg-gray-200 mb-1"><a href="#" class="block py-2 px-4 category-link" data-target="profile">Profile</a>
           </li>
           <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 category-link mb-1" data-target="privacy">Privacy</a></li>
@@ -182,21 +166,21 @@
           <form method="post" action="changeDetail">
             {%csrf_token%}
 
-          <div class="mb-4">
+          <div class="mb-4 font-krub">
               <label class="block text-gray-700 mb-2">Full Name</label>
               <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="{{name}}" name = "fname"id="fname">
             </div>
-            <div class="mb-4">
+            <div class="mb-4 font-krub">
               <label class="block text-gray-700 mb-2">Account</label>
               <input type="text" class="input input-bordered w-full rounded-xl disabled:bg-white disabled:text-gray-700 cursor-not-allowed " placeholder="Student" disabled>
             </div>
-            <div class="mb-4">
+            <div class="mb-4 font-krub">
               <label class="block text-gray-700 mb-2">Headline</label>
               <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600" placeholder="Headline">
               <small class="text-gray-500">Add a professional headline like, "Instructor at Kachya" or
                 "Architect."</small>
             </div>
-            <div class="mb-4">
+            <div class="mb-4 font-krub">
               <label class="block text-gray-700 mb-2">About</label>
               <textarea class="textarea textarea-bordered w-full rounded-xl hover:border-blue-600"></textarea>
               <small class="text-gray-500">Links and coupon codes are not permitted in this section.</small>
@@ -210,7 +194,7 @@
           <h1 class="text-2xl font-bold mb-4">Account Security</h1>
           <form method="post" action="changeDetail">
 {%csrf_token%}
-            <div class="mb-4">
+            <div class="mb-4 font-krub">
               <label class="block text-gray-700 mb-2">Email</label>
               <input type="text" class="input input-bordered w-full rounded-xl disabled:text-gray-700 " placeholder="{{email}}" name="email" id="email">
             </div>
@@ -219,7 +203,7 @@
       </form>
       <form method="post" action="changeDetail">
         {%csrf_token%}
-            <div class="mb-4">
+            <div class="mb-4 font-krub">
               <label class="block text-gray-700 mb-2">Password</label>
               <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600 mb-2" placeholder="Enter current password" name="opassword" id = "opassword">
               <input type="text" class="input input-bordered w-full rounded-xl hover:border-blue-600 mb-2" placeholder="Enter new password" name="npassword1" id = "npassword1">
@@ -235,7 +219,7 @@
         </div>
         <div id="privacy" class="content-section hidden">
           <h1 class="text-2xl font-bold mb-4">Privacy</h1>
-          <div class="flex mb-2">
+          <div class="flex mb-2 font-krub">
             <div class="form-control">
               <label class="label cursor-pointer flex items-center">
                 <input type="checkbox" checked="checked" class="checkbox mr-5" />
@@ -244,7 +228,7 @@
             </div>
           </div>
 
-          <div class="flex">
+          <div class="flex font-krub">
             <div class="form-control">
               <label class="label cursor-pointer flex items-center">
                 <input type="checkbox" checked="checked" class="checkbox mr-5" />

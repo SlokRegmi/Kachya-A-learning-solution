@@ -23,6 +23,7 @@ urlpatterns = [
     path('changeDetail', views.changeDetail, name='changeDetail'),
     path ('logout', views.logout, name='logout'),
     path('teacher_assignment', views.teacher_assignment, name='teacher_assignment'),
+    path('create_assignment', views.create_assignment, name='Assignment_Create'),
 
 
     ]

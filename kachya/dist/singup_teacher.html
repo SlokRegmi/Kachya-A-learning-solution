@@ -1,69 +1,114 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="wireframe">
+<html lang="en" data-theme="wireframe" class="font-sans">
+    {%load static%}
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sign Up Page</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="{%static 'style.css' %}">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Krub:wght@300;400;700&display=swap"
+        rel="stylesheet">
+        <style>
+        .placeholder-gray-500::placeholder {
+            color: #6B7280; /* Tailwind's gray-500 color */
+        }
 
+        .placeholder-size::placeholder {
+            font-size: 20px;
+            font-weight: 500; /* Example size, adjust as needed */
+        }
+
+        .border-none:focus {
+            outline: none; /* Remove the outline on focus */
+        }
+
+        .toggle-password {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
-<body>
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DaisyUI Registration Form Example</title>
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-
-    <body>
-        <div class="relative flex flex-col justify-center h-screen overflow-hidden">
-            <div class="w-full p-6 m-auto bg-white rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-xl">
-                <h1 class="text-3xl font-semibold text-center text-gray-700">Kachya</h1>
-                <form class="space-y-4" action="SignUpTeacher" method="post">
-                    {% csrf_token %}
-                    
-                    
-                            {% for message in messages %}
-                            <h5>{{message}}</h5>
-                            {%endfor%}
-                            
-                    <div>
-                        <label class="label">
-                            <span class="text-base label-text">Name</span>
-                        </label>
-                        <input type="text" name = "Teacher_Name"placeholder="Name" class="w-full input input-bordered" />
-                    </div>
-                    <div>
-                        <label class="label">
-                            <span class="text-base label-text">Email</span>
-                        </label>
-                        <input type="text" placeholder="Email Address" name="Teacher_Email" class="w-full input input-bordered" />
-                    </div>
-
-                    <label class="form-control w-full max-w-xs">
-                        <div class="label">
-                          <span class="label-text">Pick a file</span>
-                        </div>
-                        <input type="file" name="resume" class="file-input file-input-bordered w-full max-w-xs" />
-                      </label>
-                    <div>
-                        <button class="btn btn-block" type="submit">Sign Up</button>
-                    </div>
-                    <span>Already have an account ?
-                        <a href="login_student" class="text-blue-600 hover:text-blue-800 hover:underline">Login</a></span>
-                    </form>
+<body class="bg-gradient-to-r from-blue-300 to-blue-500 flex items-center justify-center h-screen">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-2xl overflow-hidden">
+        <!-- Right Side with Form -->
+        <div class="bg-white p-10">
+            <div class="flex justify-center mb-6">
+                <h1 class="text-4xl text-center font-light"> Become a instructor at <span class="bg-gradient-to-r from-blue-300 to-blue-500 text-transparent bg-clip-text">Kachya</span></h1>
             </div>
+            <div class="flex justify-center mb-6">
+                <span class="text-4xl">✛</span>
+            </div>
+            <h2 class="text-2xl font-light text-center mb-4">Create your account</h2>
+            <p class="text-center mb-8 text-gray-600 font-krub  ">Sign up to get started</p>
+            <form>
+                <div class="mb-4">
+                    <input type="text" id="fullname"
+                        class="w-full border-b-2 border-gray-300 bg-white transform transition focus:outline-none focus:border-blue-500 hover:scale-105 focus:scale-110 placeholder-gray-500 placeholder-size input-box font-krub"
+                        placeholder="Full Name">
+                </div>
+                <div class="mb-4">
+                    <input type="email" id="email"
+                        class="w-full border-b-2 border-gray-300 bg-white transform transition focus:outline-none focus:border-blue-500 hover:scale-105 focus:scale-110 placeholder-gray-500 placeholder-size input-box font-krub"
+                        placeholder="Email">
+                </div>
+                <label class="font-krub text-gray-600 ">CV</label>
+                <div class="mb-4">
+                    <input type="file" id="pdf"
+                        class="font-krub w-full border-b-2 border-gray-300 bg-white transform transition focus:outline-none focus:border-blue-500 hover:scale-105 focus:scale-110 placeholder-gray-500 placeholder-size input-box"
+                        accept="application/pdf">
+                </div>
+                <button type="submit"
+                    class="w-full px-4 py-2 mb-4 text-sm font-light text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-200">Sign
+                    Up</button>
+                <button type="button"
+                    class="w-full px-4 py-2 text-sm font-light text-black border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 flex items-center justify-center transition duration-200">
+                    <img src="https://img.icons8.com/color/16/000000/google-logo.png" class="mr-2"> Sign up with Google
+                </button>
+            </form>
+            <p class="mt-6 text-sm text-center text-gray-600 font-krub">Already have an account? <a href="#" class="text-blue-500 hover:underline font-bold">Log In</a></p>
         </div>
-    </body>
+    </div>
+    <script>
+        document.querySelectorAll('.input-box').forEach(input => {
+            input.addEventListener('mouseenter', () => {
+                input.style.transformOrigin = 'left';
+                input.style.width = '100%';
+                input.style.marginRight = '-10%';
+                input.style.marginLeft = '0';
+                input.style.borderBottomWidth = '0';
+            });
+            input.addEventListener('mouseleave', () => {
+                input.style.width = '100%';
+                input.style.marginRight = '0';
+                input.style.marginLeft = '0';
+                input.style.borderBottomWidth = '2px';
+                input.blur();
+            });
+        });
 
-    </html>
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                const input = e.target.closest('div').querySelector('input');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    e.target.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.477-10-10S6.477 0 12 0s10 4.477 10 10c0 1.23-.223 2.409-.63 3.507M13.121 13.121a3.5 3.5 0 01-4.95-4.95" />
+                    `;
+                } else {
+                    input.type = 'password';
+                    e.target.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm2.1 0a5.5 5.5 0 00-10.2 0A5.5 5.5 0 0017.1 12zm1.4 0A7 7 0 104.5 12 7 7 0 0018.5 12z" />
+                    `;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

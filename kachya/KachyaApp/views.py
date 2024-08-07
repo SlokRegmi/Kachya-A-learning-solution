@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User,auth
 from django.contrib.auth import authenticate, login, logout
-from KachyaApp.models import Assignment, Course, StudentProfile, TeacherProfile  
+from KachyaApp.models import Assignment, Course, StudentProfile, Submission, TeacherProfile  
 import google.generativeai as genai
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
@@ -29,19 +29,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
 def index(request):
-    # course_ids = list(Course.objects.values_list('course_id', flat=True))
-    # random_ids = random.sample(course_ids, min(len(course_ids), 4)) 
-    # courses = Course.objects.filter(course_id__in=random_ids)
-    # course_details = courses.values_list('course_name', 'course_category','course_live')
-    # category_counts_queryset = Course.objects.values('course_category').annotate(count=Count('course_id'))
-    # category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset] 
-    # context = {
-    #     'course_details': course_details,
-    #     'category_counts': category_counts,
-    # }
+    course_ids = list(Course.objects.values_list('course_id', flat=True))
+    random_ids = random.sample(course_ids, min(len(course_ids), 4)) 
+    courses = Course.objects.filter(course_id__in=random_ids)
+    course_details = courses.values_list('course_name', 'course_category','course_live')
+    category_counts_queryset = Course.objects.values('course_category').annotate(count=Count('course_id'))
+    category_counts = [[entry['course_category'], entry['count']] for entry in category_counts_queryset] 
+    context = {
+        'course_details': course_details,
+        'category_counts': category_counts,
+    }
     
-    # return render(request, 'index.html', context)
-   return render(request, 'login_student.html')
+    return render(request, 'index.html', context)
 def login_student(request):
     if request.method == 'POST':
         username = request.POST.get('email_login_student')
@@ -52,14 +51,15 @@ def login_student(request):
             auth.login(request, user)
             if TeacherProfile.objects.filter(user=user).exists():
                 usering = TeacherProfile.objects.get(user=user)
-                courseslist = usering.assgined_course.split(",")  # Update this line with the correct attribute name
-                classTime = usering.nextclassSchedule
-                naive_dt = datetime.now()
-                aware_naive_dt = pytz.utc.localize(naive_dt)
+                try:
+                    courseslist = usering.assgined_course.split(",")  # Update this line with the correct attribute name
+                    classTime = usering.nextclassSchedule
+                    naive_dt = datetime.now()
+                    aware_naive_dt = pytz.utc.localize(naive_dt)
 
-                if classTime is not None and aware_naive_dt < classTime:
-                    classing = classTime.strftime("%H:%M:%S")
-                    data = {
+                    if classTime is not None and aware_naive_dt < classTime:
+                        classing = classTime.strftime("%H:%M:%S")
+                        data = {
                         'username': usering.username,
                         'name': usering.Teachername,
                         'email': usering.TeacherEmail,
@@ -67,45 +67,57 @@ def login_student(request):
                         "nextclass": classing,
                         "is_today_class": "Today"
                     }
-                    return render(request, 'dashboard_teacher.html', data)
-                else:
-                    classing = classTime.strftime("%H:%M:%S") if classTime else "N/A"
-                    data = {
+                        return render(request, 'dashboard_teacher.html', data)
+                    else:
+                        classing = classTime.strftime("%H:%M:%S") if classTime else "N/A"
+                        data = {
                         'username': usering.username,
                         'name': usering.Teachername,
                         'email': usering.TeacherEmail,
                         'courses': courseslist,
                         "nextclass": classing,
                         "is_today_class": "tomorrow" if classTime else "N/A"
+                        }
+                        return render(request, 'dashboard_teacher.html', data)
+                except Exception as e:
+                    data = {
+                        'username': usering.username,
+                        'name': usering.Teachername,
+                        'email': usering.TeacherEmail,
+                        'courses': [],
+                        "nextclass": "N/A",
+                        "is_today_class": "N/A"
                     }
                     return render(request, 'dashboard_teacher.html', data)
+            
             elif StudentProfile.objects.filter(user=user).exists():
-                susering = StudentProfile.objects.get(user=user)
-                courseslist = susering.course_taken.split(",")
-                name = susering.Studentname
-                noofcourses = len(courseslist)
-                course_id = []
-                for course in courseslist:
-                    try:
-                        course_obj = Course.objects.get(course_name=course)
-                        course_id.append(course_obj.course_id)
-                    except Course.DoesNotExist:
-                        print(f"Course does not exist: {course}")
-                        continue
-                assignments = []
                 try:
-                    for course in course_id:
-                        assigns = Assignment.objects.filter(course_id=course)
-                        for assign in assigns:
-                            if assign.due_date is not None and assign.due_date < timezone.now():
-                                assignments.append(assign)
-                except Exception as e:
-                    print(f"Error fetching assignments: {e}")
+                    susering = StudentProfile.objects.get(user=user)
+                    courseslist = susering.course_taken.split(",")
+                    name = susering.Studentname
+                    noofcourses = len(courseslist)
+                    course_id = []
+                    for course in courseslist:
+                        try:
+                            course_obj = Course.objects.get(course_name=course)
+                            course_id.append(course_obj.course_id)
+                        except Course.DoesNotExist:
+                            print(f"Course does not exist: {course}")
+                            continue
+                    assignments = []
+                    try:
+                        for course in course_id:
+                            assigns = Assignment.objects.filter(course_id=course)
+                            for assign in assigns:
+                                if assign.due_date is not None and assign.due_date < timezone.now():
+                                    assignments.append(assign)
+                    except Exception as e:
+                        print(f"Error fetching assignments: {e}")
 
-                noofassignments = len(assignments)
+                    noofassignments = len(assignments)
 
                 # Set session data for the student
-                data = {
+                    data = {
                     'name': name,
                     'courses': courseslist,
                     "role": "Student",
@@ -113,10 +125,20 @@ def login_student(request):
                     "assignments": [assignment.to_dict() for assignment in assignments],  # Convert assignments to a serializable format
                     "noofassignments": noofassignments
                 }
-                return render(request,'dashboard_student.html',data)
+                    return render(request,'dashboard_student.html',data)
+                except Exception as e:
+                    data = {
+                    'name': susering.Studentname,
+                    'courses': [],
+                    "role": "Student",
+                    "noofcourses": 0,
+                    "assignments": [],
+                    "noofassignments": 0
+                }
+                    return render(request, 'dashboard_student.html', data)
             else:
-                messages.info(request, 'Profile not found')
-                return redirect('login_student')
+                    messages.info(request, 'Profile not found')
+                    return redirect('login_student')
         else:
             messages.info(request, 'Invalid Credentials')
             return redirect('login_student')
@@ -130,6 +152,7 @@ def SignUpStudent(request):
         student_email = request.POST.get('Student_Email')
         student_password1 = request.POST.get('Student_Password1')
         student_password2 = request.POST.get('Student_Password2')
+        student_username = student_name.replace(" ", "").lower()
 
         if student_password1 == student_password2:
             if StudentProfile.objects.filter(StudentEmail=student_email).exists():
@@ -137,9 +160,9 @@ def SignUpStudent(request):
                 return redirect('SignUpStudent')
             else:
                 try:
-                    user = User.objects.create_user(username=student_name, email=student_email, password=student_password1)
+                    user = User.objects.create_user(username=student_username, email=student_email, password=student_password1)
                     user.save()
-                    StudentProfile.objects.create(user=user, Studentname=student_name, StudentEmail=student_email, StudentPassword=student_password1)
+                    StudentProfile.objects.create(user=user,username = student_username, Studentname=student_name, StudentEmail=student_email, StudentPassword=student_password1)
                     return render(request, 'login_student.html')
                 except Exception as e:
                    
@@ -167,9 +190,11 @@ def SignUpTeacher(request):
             if User.objects.filter(email=teacher_email).exists():
                 messages.info(request, 'Email Taken')
                 return redirect('SignUpTeacher')
+            
             else:
+                teacher_username = teacher_name.replace(" ", "").lower()
                 try:
-                    user = User.objects.create_user(username=teacher_name, email=teacher_email, password=teacher_password1)
+                    user = User.objects.create_user(username=teacher_username, email=teacher_email, password=teacher_password1)
                     user.save()
                     TeacherProfile.objects.create(user=user, Teachername=teacher_name, TeacherEmail=teacher_email, resume=resume)
                     return render(request, 'login_student.html')
@@ -249,7 +274,6 @@ def dashboard_student(request,data):
 
 def course_category(request):
      try:
-        if request.method == "GET":
             # Fetch all course names
             names = Course.objects.values_list('course_category', flat=True).distinct()
 
@@ -258,9 +282,6 @@ def course_category(request):
                 return render(request, 'course_category.html', {'error': 'No course names found'})
             
             names_json = json.dumps(list(names), cls=DjangoJSONEncoder)
-            
-        else:
-            names_json = json.dumps([])  # Default empty list for non-GET requests
             
      except Exception as e:
         logging.error(f'Error fetching course names: {str(e)}')
@@ -334,15 +355,16 @@ def assignment(request):
         except StudentProfile.DoesNotExist:
             return redirect('login_student')  # Redirect if student profile does not exist
 
-        courses = StdProfile.course_taken.split(",")
-        AssignmentHaruBhako = {}
-        assessments = {}
-        for course in courses:
-            try:
-                course_obj = Course.objects.get(course_name=course)
-            except Course.DoesNotExist:
-                print(f"Course does not exist: {course}")
-                continue
+        try:
+            courses = StdProfile.course_taken.split(",")
+            AssignmentHaruBhako = {}
+            assessments = {}
+            for course in courses:
+                try:
+                    course_obj = Course.objects.get(course_name=course)
+                except Course.DoesNotExist:
+                    print(f"Course does not exist: {course}")
+                    continue
 
             assignments = Assignment.objects.filter(course_name=course_obj)
             AssignmentHaruBhako[course] = [
@@ -359,14 +381,17 @@ def assignment(request):
             assessments[course] = AssignmentHaruBhako[course]
     
     # Convert the dictionary to a JSON string
-        assignments_json = json.dumps(AssignmentHaruBhako)
+            assignments_json = json.dumps(AssignmentHaruBhako)
     
-        return render(request, 'courses.html', {
+            return render(request, 'courses.html', {
         'name': StdProfile.Studentname,
         'courses': courses,
         'assignments': assignments_json,
         'assessments': assessments
     })
+        except Exception as e:
+            print(f"Error fetching assignments: {e}")
+        return render(request, 'courses.html', {        'name': StdProfile.Studentname,         'courses': "",         'assignments': {},         'assessments': {}})
  
 def course_listing(request, category):
     try:
@@ -482,9 +507,60 @@ def logout(request):
     return redirect ("/")
 
 
+@login_required
 def teacher_assignment(request):
-    studentlist = [    ]
-    username = request.user.username
-    Tusers = TeacherProfile.objects.get(username=username)
-    
-    return render (request, 'teacher_assignment.html', {'studentlist': studentlist})
+    if request.method == 'POST':
+            username = request.user.username
+
+            try:
+                teacher_profile = TeacherProfile.objects.get(username=username)
+            except TeacherProfile.DoesNotExist:
+                return render(request, 'error.html', {'message': 'Teacher profile not found'})
+
+            assignments = Assignment.objects.filter(teacher_id=teacher_profile)
+
+            assignment_data = []
+            for assignment in assignments:
+                submissions = Submission.objects.filter(assignment=assignment)
+
+                submitted_students = submissions.filter(submitted=True).values('student__Studentname', 'submitted_at')
+                not_submitted_students = submissions.filter(submitted=False).values('student__Studentname')
+
+                assignment_data.append({
+                    'assignment_name': assignment.assignment_name,
+                    'course_name': assignment.course_id.course_name,
+                    'due_date': assignment.due_date,
+                    'submitted_students': submitted_students,
+                    'not_submitted_students': not_submitted_students,
+                })
+
+            return render(request, 'teacher_assignment.html', {'assignment_data': assignment_data})
+    else:
+        return render(request, 'teacher_assignment.html')
+@login_required
+@csrf_exempt
+def create_assignment(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        due_date = request.POST.get('dueDate')
+        teacher_profile = TeacherProfile.objects.get(user=request.user)  # Get teacher profile from user
+        
+        course_id = request.POST.get('course_id')  # You need to pass course_id from frontend
+        course = Course.objects.get(course_id=course_id)  # Fetch course based on course_id
+        
+        assignment_file = request.FILES.get('file')
+
+        
+        assignment = Assignment(
+            assignment_name=title,
+            assignment_description=description,
+            due_date=due_date,
+            teacher_id=teacher_profile,
+            course_id=course,
+            assignment_file=assignment_file,
+        )
+        assignment.save()
+        
+        return redirect('teacher_assignment')
+    return JsonResponse({'error': 'Invalid method'}, status=405)
