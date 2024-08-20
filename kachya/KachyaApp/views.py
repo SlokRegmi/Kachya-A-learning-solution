@@ -29,6 +29,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
 def index(request):
+<<<<<<< HEAD
     course_ids = list(Course.objects.values_list('course_id', flat=True))
     random_ids = random.sample(course_ids, min(len(course_ids), 4)) 
     courses = Course.objects.filter(course_id__in=random_ids)
@@ -56,6 +57,26 @@ def login_student(request):
                     classTime = usering.nextclassSchedule
                     naive_dt = datetime.now()
                     aware_naive_dt = pytz.utc.localize(naive_dt)
+=======
+    def teacher_assignment(request):
+        sample_assignments = {
+            "Python": [
+                ["Assignment 1", "Learn the basics of Python programming.", "2024-08-01", "yes", "hello my name is this "]
+
+            ],
+            "Django": [
+                ["Assignment 2",
+                "Build a simple Django application.",
+                "2024-08-15"]
+            ],
+            "JavaScript": [
+                ["Assignment 3",
+                "Create a dynamic web page using JavaScript.",
+                "2024-08-20"]
+            ]}
+    return render (request, "dashboard_teacher.html")
+def about(request):
+>>>>>>> i-front
 
                     if classTime is not None and aware_naive_dt < classTime:
                         classing = classTime.strftime("%H:%M:%S")

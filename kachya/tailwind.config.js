@@ -51,4 +51,8 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark", "wireframe"], // Specify the themes you want to use
   },
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> i-front
